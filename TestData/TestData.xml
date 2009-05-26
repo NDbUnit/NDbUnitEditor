@@ -1,0 +1,198 @@
+<?xml version="1.0" standalone="yes"?>
+<ProSet>
+  <pst_ApplicationSettings ApplicationSettingsId="1" Name="VaultHostName" Value="localhost" />
+  <pst_ApplicationSettings ApplicationSettingsId="2" Name="VaultDatabaseName" Value="Vault" />
+  <pst_ApplicationSettings ApplicationSettingsId="3" Name="VaultLoginName" Value="Administrator" />
+  <pst_ApplicationSettings ApplicationSettingsId="4" Name="VaultPassword" Value="" />
+  <pst_ApplicationSettings ApplicationSettingsId="5" Name="VaultProjectsRootFolder" Value="$/Projects" />
+  <pst_LayerSettings LayerSettingsId="1" Description="This is test layer 1" LayerName="LAYER1" Color="1" LineType="CONT" />
+  <pst_LayerSettings LayerSettingsId="2" Description="this is test layer 2" LayerName="LAYER2" Color="2" LineType="DASHED" />
+  <pst_LayerSettings LayerSettingsId="3" Description="this is test layer 3" LayerName="LAYER3" Color="3" LineType="CONT" />
+  <pst_ComponentStyles ItemStyleId="10" />
+  <pst_ComponentStyles ItemStyleId="11" />
+  <pst_HeaderductSupportConfiguration HeaderductSupportConfigurationId="5" ItemStyleId="14" Location="12" Spacing="3" />
+  <pst_Roles RolesId="1" Name="Role1" RoleTypeId="1" />
+  <pst_Roles RolesId="2" Name="Role2" RoleTypeId="1" />
+  <pst_ChannelType ChannelTypeId="2" Name="L PARTITION" />
+  <pst_ChannelType ChannelTypeId="3" Name="U CHANNEL" />
+  <pst_TrenchSupportConfigurations TrenchSupportConfigurationId="1" ItemStyleId="1" Location="12" Spacing="6" />
+  <pst_TrenchSupportConfigurations TrenchSupportConfigurationId="2" ItemStyleId="1" Location="14" Spacing="8" />
+  <pst_DesignRevisionChannelConfigurations DesignRevisionId="155" ChannelConfigurationId="1" />
+  <pst_DesignRevisionChannelConfigurations DesignRevisionId="155" ChannelConfigurationId="2" />
+  <pst_DesignRevisionChannelConfigurations DesignRevisionId="172" ChannelConfigurationId="5" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="1" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="2" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="3" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="6" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="9" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="172" ItemStyleId="1" />
+  <pst_DesignRevisionItemStyles DesignRevisionId="155" ItemStyleId="7" />
+  <pst_TrenchPunch TrenchPunchId="1" PunchLocation="12" PunchTypeId="1" ChannelNumber="2" ItemStyleId="1" />
+  <pst_TrenchPunch TrenchPunchId="2" PunchLocation="45" PunchTypeId="1" ChannelNumber="2" ItemStyleId="1" />
+  <pst_WalkercellStyles ItemStyleId="6" GroundingPlate="true" HeightOfPreset="3" Length="52" PresetSpacing="1" />
+  <pst_WalkercellStyles ItemStyleId="9" GroundingPlate="true" HasPresets="true" HeightOfPreset="4" Length="68" NumberOfPresetExtensions="5" />
+  <pst_UserSettings UserSettingsId="1" UserId="1" CurrentDesignId="7" CurrentRevisionId="98" ProjectId="3" />
+  <pst_UserSettings UserSettingsId="2" UserId="1" CurrentDesignId="210" CurrentRevisionId="155" ProjectId="120" />
+  <pst_UserSettings UserSettingsId="3" UserId="2" CurrentDesignId="7" CurrentRevisionId="155" ProjectId="120" />
+  <pst_PresetType PresetTypeId="2" Name="Blank" />
+  <pst_PresetType PresetTypeId="3" Name="Pro Series" />
+  <pst_PresetType PresetTypeId="4" Name="IPS" />
+  <pst_WalkerductStyles ItemStyleId="3" ChannelConfigurationId="6" HeightOfPreset="3" NumberOfPresetExtensions="0" FirstPresetDistanceFromJunctionBox="1" PresetSpacing="1" FirstSupportDistanceFromJunctionBox="2" SupportSpacing="2" />
+  <pst_WalkerductStyles ItemStyleId="4" HeightOfPreset="3" NumberOfPresetExtensions="0" FirstPresetDistanceFromJunctionBox="1" PresetSpacing="1" FirstSupportDistanceFromJunctionBox="0" SupportSpacing="0" />
+  <pst_TrenchFittingStyles ItemStyleId="5" C1="3" L1="4" C2="3" L2="5" TrenchFittingTypeId="12" NorthStyleId="1" EastStyleId="2" SouthStyleId="3" WestStyleId="4" />
+  <pst_DesignPhases DesignPhasesId="1" Name="Proposal" />
+  <pst_DesignPhases DesignPhasesId="2" Name="Submittal" />
+  <pst_DesignPhases DesignPhasesId="3" Name="Installation" />
+  <pst_IntersectionType IntersectionTypeId="1" Name="Crossunder" />
+  <pst_IntersectionType IntersectionTypeId="2" Name="Sidefeed" />
+  <pst_LapstripDirection LapstripDirectionId="3" Name="Normal" />
+  <pst_LapstripDirection LapstripDirectionId="4" Name="Reverse" />
+  <pst_ProjectFileCategories ProjectFileCategoryId="1" Name="Design" Descrition="Trench Layout design file" />
+  <pst_ProjectFileCategories ProjectFileCategoryId="2" Name="BOM" Descrition="Bill of Materials file in xls or xml format" />
+  <pst_ProjectFileCategories ProjectFileCategoryId="3" Name="Client" Descrition="Files provided by the client with the proposal" />
+  <pst_ProjectFileCategories ProjectFileCategoryId="4" Name="Not specified" />
+  <pst_ProjectStatuses ProjectStatusesId="1" Name="Not Started" />
+  <pst_ProjectStatuses ProjectStatusesId="2" Name="In Progress" />
+  <pst_ProjectStatuses ProjectStatusesId="3" Name="Suspended" />
+  <pst_ProjectStatuses ProjectStatusesId="4" Name="Finished" />
+  <pst_ProjectStatuses ProjectStatusesId="6" Name="Unknown" />
+  <pst_PunchType PunchTypeId="1" Name="Full" Size="12" />
+  <pst_PunchType PunchTypeId="2" Name="Round" Size="2.5" />
+  <pst_PunchType PunchTypeId="3" Name="Square" Size="5" />
+  <pst_RevisionStatuses RevisionStatusesId="4" Name="InDesign" />
+  <pst_RevisionStatuses RevisionStatusesId="5" Name="ReadyForReview" />
+  <pst_RevisionStatuses RevisionStatusesId="6" Name="Finalized" />
+  <pst_RevisionStatuses RevisionStatusesId="7" Name="Locked" />
+  <pst_RevisionStatuses RevisionStatusesId="8" Name="Unknown" />
+  <pst_RoleTypes RoleTypeId="1" Name="RoleType1" />
+  <pst_RoleTypes RoleTypeId="2" Name="RoleType2" />
+  <pst_SubSlabMaterials SubSlabMaterialsId="1" Name="Gravel" />
+  <pst_SubSlabMaterials SubSlabMaterialsId="2" Name="Sidewalk" />
+  <pst_SupportTypes SupportTypeId="1" Name="Support" />
+  <pst_SupportTypes SupportTypeId="2" Name="Holddown" />
+  <pst_SystemTypes SystemTypesId="1" Name="Walkerduct with Trenchduct" />
+  <pst_SystemTypes SystemTypesId="2" Name="Walkercell with Trenchduct" />
+  <pst_SystemTypes SystemTypesId="3" Name="Walkercell Feed and Distribution" />
+  <pst_SystemTypes SystemTypesId="4" Name="Walkerduct with Walkercell" />
+  <pst_SystemTypes SystemTypesId="5" Name="Walkerduct with Junction boxes" />
+  <pst_SystemTypes SystemTypesId="6" Name="Flushduct with Junction boxes" />
+  <pst_SystemTypes SystemTypesId="7" Name="Walkercell with Juction Box Header" />
+  <pst_TrenchBottomType TrenchBottomTypeId="4" Name="None" />
+  <pst_TrenchBottomType TrenchBottomTypeId="5" Name="Full" />
+  <pst_TrenchBottomType TrenchBottomTypeId="6" Name="Intermittent" />
+  <pst_TrenchFittingType TrenchFittingTypeId="7" Name="L-Unit Left" />
+  <pst_TrenchFittingType TrenchFittingTypeId="8" Name="L-Unit Right" />
+  <pst_TrenchFittingType TrenchFittingTypeId="9" Name="Miter" />
+  <pst_TrenchFittingType TrenchFittingTypeId="10" Name="T-Unit Reverse" />
+  <pst_TrenchFittingType TrenchFittingTypeId="11" Name="T-Unit Standard" />
+  <pst_TrenchFittingType TrenchFittingTypeId="12" Name="X-Unit" />
+  <pst_TrenchPanType TrenchPanTypeId="3" Name="Plate" />
+  <pst_TrenchPanType TrenchPanTypeId="4" Name="Formed" />
+  <pst_TrimType TrimTypeId="3" Name="Carpet" />
+  <pst_TrimType TrimTypeId="4" Name="Tile" />
+  <pst_CoverConfigurations CoverConfigurationId="1" Thicknes="0.4" Pattern="Y3|Y4" MaterialTypeId="1" />
+  <pst_HeaderductStyles ItemStyleId="7" Length="125" Width="12" Depth="3" />
+  <pst_HeaderductStyles ItemStyleId="13" Length="62" Width="10" Depth="2.5" />
+  <pst_HeaderductStyles ItemStyleId="14" Length="75" Width="12" Depth="3" />
+  <pst_Address AddressId="17" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="18" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="19" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="24" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="25" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="26" Address1="330 7th Ave" Address2="Floor 22" City="New York" ZIP="10001" Country="USA" />
+  <pst_Address AddressId="27" Address1="330 7th Ave" Address2="Floor 23" City="New York" ZIP="10001" Country="USA" />
+  <pst_Address AddressId="38" Address1="" Address2="" City="" State="" ZIP="" />
+  <pst_Address AddressId="74" Address1="123 2nd Ave" Address2="Floor 2" City="New York" State="" ZIP="" />
+  <pst_Address AddressId="76" Address1="123 5th Ave" Address2="Floor 23" City="New York" State="NY" ZIP="10001" />
+  <pst_Address AddressId="77" Address1="asas" Address2="aaDS" City="safasfas" State="NY" ZIP="10001" />
+  <pst_Address AddressId="78" Address1="sadf" Address2="xczvas" City="sdA" State="Ny" ZIP="10001" />
+  <pst_Address AddressId="79" Address1="123 34th St" Address2="Apt. A-5" City="New York" State="NY" ZIP="10001" />
+  <pst_Address AddressId="80" Address1="asf" Address2="sdf" City="asdf" State="as" ZIP="asdfasd" />
+  <pst_Address AddressId="81" Address1="asf" Address2="sdf" City="asdf" State="as" ZIP="asdfasd" />
+  <pst_Address AddressId="82" Address1="asfdasf" Address2="asdfsfd" City="asdfasdf" State="asf" ZIP="asdfasfd" />
+  <pst_Address AddressId="83" Address1="asdfasdf" Address2="asfda" City="asdfasfd" State="asdfasdf" ZIP="asdfasdf" />
+  <pst_Address AddressId="84" Address1="awesfdwa" Address2="sacvasas" City="Brroklyn" State="NY" ZIP="10001" />
+  <pst_Address AddressId="174" Address1="123 8th Ave" Address2="Floor 23" City="New York" State="NY" ZIP="10001" />
+  <pst_Address AddressId="218" Address1="330 7th Ave" Address2="Floor 12" City="New York" State="NY" ZIP="11214" Country="USA" />
+  <pst_Address AddressId="291" Address1="123 12 st" Address2="Apt5" City="Brooklyn" State="NY" ZIP="11213" />
+  <pst_Customers CustomerId="1" Name="Microdesk" AddressId="218" Comments="This is the client and the project" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="4" DesignPhaseId="1" ProjectDesignId="7" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="18" DesignPhaseId="1" ProjectDesignId="149" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="19" DesignPhaseId="2" ProjectDesignId="7" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="28" DesignPhaseId="1" ProjectDesignId="159" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="48" DesignPhaseId="1" ProjectDesignId="184" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="73" DesignPhaseId="1" ProjectDesignId="210" />
+  <pst_ProjectDesignPhases ProjectDesignPhasesId="74" DesignPhaseId="1" ProjectDesignId="211" />
+  <pst_Releases ReleaseId="1" DesignRevisionId="155" Name="Release1" />
+  <pst_ProjectFiles ProjectFilesId="226" FileName="Visualization - Conference Room_Rev A.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="151" FileStoreId="228" />
+  <pst_ProjectFiles ProjectFilesId="227" FileName="Visualization - Aerial_Rev A.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="151" FileStoreId="233" />
+  <pst_ProjectFiles ProjectFilesId="228" FileName="Drawing1_Rev A.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T10:46:57-04:00" DesignRevisionId="152" FileStoreId="242" />
+  <pst_ProjectFiles ProjectFilesId="229" FileName="Drawing2_Rev A.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T11:55:35-04:00" DesignRevisionId="152" FileStoreId="244" />
+  <pst_ProjectFiles ProjectFilesId="230" FileName="Visualization - Conference Room_Rev B.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="153" FileStoreId="247" />
+  <pst_ProjectFiles ProjectFilesId="231" FileName="Visualization - Aerial_Rev B.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="153" FileStoreId="249" />
+  <pst_ProjectFiles ProjectFilesId="232" FileName="Visualization - Conference Room_Rev C.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="154" FileStoreId="251" />
+  <pst_ProjectFiles ProjectFilesId="233" FileName="Visualization - Aerial_Rev C.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="154" FileStoreId="253" />
+  <pst_ProjectFiles ProjectFilesId="234" FileName="Visualization - Conference Room_Rev D.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="155" FileStoreId="256" />
+  <pst_ProjectFiles ProjectFilesId="235" FileName="Visualization - Aerial_Rev D.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="155" FileStoreId="258" />
+  <pst_ProjectFiles ProjectFilesId="246" FileName="Rectangle_Rev D.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T13:25:24-04:00" DesignRevisionId="155" FileStoreId="268" />
+  <pst_ProjectFiles ProjectFilesId="255" FileName="Drawing1_Rev B.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T10:46:57-04:00" DesignRevisionId="168" FileStoreId="284" />
+  <pst_ProjectFiles ProjectFilesId="256" FileName="Drawing2_Rev B.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T11:55:35-04:00" DesignRevisionId="168" FileStoreId="286" />
+  <pst_ProjectFiles ProjectFilesId="265" FileName="Visualization - Conference Room_Rev E.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="172" FileStoreId="306" />
+  <pst_ProjectFiles ProjectFilesId="266" FileName="Visualization - Aerial_Rev E.dwg" ProjectFileCategoryId="4" CreationDate="2008-07-14T10:40:33-04:00" DesignRevisionId="172" FileStoreId="308" />
+  <pst_ProjectFiles ProjectFilesId="267" FileName="Rectangle_Rev E.dwg" ProjectFileCategoryId="1" CreationDate="2008-07-14T13:25:24-04:00" DesignRevisionId="172" FileStoreId="310" />
+  <pst_Boolean BooleanId="1" Name="Yes" />
+  <pst_Boolean BooleanId="2" Name="No" />
+  <pst_MaterialType MaterialTypeId="1" Name="Steel" />
+  <pst_MaterialType MaterialTypeId="2" Name="Aluminum" />
+  <pst_StyleStatus StyleStatusId="1" Name="Active" />
+  <pst_StyleStatus StyleStatusId="2" Name="Inactive" />
+  <pst_Users UsersId="1" Name="TestUser" />
+  <pst_Users UsersId="2" Name="ProSETUser1" />
+  <pst_Projects ProjectId="1" Number="06-23-2008-001" Name="Main Street" Description="Test project1" CustomerId="1" CreationDate="2008-06-23T12:29:35-04:00" ProjectStatusesId="1" ProjectManager="Brad Pitt" SalesRepresenatvive="Angelina Jolie" Telephone="800 121 1212" AreaName="Area 51" SlabDepth="123" ConcreteOverPresets="4" Address="174" />
+  <pst_Projects ProjectId="2" Number="12121" Name="asfdasf" Description="asdfa" CreationDate="2008-06-23T12:29:35-04:00" ProjectStatusesId="1" />
+  <pst_Projects ProjectId="3" Number="2008-03-19-002" Name="Project2" Description="Test project2" CustomerId="1" CreationDate="2008-06-23T12:29:35-04:00" ProjectStatusesId="1" ProjectManager="George Clooney" SalesRepresenatvive="Alicia Silverstone" Telephone="800 123 4567" AreaName="Area 11" SlabDepth="12" SubSlabMaterialsId="1" ConcreteOverPresets="12" Address="218" />
+  <pst_Projects ProjectId="46" Number="05-05-2008T" Name="Unit test project" Description="This is a little description" CreationDate="2008-07-07T17:28:00-04:00" ProjectStatusesId="1" ProjectManager="Bruce Willis" SalesRepresenatvive="Paris Hilton" Telephone="800 323 0000" AreaName="Main Floor" SlabDepth="12" SubSlabMaterialsId="1" ConcreteOverPresets="3" Address="218" />
+  <pst_Projects ProjectId="120" Number="07-14-2008-001" Name="New Project" CreationDate="2008-07-14T10:40:33-04:00" ProjectStatusesId="6" ProjectManager="John Lock" SalesRepresenatvive="James Sawyer" Telephone="800 099 1233" AreaName="Area11" SlabDepth="12" SubSlabMaterialsId="1" ConcreteOverPresets="3" Address="291" />
+  <pst_ProjectDesigns ProjectDesignsId="7" Name="TestDesign1" ProjectId="3" SystemTypeId="1" SystemDepth="12" CreationDate="2008-05-07T00:00:00-04:00" />
+  <pst_ProjectDesigns ProjectDesignsId="119" Name="test" ProjectId="1" SystemTypeId="1" SystemDepth="12" />
+  <pst_ProjectDesigns ProjectDesignsId="120" Name="TestDesign2" ProjectId="1" SystemTypeId="1" SystemDepth="12" />
+  <pst_ProjectDesigns ProjectDesignsId="123" Name="Initial Design" ProjectId="1" SystemTypeId="3" SystemDepth="112" CreationDate="2008-06-23T12:29:35-04:00" />
+  <pst_ProjectDesigns ProjectDesignsId="124" Name="WK2007" ProjectId="1" SystemTypeId="1" SystemDepth="4" CreationDate="2008-06-23T12:31:32-04:00" Description="This is first design" />
+  <pst_ProjectDesigns ProjectDesignsId="149" Name="Initial Design" ProjectId="46" SystemTypeId="1" SystemDepth="12" CreationDate="2008-07-07T17:28:00-04:00" />
+  <pst_ProjectDesigns ProjectDesignsId="159" Name="TestDesign3" ProjectId="3" SystemTypeId="1" SystemDepth="23" CreationDate="2008-07-08T17:27:07-04:00" Description="This is a secong design" />
+  <pst_ProjectDesigns ProjectDesignsId="184" Name="TestDesign4" ProjectId="3" SystemTypeId="1" SystemDepth="23" CreationDate="2008-07-09T15:11:30-04:00" Description="afdsasd" />
+  <pst_ProjectDesigns ProjectDesignsId="210" Name="Initial Design" ProjectId="120" SystemTypeId="1" SystemDepth="12" CreationDate="2008-07-14T10:40:33-04:00" />
+  <pst_ProjectDesigns ProjectDesignsId="211" Name="Design2" ProjectId="120" SystemTypeId="1" SystemDepth="12" CreationDate="2008-07-14T10:42:38-04:00" Description="" />
+  <pst_DesignRevisions DesignRevisionsId="98" Number="1" ProjectDesignPhaseId="19" RevisionStatusId="4" CreationDate="2008-06-27T00:00:00-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="111" Number="1" ProjectDesignPhaseId="18" RevisionStatusId="4" CreationDate="2008-07-07T17:28:00-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="112" Number="2" ProjectDesignPhaseId="19" RevisionStatusId="6" Description="" CreationDate="2008-07-07T17:28:00-04:00" ParentId="98" />
+  <pst_DesignRevisions DesignRevisionsId="120" Number="1" ProjectDesignPhaseId="28" RevisionStatusId="4" CreationDate="2008-07-07T17:28:00-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="134" Number="1" ProjectDesignPhaseId="48" RevisionStatusId="4" CreationDate="2008-07-09T15:11:30-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="151" Number="1" ProjectDesignPhaseId="73" RevisionStatusId="4" CreationDate="2008-07-14T10:40:33-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="152" Number="1" ProjectDesignPhaseId="74" RevisionStatusId="4" CreationDate="2008-07-14T10:42:38-04:00" />
+  <pst_DesignRevisions DesignRevisionsId="153" Number="2" ProjectDesignPhaseId="73" RevisionStatusId="4" CreationDate="2008-07-14T12:13:11-04:00" ParentId="151" />
+  <pst_DesignRevisions DesignRevisionsId="154" Number="3" ProjectDesignPhaseId="73" RevisionStatusId="4" CreationDate="2008-07-14T12:16:20-04:00" ParentId="153" />
+  <pst_DesignRevisions DesignRevisionsId="155" Number="4" ProjectDesignPhaseId="73" RevisionStatusId="4" CreationDate="2008-07-14T12:19:02-04:00" ParentId="154" />
+  <pst_DesignRevisions DesignRevisionsId="168" Number="2" ProjectDesignPhaseId="74" RevisionStatusId="4" CreationDate="2008-07-14T14:30:47-04:00" ParentId="152" />
+  <pst_DesignRevisions DesignRevisionsId="172" Number="5" ProjectDesignPhaseId="73" RevisionStatusId="4" CreationDate="2008-07-15T14:32:01-04:00" ParentId="155" />
+  <pst_ItemStyles ItemStyleId="1" Name="TrenchStyle1" Description="This is a test configuration" IsGlobal="2" Owner="1" StyleStatusId="1" MarkPrefix="ST" Notes="This is a Note" PartCode="TS" />
+  <pst_ItemStyles ItemStyleId="2" Name="TrenchStyle2" Description="This is another test" />
+  <pst_ItemStyles ItemStyleId="3" Name="WalkerDuctStyle1" Description="This is a test configuration" />
+  <pst_ItemStyles ItemStyleId="4" Name="WalkerDuctStyle2" Description="This is another test" />
+  <pst_ItemStyles ItemStyleId="5" Name="FittingStyle1" Description="This is fitting test" IsGlobal="1" StyleStatusId="1" MarkPrefix="FT" Notes="this is fitting note" PartCode="FS" />
+  <pst_ItemStyles ItemStyleId="6" Name="WalkerCell1" Description="This is a walekercell " IsGlobal="2" StyleStatusId="1" MarkPrefix="AA" PartCode="F1" GUID="fffcc1f8-4f27-4ef1-82a5-6c0c15d8e729" />
+  <pst_ItemStyles ItemStyleId="7" Name="HeaderductStyle1" Description="This is a header duct" MarkPrefix="AA" PartCode="HD1" />
+  <pst_ItemStyles ItemStyleId="9" Name="WalkerCell2" IsGlobal="2" StyleStatusId="1" MarkPrefix="AS" />
+  <pst_ItemStyles ItemStyleId="10" Name="Component1" IsGlobal="1" PartCode="C1" />
+  <pst_ItemStyles ItemStyleId="11" Name="Component2" IsGlobal="1" PartCode="C2" />
+  <pst_ItemStyles ItemStyleId="13" Name="HeaderductStyle2" IsGlobal="2" StyleStatusId="1" MarkPrefix="HA" Notes="note" PartCode="H1" GUID="fffcc1f8-4f27-4ef1-82a5-6c0a15d8e729" />
+  <pst_ItemStyles ItemStyleId="14" Name="HeaderductStyle3" Description="This is a headerduct style with support configs" IsGlobal="2" StyleStatusId="1" MarkPrefix="HC" GUID="fffcc1f8-4f27-4ef1-82a5-6c0a15d8e989" />
+  <pst_DesignRevisionMarks DesingRevisionMarkId="1" DesignRevisionsId="155" ItemStyleId="1" MarkPrefix="AC" MarkNumber="1" GUID="fffcc1f8-4f27-4ef1-82a5-6c0115d8e729" ColorACI="23" Description="Description " />
+  <pst_ChannelConfigurations ChannelConfigurationId="1" Pattern="#3|D-P-P|EQ" Name="Data-Power-Power" IsGlobal="2" ChannelTypeId="2" GUID="e863904c-f8f3-41bb-b8bd-d37c8ebedd53" />
+  <pst_ChannelConfigurations ChannelConfigurationId="2" Pattern="#2|P-D|EQ" Name="Power-Data" IsGlobal="2" ChannelTypeId="2" GUID="e863904c-f8f3-41bb-b8ad-d37c8ebead53" />
+  <pst_ChannelConfigurations ChannelConfigurationId="4" Pattern="#2|P-D|EQ" Name="Test Global" IsGlobal="1" />
+  <pst_ChannelConfigurations ChannelConfigurationId="5" Pattern="P4|D6|T" Name="Channel Config 1" Description="this is a description" StyleStatusId="1" IsGlobal="2" PartitionThickness="1" ChannelTypeId="2" GUID="e863904c-f8f3-41bb-b8bd-d37c8ebead53" />
+  <pst_ChannelConfigurations ChannelConfigurationId="6" Pattern="2P|4P|4T" Name="Channel onfig for Walkerduct" IsGlobal="2" PartitionThickness="1" ChannelTypeId="2" GUID="e863904c-f8f3-41bb-b8bd-d37c8e12ad53" />
+  <pst_TrenchStyles ItemStyleId="1" Width="36" Height="5" Length="50" ChannelConfigurationId="1" CoverConfigurationId="1" MaterialTypeId="2" BodyThickness="0.25" CrossOverExt="12" TrimTypeId="3" TrenchBottomTypeId="5" TrenchPanTypeId="3" />
+  <pst_TrenchStyles ItemStyleId="2" Width="24" Height="3" Length="75" ChannelConfigurationId="1" CoverConfigurationId="1" MaterialTypeId="1" BodyThickness="0.25" CrossOverExt="12" TrimTypeId="3" TrenchBottomTypeId="5" TrenchPanTypeId="3" />
+</ProSet>
