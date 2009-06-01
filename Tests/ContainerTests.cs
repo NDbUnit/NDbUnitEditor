@@ -9,19 +9,18 @@ using Castle.MicroKernel.Registration;
 using Castle.Core;
 using Rhino.Commons;
 
-
 namespace Tests
 {
     [TestFixture]
     public class ContainerTests
     {
         [FixtureSetUp]
-        public void TestFixtureSetup()
+        public void _TestFixtureSetup()
         {
         }
 
         [SetUp]
-        public void TestSetup()
+        public void _TestSetup()
         {
             RegisterComponents();
 
@@ -37,13 +36,12 @@ namespace Tests
             {
                 instance1.Method2();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Test output: Exception was captured");
             }
             instance2.Method1();
             instance2.Method2();
-
 
         }
 
@@ -59,35 +57,32 @@ namespace Tests
 
             IoC.Initialize(container);
         }
+
     }
 
-    
-
-    public class TestClassInterceptor: IInterceptor
+    public class TestClassInterceptor : IInterceptor
     {
 
-        int i=0;
-        #region IInterceptor Members
+        int i = 0;
 
         public void Intercept(IInvocation invocation)
         {
             string className = invocation.Method.ReflectedType.Name;
-            Console.WriteLine(string.Format("Method {0} from {1} is about to be invoked",invocation.Method.Name, className));
+            Console.WriteLine(string.Format("Method {0} from {1} is about to be invoked", invocation.Method.Name, className));
             i++;
             try
             {
                 invocation.Proceed();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine(string.Format("Method {0} from {1} have thrown an exception", invocation.Method.Name, className));
                 throw;
             }
-            
+
             Console.WriteLine(string.Format("Intercepted {0} method calls", i));
         }
 
-        #endregion
     }
 
     public interface ITestClass1
@@ -97,10 +92,10 @@ namespace Tests
     }
     public class TestClass1 : ITestClass1
     {
-        
+
         public TestClass1()
         {
-            
+
         }
 
         public void Method1()
@@ -121,9 +116,9 @@ namespace Tests
     }
     public class TestClass2 : ITestClass2
     {
-           public TestClass2()
+        public TestClass2()
         {
-            
+
         }
 
         public void Method1()
