@@ -107,7 +107,7 @@ namespace NDbUnitDataEditor
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(104, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(94, 22);
             this.toolStripLabel1.Text = "Schema file name:";
             // 
             // txtSchemaFileName
@@ -133,7 +133,7 @@ namespace NDbUnitDataEditor
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(86, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(80, 22);
             this.toolStripLabel2.Text = "Data file name:";
             // 
             // txtDataFileName
@@ -233,7 +233,7 @@ namespace NDbUnitDataEditor
             this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataEditor";
-            this.Text = "XML Data Viewer";
+            this.Text = "NDbUnit Data Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
