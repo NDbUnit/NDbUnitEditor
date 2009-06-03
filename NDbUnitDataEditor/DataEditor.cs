@@ -96,7 +96,7 @@ namespace NDbUnitDataEditor
             {
                 foreach (DataTable table in dataSet1.Tables)
                 {
-                    string key = "Table-" + table.TableName;
+                    string key = String.Format("Table-{0}", table.TableName);
                     root.Nodes.Add(key, table.TableName);
                 }
                 treeView1.ExpandAll();
@@ -126,9 +126,11 @@ namespace NDbUnitDataEditor
 
         public string SelectFile()
         {
-            string selectedFileName = "";
+            string selectedFileName;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 selectedFileName = openFileDialog1.FileName;
+            else
+                selectedFileName = String.Empty;
             return selectedFileName;
         }
 
@@ -136,14 +138,12 @@ namespace NDbUnitDataEditor
         {
             tabControl1.TabPages.Add(tabName);
             TabPage page = GetTabPage(tabName);
-            TableView view = new TableView();
+
+            TableView view = new TableView() { Dock = DockStyle.Fill };
             page.Controls.Add(view);
-            view.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-            //page.Text = tabName;
+
             return page;
         }
-
-
 
         private void btnBrowseDataFile_Click(object sender, EventArgs e)
         {
@@ -159,7 +159,7 @@ namespace NDbUnitDataEditor
         {
             if (dataSet1.HasChanges() && MessageBox.Show("Do you want to save changes before closing?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 dataSet1.WriteXml(DataFileName);
-            this.Close();
+            Close();
             ApplicationClose();
         }
 
@@ -194,7 +194,7 @@ namespace NDbUnitDataEditor
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to load data. Exception:" + ex.ToString());
+                MessageBox.Show(String.Format("Unable to load data. Exception:{0}", ex));
             }
 
         }
