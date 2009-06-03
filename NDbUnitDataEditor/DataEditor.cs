@@ -11,18 +11,53 @@ namespace NDbUnitDataEditor
 {
     public partial class DataEditor : Form, IDataEditorView
     {
-        public event EditorEventHandler Initialize;
-        public event EditorEventHandler ReloadData;
-        public event EditorEventHandler BrowseForDataFile;
-        public event EditorEventHandler BrowseForSchemaFile;
+        string _dataFileName = null;
 
         string _schemaFileName = null;
-        string _dataFileName = null;
+
         DataSet dataSet1 = null;
+
+        public event EditorEventHandler ApplicationClose;
+
+        public event EditorEventHandler BrowseForDataFile;
+
+        public event EditorEventHandler BrowseForSchemaFile;
+
+        public event EditorEventHandler Initialize;
+
+        public event EditorEventHandler ReloadData;
+
         public DataEditor()
         {
             InitializeComponent();
             dataSet1 = new DataSet();
+        }
+
+        public DataSet Data
+        {
+            get
+            {
+                return dataSet1;
+            }
+            set
+            {
+                dataSet1 = value;
+            }
+        }
+
+        public string DataFileName
+        {
+            get
+            {
+                return _dataFileName;
+            }
+
+            set
+            {
+                txtDataFileName.Text = System.IO.Path.GetFileName(value);
+                txtDataFileName.ToolTipText = value;
+                _dataFileName = value;
+            }
         }
 
         public string SchemaFileName
@@ -39,76 +74,6 @@ namespace NDbUnitDataEditor
                 _schemaFileName = value;
             }
         }
-
-        public string DataFileName
-        {
-            get
-            {
-                return _dataFileName;                
-            }
-
-            set
-            {                
-                txtDataFileName.Text = System.IO.Path.GetFileName(value);
-                txtDataFileName.ToolTipText = value;
-                _dataFileName = value;
-            }
-        }
-
-        public DataSet Data
-        {
-            get
-            {
-                return dataSet1;
-            }
-            set
-            {
-                dataSet1 = value;
-            }
-        }
-
-        public void Run()
-        {
-            Application.Run(this);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            try
-            {
-                Initialize();
-                //test if there is an app config entry for schema and data xml files
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Unable to load data. Exception:" + ex.ToString());
-            }
-
-        }
-
-
-
-        public void CreateInitialPage()
-        {
-            if (dataSet1.Tables != null && dataSet1.Tables.Count > 0)
-            {
-                DataTable table = dataSet1.Tables[0];
-                AddTabPage(table.TableName);
-                BindDataTable(table);
-            }
-        }
-
-
-        private TableView GetTabView(TabPage tabPage)
-        {
-            foreach (Control ctrl in tabPage.Controls)
-                if (ctrl is TableView)
-                    return ctrl as TableView;
-            return null;
-        }
-
-     
 
         public void BindDataTable(DataTable table)
         {
@@ -139,59 +104,34 @@ namespace NDbUnitDataEditor
             }
         }
 
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            if (dataSet1.HasChanges() && MessageBox.Show("Do you want to save changes before closing?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                dataSet1.WriteXml(DataFileName);               
-            this.Close();
-        }
-
-       
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        private void btnSaveData_Click(object sender, EventArgs e)
-        {
-            dataSet1.WriteXml(DataFileName);
-        }
-
-        private void btnReload_Click(object sender, EventArgs e)
-        {
-            ReloadData();
-        }
-
         public void CloseAllTabs()
         {
             tabControl1.TabPages.Clear();
         }
 
-        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        public void CreateInitialPage()
         {
-            TreeNode node = e.Node;
-            if (node == null)
-                return;
-            string tbName = node.Text;
-            OpenTab(tbName);
-            
+            if (dataSet1.Tables != null && dataSet1.Tables.Count > 0)
+            {
+                DataTable table = dataSet1.Tables[0];
+                AddTabPage(table.TableName);
+                BindDataTable(table);
+            }
         }
 
-        private void OpenTab(string tbName)
+        public void Run()
         {
-            
-            
-            //search for existing opentable
-            TabPage page = GetTabPage(tbName); 
-            if (page == null)
-                page = AddTabPage(tbName);
-            tabControl1.SelectedTab = page;
-
-            foreach (DataTable table in dataSet1.Tables)
-                if (tbName == table.TableName)
-                    BindDataTable(table);
+            Application.Run(this);
         }
+
+        public string SelectFile()
+        {
+            string selectedFileName = "";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                selectedFileName = openFileDialog1.FileName;
+            return selectedFileName;
+        }
+
         private TabPage AddTabPage(string tabName)
         {
             tabControl1.TabPages.Add(tabName);
@@ -203,6 +143,62 @@ namespace NDbUnitDataEditor
             return page;
         }
 
+
+
+        private void btnBrowseDataFile_Click(object sender, EventArgs e)
+        {
+            BrowseForDataFile();
+        }
+
+        private void btnBrowseSchemaFile_Click(object sender, EventArgs e)
+        {
+            BrowseForSchemaFile();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (dataSet1.HasChanges() && MessageBox.Show("Do you want to save changes before closing?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                dataSet1.WriteXml(DataFileName);
+            this.Close();
+            ApplicationClose();
+        }
+
+        private void btnCloseTab_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab != null)
+                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            ReloadData();
+        }
+
+        private void btnSaveData_Click(object sender, EventArgs e)
+        {
+            dataSet1.WriteXml(DataFileName);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Initialize();
+                //test if there is an app config entry for schema and data xml files
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load data. Exception:" + ex.ToString());
+            }
+
+        }
+
         private TabPage GetTabPage(string name)
         {
             TabPage found = null;
@@ -212,32 +208,37 @@ namespace NDbUnitDataEditor
             return found;
         }
 
-        private void btnCloseTab_Click(object sender, EventArgs e)
+        private TableView GetTabView(TabPage tabPage)
         {
-            if (tabControl1.SelectedTab != null)
-                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+            foreach (Control ctrl in tabPage.Controls)
+                if (ctrl is TableView)
+                    return ctrl as TableView;
+            return null;
         }
 
-        private void btnBrowseSchemaFile_Click(object sender, EventArgs e)
+        private void OpenTab(string tbName)
         {
-            BrowseForSchemaFile();
+
+            //search for existing opentable
+            TabPage page = GetTabPage(tbName);
+            if (page == null)
+                page = AddTabPage(tbName);
+            tabControl1.SelectedTab = page;
+
+            foreach (DataTable table in dataSet1.Tables)
+                if (tbName == table.TableName)
+                    BindDataTable(table);
         }
 
-        private void btnBrowseDataFile_Click(object sender, EventArgs e)
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            BrowseForDataFile();
+            TreeNode node = e.Node;
+            if (node == null)
+                return;
+            string tbName = node.Text;
+            OpenTab(tbName);
+
         }
 
-        public string SelectFile()
-        {
-            string selectedFileName = "";
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                selectedFileName = openFileDialog1.FileName;
-            return selectedFileName;
-        }
-
-
-
-        
     }
 }
