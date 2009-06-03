@@ -96,7 +96,7 @@ namespace NDbUnitDataEditor
             this.btnCloseTab.Name = "btnCloseTab";
             this.btnCloseTab.Size = new System.Drawing.Size(23, 22);
             this.btnCloseTab.Text = "X";
-            this.btnCloseTab.ToolTipText = "Close tab...";
+            this.btnCloseTab.ToolTipText = "Close Active Tab...";
             this.btnCloseTab.Click += new System.EventHandler(this.btnCloseTab_Click);
             // 
             // toolStripSeparator1
@@ -163,7 +163,7 @@ namespace NDbUnitDataEditor
             this.btnReload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(23, 22);
-            this.btnReload.Text = "toolStripButton1";
+            this.btnReload.Text = "load/reload files";
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // btnSaveData

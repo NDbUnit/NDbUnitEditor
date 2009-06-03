@@ -31,6 +31,7 @@ namespace NDbUnitDataEditor
         {
             InitializeComponent();
             dataSet1 = new DataSet();
+            Text += String.Format(" v{0}", Application.ProductVersion);
         }
 
         public DataSet Data
@@ -179,24 +180,16 @@ namespace NDbUnitDataEditor
             dataSet1.WriteXml(DataFileName);
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-
             try
             {
                 Initialize();
-                //test if there is an app config entry for schema and data xml files
             }
             catch (Exception ex)
             {
                 MessageBox.Show(String.Format("Unable to load data. Exception:{0}", ex));
             }
-
         }
 
         private TabPage GetTabPage(string name)
