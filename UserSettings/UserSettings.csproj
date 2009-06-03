@@ -8,8 +8,8 @@
     <ProjectGuid>{752B3247-A20D-4CFF-B8A5-AFA8D791F0AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserSettings</RootNamespace>
-    <AssemblyName>UserSettings</AssemblyName>
+    <RootNamespace>NDbUnit.Utility</RootNamespace>
+    <AssemblyName>NDbUnit.Utility.UserSettings</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkSubset>

@@ -3,59 +3,35 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using System.Data;
+using NDbUnit.Utility;
 
 namespace NDbUnitDataEditor
 {
     public class DataEditorPresenter
     {
-        private IMessageDialog _messageBox;
+        private const string DATA_FILE_SETTINGS_KEY = "DataFilePath";
+
+        private const string SCHEMA_FILE_SETTINGS_KEY = "SchemaFilePath";
+
         private IDataEditorView _dataEditor;
+
+        private IMessageDialog _messageBox;
+
+        private IUserSettings _userSettings;
+
         /// <summary>
         /// Initializes a new instance of the DataEditorPresenter class.
         /// </summary>
-        public DataEditorPresenter(IDataEditorView dataEditor, IMessageDialog messageBox)
+        public DataEditorPresenter(IDataEditorView dataEditor, IMessageDialog messageBox, IUserSettings userSettings)
         {
+            _userSettings = userSettings;
             _messageBox = messageBox;
             _dataEditor = dataEditor;
-            _dataEditor.Initialize +=new EditorEventHandler(InitializeView);
-            _dataEditor.ReloadData+=new EditorEventHandler(ReloadData);
-            _dataEditor.BrowseForDataFile+=new EditorEventHandler(SelectDataFile);
-            _dataEditor.BrowseForSchemaFile+=new EditorEventHandler(SelectSchemaFile);
-        }
-
-        public void SelectDataFile()
-        {
-            string fileName =_dataEditor.SelectFile();
-            if (!String.IsNullOrEmpty(fileName))
-                _dataEditor.DataFileName = fileName;
-        }
-
-        public void SelectSchemaFile()
-        {
-            string fileName = _dataEditor.SelectFile();
-            if (!String.IsNullOrEmpty(fileName))
-                _dataEditor.SchemaFileName = fileName;
-        }
-
-        public void Start()
-        {
-            _dataEditor.Run();
-        }
-
-        private void InitializeView()
-        {
-            _dataEditor.SchemaFileName = ConfigurationManager.AppSettings["SchemaFilePath"];
-            _dataEditor.DataFileName = ConfigurationManager.AppSettings["DataFilePath"];
-            LoadData();
-            _dataEditor.CreateInitialPage();
-        }
-
-        public void ReloadData()
-        {
-            ResetSchema();
-            LoadData();
-            _dataEditor.CloseAllTabs();
-            _dataEditor.CreateInitialPage();
+            _dataEditor.Initialize += InitializeView;
+            _dataEditor.ReloadData += ReloadData;
+            _dataEditor.BrowseForDataFile += SelectDataFile;
+            _dataEditor.BrowseForSchemaFile += SelectSchemaFile;
+            _dataEditor.ApplicationClose += SaveSettings;
         }
 
         public void LoadData()
@@ -78,6 +54,14 @@ namespace NDbUnitDataEditor
             }
         }
 
+        public void ReloadData()
+        {
+            ResetSchema();
+            LoadData();
+            _dataEditor.CloseAllTabs();
+            _dataEditor.CreateInitialPage();
+        }
+
         public void ResetSchema()
         {
             DataSet dataSet = _dataEditor.Data;
@@ -85,5 +69,39 @@ namespace NDbUnitDataEditor
             dataSet.Dispose();
             _dataEditor.Data = new DataSet();
         }
+
+        public void SelectDataFile()
+        {
+            string fileName = _dataEditor.SelectFile();
+            if (!String.IsNullOrEmpty(fileName))
+                _dataEditor.DataFileName = fileName;
+        }
+
+        public void SelectSchemaFile()
+        {
+            string fileName = _dataEditor.SelectFile();
+            if (!String.IsNullOrEmpty(fileName))
+                _dataEditor.SchemaFileName = fileName;
+        }
+
+        public void Start()
+        {
+            _dataEditor.Run();
+        }
+
+        private void InitializeView()
+        {
+            _dataEditor.SchemaFileName = _userSettings.GetSetting(SCHEMA_FILE_SETTINGS_KEY);
+            _dataEditor.DataFileName = _userSettings.GetSetting(DATA_FILE_SETTINGS_KEY);
+            LoadData();
+            _dataEditor.CreateInitialPage();
+        }
+
+        private void SaveSettings()
+        {
+            _userSettings.SaveSetting(DATA_FILE_SETTINGS_KEY, _dataEditor.DataFileName);
+            _userSettings.SaveSetting(SCHEMA_FILE_SETTINGS_KEY, _dataEditor.SchemaFileName);
+        }
+
     }
 }

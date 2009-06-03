@@ -100,7 +100,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>DataEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -128,6 +127,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserSettings\UserSettings.csproj">
+      <Project>{752B3247-A20D-4CFF-B8A5-AFA8D791F0AC}</Project>
+      <Name>UserSettings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
