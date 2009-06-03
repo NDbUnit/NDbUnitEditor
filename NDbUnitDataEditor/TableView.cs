@@ -15,19 +15,21 @@ namespace NDbUnitDataEditor
             InitializeComponent();
         }
 
-        private void TableView_Load(object sender, EventArgs e)
-        {
-            dataGridView1.AutoGenerateColumns = true;
-            dataGridView1.DataSource = bindingSource1;
-        }
-
         public object DataSource
         {
             get { return bindingSource1.DataSource; }
-            set 
+            set
             {
-                bindingSource1.DataSource = value; 
+                bindingSource1.DataSource = value;
             }
         }
+
+        private void TableView_Load(object sender, EventArgs e)
+        {
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.DataSource = bindingSource1;
+        }
+
     }
 }
