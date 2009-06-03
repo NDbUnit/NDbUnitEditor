@@ -78,6 +78,11 @@
     <Compile Include="IDataEditorView.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="MessageDialog.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -92,6 +97,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="TableView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>TableView.cs</DependentUpon>

@@ -23,7 +23,7 @@ namespace NDbUnitDataEditor
         void CloseAllTabs();
         event EditorEventHandler Initialize;
         event EditorEventHandler ReloadData;
-        void CreateInitialPage();        
+        void CreateInitialPage();
         void Run();
         string SchemaFileName { get; set; }
         string DataFileName { get; set; }
