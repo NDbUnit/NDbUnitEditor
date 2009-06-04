@@ -146,6 +146,14 @@ namespace NDbUnitDataEditor
             return page;
         }
 
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            using (Form about = new About())
+            {
+                about.ShowDialog();
+            }
+        }
+
         private void btnBrowseDataFile_Click(object sender, EventArgs e)
         {
             BrowseForDataFile();

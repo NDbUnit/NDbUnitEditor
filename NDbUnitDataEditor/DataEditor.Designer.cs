@@ -47,6 +47,7 @@ namespace NDbUnitDataEditor
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnAbout = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,7 +69,9 @@ namespace NDbUnitDataEditor
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAbout,
             this.btnCloseTab,
+            this.btnSaveData,
             this.toolStripSeparator1,
             this.toolStripLabel1,
             this.txtSchemaFileName,
@@ -78,8 +81,7 @@ namespace NDbUnitDataEditor
             this.txtDataFileName,
             this.btnBrowseDataFile,
             this.toolStripSeparator3,
-            this.btnReload,
-            this.btnSaveData});
+            this.btnReload});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(872, 25);
@@ -223,6 +225,17 @@ namespace NDbUnitDataEditor
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAbout.Image = ((System.Drawing.Image)(resources.GetObject("btnAbout.Image")));
+            this.btnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(23, 22);
+            this.btnAbout.Text = "toolStripButton1";
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // DataEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,6 +278,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStripButton btnBrowseDataFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton btnAbout;
     }
 }
 
