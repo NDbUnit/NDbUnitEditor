@@ -13,6 +13,8 @@ namespace NDbUnitDataEditor
     {
         string _dataFileName = null;
 
+        private string _newGuid;
+
         string _schemaFileName = null;
 
         DataSet dataSet1 = null;
@@ -22,6 +24,8 @@ namespace NDbUnitDataEditor
         public event EditorEventHandler BrowseForDataFile;
 
         public event EditorEventHandler BrowseForSchemaFile;
+
+        public event EditorEventHandler CreateGuid;
 
         public event EditorEventHandler Initialize;
 
@@ -58,6 +62,18 @@ namespace NDbUnitDataEditor
                 txtDataFileName.Text = System.IO.Path.GetFileName(value);
                 txtDataFileName.ToolTipText = value;
                 _dataFileName = value;
+            }
+        }
+
+        public string NewGuid
+        {
+            get
+            {
+                return _newGuid;
+            }
+            set
+            {
+                _newGuid = value;
             }
         }
 
@@ -239,6 +255,20 @@ namespace NDbUnitDataEditor
             string tbName = node.Text;
             OpenTab(tbName);
 
+        }
+
+        private void btnNewGuid_Click(object sender, EventArgs e)
+        {
+            CreateGuid();
+            DataGridView theGrid = (tabControl1.SelectedTab.Controls.Find("dataGridView1",true))[0] as DataGridView;
+
+            if (theGrid != null)
+            {
+                if (theGrid.CurrentCell.IsInEditMode)
+                    theGrid.EndEdit();
+                
+                theGrid.CurrentCell.Value = this.NewGuid;
+            }
         }
 
     }

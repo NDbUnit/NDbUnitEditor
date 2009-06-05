@@ -191,6 +191,17 @@
         HKDogWGQIlwYa8ZDjjZCbEK5lSR5AD8iT70UMqKiAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="btnNewGuid.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAPtJREFUOE9jZCAA
+        /gMBshJGICCkBy4P0vz2dOL/J3u8/t/baPX/5kp9kBCKgTgNg2n++/PRfxh+ftDr/5UFioQNQdb87VH3
+        f2QMNmSJOG5DsGk+P0PkPwjf3pz7/+E2x/8gQ46182MagstmkGYQeHNrNzhMSDYA5IUHu/L/39kYht8A
+        UIjicgXIZhjG6gKwG6Hg2ZEocMjDAo+gZpjNoCi6v90VrBmk6ceLJWD/Em0zuuazU4X/n+wWBBuCN+Cw
+        2QzSDAOgKMMabTCng2wG+RfmbJhmWDKFGYQ12YIkQS7ApZlgxgEZAHLBmUlC/9FtJqgZ5gXkKCRKE5Ii
+        APIU7zgVYg9AAAAAAElFTkSuQmCC
+</value>
+  </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>112, 17</value>
   </metadata>

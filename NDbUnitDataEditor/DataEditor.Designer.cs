@@ -31,7 +31,9 @@ namespace NDbUnitDataEditor
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataEditor));
             this.btnClose = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnAbout = new System.Windows.Forms.ToolStripButton();
             this.btnCloseTab = new System.Windows.Forms.ToolStripButton();
+            this.btnSaveData = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.txtSchemaFileName = new System.Windows.Forms.ToolStripTextBox();
@@ -42,12 +44,11 @@ namespace NDbUnitDataEditor
             this.btnBrowseDataFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnReload = new System.Windows.Forms.ToolStripButton();
-            this.btnSaveData = new System.Windows.Forms.ToolStripButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnAbout = new System.Windows.Forms.ToolStripButton();
+            this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,12 +82,24 @@ namespace NDbUnitDataEditor
             this.txtDataFileName,
             this.btnBrowseDataFile,
             this.toolStripSeparator3,
-            this.btnReload});
+            this.btnReload,
+            this.btnNewGuid});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(872, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAbout.Image = ((System.Drawing.Image)(resources.GetObject("btnAbout.Image")));
+            this.btnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(23, 22);
+            this.btnAbout.Text = "toolStripButton1";
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // btnCloseTab
             // 
@@ -100,6 +113,18 @@ namespace NDbUnitDataEditor
             this.btnCloseTab.Text = "X";
             this.btnCloseTab.ToolTipText = "Close Active Tab...";
             this.btnCloseTab.Click += new System.EventHandler(this.btnCloseTab_Click);
+            // 
+            // btnSaveData
+            // 
+            this.btnSaveData.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSaveData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSaveData.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveData.Image")));
+            this.btnSaveData.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSaveData.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
+            this.btnSaveData.Name = "btnSaveData";
+            this.btnSaveData.Size = new System.Drawing.Size(23, 22);
+            this.btnSaveData.Text = "Save Data";
+            this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
             // 
             // toolStripSeparator1
             // 
@@ -168,18 +193,6 @@ namespace NDbUnitDataEditor
             this.btnReload.Text = "load/reload files";
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
-            // btnSaveData
-            // 
-            this.btnSaveData.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSaveData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSaveData.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveData.Image")));
-            this.btnSaveData.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSaveData.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
-            this.btnSaveData.Name = "btnSaveData";
-            this.btnSaveData.Size = new System.Drawing.Size(23, 22);
-            this.btnSaveData.Text = "Save Data";
-            this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
-            // 
             // treeView1
             // 
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -225,16 +238,15 @@ namespace NDbUnitDataEditor
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btnAbout
+            // btnNewGuid
             // 
-            this.btnAbout.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnAbout.Image = ((System.Drawing.Image)(resources.GetObject("btnAbout.Image")));
-            this.btnAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(23, 22);
-            this.btnAbout.Text = "toolStripButton1";
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            this.btnNewGuid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNewGuid.Image = ((System.Drawing.Image)(resources.GetObject("btnNewGuid.Image")));
+            this.btnNewGuid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNewGuid.Name = "btnNewGuid";
+            this.btnNewGuid.Size = new System.Drawing.Size(23, 22);
+            this.btnNewGuid.Text = "Insert new Guid into cell";
+            this.btnNewGuid.Click += new System.EventHandler(this.btnNewGuid_Click);
             // 
             // DataEditor
             // 
@@ -279,6 +291,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnAbout;
+        private System.Windows.Forms.ToolStripButton btnNewGuid;
     }
 }
 

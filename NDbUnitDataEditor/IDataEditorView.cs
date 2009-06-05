@@ -13,8 +13,10 @@ namespace NDbUnitDataEditor
 
     public interface IDataEditorView
     {
+        event EditorEventHandler CreateGuid;
         event EditorEventHandler ApplicationClose;
         event EditorEventHandler BrowseForSchemaFile;
+        string NewGuid { get; set; }
         string SelectFile();
         event EditorEventHandler BrowseForDataFile;
         DataSet Data { get; set; }
