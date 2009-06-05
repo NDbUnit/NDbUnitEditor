@@ -19,6 +19,10 @@ namespace NDbUnitDataEditor
 
         private IUserSettings _userSettings;
 
+        private void CreateGuid()
+        {
+            _dataEditor.NewGuid = Guid.NewGuid().ToString("D");
+        }
         /// <summary>
         /// Initializes a new instance of the DataEditorPresenter class.
         /// </summary>
@@ -32,6 +36,7 @@ namespace NDbUnitDataEditor
             _dataEditor.BrowseForDataFile += SelectDataFile;
             _dataEditor.BrowseForSchemaFile += SelectSchemaFile;
             _dataEditor.ApplicationClose += SaveSettings;
+            _dataEditor.CreateGuid += CreateGuid;
         }
 
         public void LoadData()
