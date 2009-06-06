@@ -27,6 +27,8 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler CreateGuid;
 
+        public event EditorEventHandler GetDataSetFromDatabase;
+
         public event EditorEventHandler Initialize;
 
         public event EditorEventHandler ReloadData;
@@ -194,6 +196,20 @@ namespace NDbUnitDataEditor
                 tabControl1.TabPages.Remove(tabControl1.SelectedTab);
         }
 
+        private void btnNewGuid_Click(object sender, EventArgs e)
+        {
+            CreateGuid();
+            DataGridView theGrid = (tabControl1.SelectedTab.Controls.Find("dataGridView1", true))[0] as DataGridView;
+
+            if (theGrid != null)
+            {
+                if (theGrid.CurrentCell.IsInEditMode)
+                    theGrid.EndEdit();
+
+                theGrid.CurrentCell.Value = this.NewGuid;
+            }
+        }
+
         private void btnReload_Click(object sender, EventArgs e)
         {
             ReloadData();
@@ -257,18 +273,9 @@ namespace NDbUnitDataEditor
 
         }
 
-        private void btnNewGuid_Click(object sender, EventArgs e)
+        private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
         {
-            CreateGuid();
-            DataGridView theGrid = (tabControl1.SelectedTab.Controls.Find("dataGridView1",true))[0] as DataGridView;
-
-            if (theGrid != null)
-            {
-                if (theGrid.CurrentCell.IsInEditMode)
-                    theGrid.EndEdit();
-                
-                theGrid.CurrentCell.Value = this.NewGuid;
-            }
+            GetDataSetFromDatabase();
         }
 
     }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Configuration;
 using System.Data;
 using NDbUnit.Utility;
+using Rhino.Commons;
 
 namespace NDbUnitDataEditor
 {
@@ -23,6 +24,11 @@ namespace NDbUnitDataEditor
         {
             _dataEditor.NewGuid = Guid.NewGuid().ToString("D");
         }
+        private void GetDataSetFromDatabase()
+        {
+            var presenter = IoC.Resolve<DataSetFromDatabasePresenter>();
+            presenter.Start();
+        }
         /// <summary>
         /// Initializes a new instance of the DataEditorPresenter class.
         /// </summary>
@@ -37,6 +43,7 @@ namespace NDbUnitDataEditor
             _dataEditor.BrowseForSchemaFile += SelectSchemaFile;
             _dataEditor.ApplicationClose += SaveSettings;
             _dataEditor.CreateGuid += CreateGuid;
+            _dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
         }
 
         public void LoadData()

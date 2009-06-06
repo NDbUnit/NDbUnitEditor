@@ -44,11 +44,12 @@ namespace NDbUnitDataEditor
             this.btnBrowseDataFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnReload = new System.Windows.Forms.ToolStripButton();
+            this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
+            this.btnDataSetFromDatabase = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -83,7 +84,8 @@ namespace NDbUnitDataEditor
             this.btnBrowseDataFile,
             this.toolStripSeparator3,
             this.btnReload,
-            this.btnNewGuid});
+            this.btnNewGuid,
+            this.btnDataSetFromDatabase});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(872, 25);
@@ -193,6 +195,16 @@ namespace NDbUnitDataEditor
             this.btnReload.Text = "load/reload files";
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
+            // btnNewGuid
+            // 
+            this.btnNewGuid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNewGuid.Image = ((System.Drawing.Image)(resources.GetObject("btnNewGuid.Image")));
+            this.btnNewGuid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNewGuid.Name = "btnNewGuid";
+            this.btnNewGuid.Size = new System.Drawing.Size(23, 22);
+            this.btnNewGuid.Text = "Insert new Guid into cell";
+            this.btnNewGuid.Click += new System.EventHandler(this.btnNewGuid_Click);
+            // 
             // treeView1
             // 
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -238,15 +250,16 @@ namespace NDbUnitDataEditor
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btnNewGuid
+            // btnDataSetFromDatabase
             // 
-            this.btnNewGuid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNewGuid.Image = ((System.Drawing.Image)(resources.GetObject("btnNewGuid.Image")));
-            this.btnNewGuid.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNewGuid.Name = "btnNewGuid";
-            this.btnNewGuid.Size = new System.Drawing.Size(23, 22);
-            this.btnNewGuid.Text = "Insert new Guid into cell";
-            this.btnNewGuid.Click += new System.EventHandler(this.btnNewGuid_Click);
+            this.btnDataSetFromDatabase.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDataSetFromDatabase.Image = ((System.Drawing.Image)(resources.GetObject("btnDataSetFromDatabase.Image")));
+            this.btnDataSetFromDatabase.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDataSetFromDatabase.Name = "btnDataSetFromDatabase";
+            this.btnDataSetFromDatabase.Size = new System.Drawing.Size(23, 22);
+            this.btnDataSetFromDatabase.Text = "toolStripButton1";
+            this.btnDataSetFromDatabase.ToolTipText = "Get DataSet from Database";
+            this.btnDataSetFromDatabase.Click += new System.EventHandler(this.btnDataSetFromDatabase_Click);
             // 
             // DataEditor
             // 
@@ -292,6 +305,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnAbout;
         private System.Windows.Forms.ToolStripButton btnNewGuid;
+        private System.Windows.Forms.ToolStripButton btnDataSetFromDatabase;
     }
 }
 

@@ -60,6 +60,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Rhino.Commons\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=1.0.10.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NDbUnit\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NDbUnit.Core, Version=1.4.0.28102, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NDbUnit\NDbUnit.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
@@ -67,6 +75,14 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NDbUnit\System.Data.SQLite.DLL</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NDbUnit\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -81,7 +97,15 @@
     </Compile>
     <Compile Include="ComponentManager.cs" />
     <Compile Include="DataEditorPresenter.cs" />
+    <Compile Include="DataSetFromDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataSetFromDatabase.Designer.cs">
+      <DependentUpon>DataSetFromDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetFromDatabasePresenter.cs" />
     <Compile Include="IDataEditorView.cs" />
+    <Compile Include="IDataSetFromDatabaseView.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -105,6 +129,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataSetFromDatabase.resx">
+      <DependentUpon>DataSetFromDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
