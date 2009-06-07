@@ -6,6 +6,7 @@ namespace NDbUnitDataEditor
 {
     public class DataSetFromDatabasePresenter
     {
+        //TODO: condsider either refactoring this entire list into NDbUnit.Core.dll itself or (perhaps) just use it from Proteus
         public enum DatabaseClientType
         {
             /// <summary>
@@ -85,30 +86,30 @@ namespace NDbUnitDataEditor
 
         private System.Data.IDbConnection GetConnection()
         {
-
-            switch (_databaseType)
+            try
             {
-                case DatabaseClientType.MySqlClient:
-                    return new MySql.Data.MySqlClient.MySqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
-
-                case DatabaseClientType.OleDBClient:
-                    return new System.Data.OleDb.OleDbConnection(_dataSetFromDatabase.DatabaseConnectionString);
-
-                case DatabaseClientType.OracleClient:
-                    throw new InvalidOperationException("Oracle Client is not yet supported by NDbUnit!");
-
-                case DatabaseClientType.SqlCeClient:
-                    return new System.Data.SqlServerCe.SqlCeConnection(_dataSetFromDatabase.DatabaseConnectionString);
-
-                case DatabaseClientType.SqlClient:
-                    return new System.Data.SqlClient.SqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
-
-                case DatabaseClientType.SqliteClient:
-                    return new System.Data.SQLite.SQLiteConnection(_dataSetFromDatabase.DatabaseConnectionString);
-
-                default:
-                    throw new InvalidOperationException("you have selected an invalid database type!");
-
+                switch (_databaseType)
+                {
+                    case DatabaseClientType.MySqlClient:
+                        return new MySql.Data.MySqlClient.MySqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
+                    case DatabaseClientType.OleDBClient:
+                        return new System.Data.OleDb.OleDbConnection(_dataSetFromDatabase.DatabaseConnectionString);
+                    case DatabaseClientType.OracleClient:
+                        throw new InvalidOperationException("Oracle Client is not yet supported by NDbUnit!");
+                    case DatabaseClientType.SqlCeClient:
+                        return new System.Data.SqlServerCe.SqlCeConnection(_dataSetFromDatabase.DatabaseConnectionString);
+                    case DatabaseClientType.SqlClient:
+                        return new System.Data.SqlClient.SqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
+                    case DatabaseClientType.SqliteClient:
+                        return new System.Data.SQLite.SQLiteConnection(_dataSetFromDatabase.DatabaseConnectionString);
+                    default:
+                        throw new InvalidOperationException("you have selected an invalid database type!");
+                }
+            }
+            catch (Exception)
+            {
+                //if anything went wrong with the attempt to construct the IDbConnection, just return NULL b/c we don't care why
+                return null;
             }
 
         }
@@ -120,19 +121,17 @@ namespace NDbUnitDataEditor
 
         private void TestDatabaseConnection()
         {
-            _dataSetFromDatabase.ConnectionTestResultMessage = "Attempting Database Connection...";
-
             using (System.Data.IDbConnection conn = GetConnection())
             {
                 try
                 {
                     conn.Open();
                     conn.Close();
-                    _dataSetFromDatabase.ConnectionTestResultMessage = "Connection Successful!";
+                    _dataSetFromDatabase.ConnectionTestResult = true;
                 }
                 catch (Exception)
                 {
-                    _dataSetFromDatabase.ConnectionTestResultMessage = "Unable to connect to database!";
+                    _dataSetFromDatabase.ConnectionTestResult = false;
                 }
             }
 
