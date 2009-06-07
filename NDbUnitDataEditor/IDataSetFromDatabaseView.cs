@@ -16,6 +16,6 @@ namespace NDbUnitDataEditor
         string DatabaseConnectionString { get;}
         IList<DataSetFromDatabasePresenter.DatabaseClientType> DatabaseConnectionTypes { set; }
         DataSetFromDatabasePresenter.DatabaseClientType SelectedDatabaseConnectionType { get; }
-        string ConnectionTestResultMessage { set; }
+        bool ConnectionTestResult { set; }
     }
 }

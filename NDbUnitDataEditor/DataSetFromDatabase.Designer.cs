@@ -34,7 +34,6 @@
             this.cboDatabaseType = new System.Windows.Forms.ComboBox();
             this.lblDatabaseType = new System.Windows.Forms.Label();
             this.btnFillDataSet = new System.Windows.Forms.Button();
-            this.lblConnectionTestResultMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblConnectionString
@@ -68,7 +67,7 @@
             this.cboDatabaseType.FormattingEnabled = true;
             this.cboDatabaseType.Location = new System.Drawing.Point(158, 37);
             this.cboDatabaseType.Name = "cboDatabaseType";
-            this.cboDatabaseType.Size = new System.Drawing.Size(196, 21);
+            this.cboDatabaseType.Size = new System.Drawing.Size(245, 21);
             this.cboDatabaseType.TabIndex = 3;
             this.cboDatabaseType.SelectedIndexChanged += new System.EventHandler(this.cboDatabaseType_SelectedIndexChanged);
             // 
@@ -91,21 +90,11 @@
             this.btnFillDataSet.UseVisualStyleBackColor = true;
             this.btnFillDataSet.Click += new System.EventHandler(this.btnFillDataSet_Click);
             // 
-            // lblConnectionTestResultMessage
-            // 
-            this.lblConnectionTestResultMessage.AutoSize = true;
-            this.lblConnectionTestResultMessage.Location = new System.Drawing.Point(431, 40);
-            this.lblConnectionTestResultMessage.Name = "lblConnectionTestResultMessage";
-            this.lblConnectionTestResultMessage.Size = new System.Drawing.Size(150, 13);
-            this.lblConnectionTestResultMessage.TabIndex = 6;
-            this.lblConnectionTestResultMessage.Text = "(Not Connected To Database)";
-            // 
             // DataSetFromDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 105);
-            this.Controls.Add(this.lblConnectionTestResultMessage);
             this.Controls.Add(this.btnFillDataSet);
             this.Controls.Add(this.lblDatabaseType);
             this.Controls.Add(this.cboDatabaseType);
@@ -132,6 +121,5 @@
         private System.Windows.Forms.ComboBox cboDatabaseType;
         private System.Windows.Forms.Label lblDatabaseType;
         private System.Windows.Forms.Button btnFillDataSet;
-        private System.Windows.Forms.Label lblConnectionTestResultMessage;
     }
 }

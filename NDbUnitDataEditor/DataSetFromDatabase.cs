@@ -21,6 +21,17 @@ namespace NDbUnitDataEditor
             InitializeComponent();
         }
 
+        public bool ConnectionTestResult
+        {
+            set
+            {
+                if (value)
+                    MessageBox.Show("Connection Successful", "Connection Test Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Unable to connect to database!", "Connection Test Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public string DatabaseConnectionString
         {
             get { return txtConnectionString.Text; }
@@ -59,15 +70,5 @@ namespace NDbUnitDataEditor
             SelectDatabaseType();
         }
 
-
-        #region IDataSetFromDatabaseView Members
-
-
-        public string ConnectionTestResultMessage
-        {
-            set { lblConnectionTestResultMessage.Text = value; }
-        }
-
-        #endregion
     }
 }
