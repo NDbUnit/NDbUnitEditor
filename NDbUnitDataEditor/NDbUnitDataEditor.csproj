@@ -104,8 +104,12 @@
       <DependentUpon>DataSetFromDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="DataSetFromDatabasePresenter.cs" />
+    <Compile Include="CustomFileDialog.cs" />
+    <Compile Include="DialogFactory.cs" />
+    <Compile Include="ICustomFileDialog.cs" />
     <Compile Include="IDataEditorView.cs" />
     <Compile Include="IDataSetFromDatabaseView.cs" />
+    <Compile Include="IDialogFactory.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

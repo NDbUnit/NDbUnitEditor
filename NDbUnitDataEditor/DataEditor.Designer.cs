@@ -45,11 +45,12 @@ namespace NDbUnitDataEditor
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnReload = new System.Windows.Forms.ToolStripButton();
             this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
+            this.btnDataSetFromDatabase = new System.Windows.Forms.ToolStripButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnDataSetFromDatabase = new System.Windows.Forms.ToolStripButton();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -120,6 +121,7 @@ namespace NDbUnitDataEditor
             // 
             this.btnSaveData.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.btnSaveData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSaveData.Enabled = false;
             this.btnSaveData.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveData.Image")));
             this.btnSaveData.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveData.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
@@ -136,13 +138,16 @@ namespace NDbUnitDataEditor
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(94, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(104, 22);
             this.toolStripLabel1.Text = "Schema file name:";
             // 
             // txtSchemaFileName
             // 
+            this.txtSchemaFileName.BackColor = System.Drawing.SystemColors.Window;
             this.txtSchemaFileName.Name = "txtSchemaFileName";
+            this.txtSchemaFileName.ReadOnly = true;
             this.txtSchemaFileName.Size = new System.Drawing.Size(100, 25);
+            this.txtSchemaFileName.TextChanged += new System.EventHandler(this.txtSchemaFileName_TextChanged);
             // 
             // btnBrowseSchemaFile
             // 
@@ -162,12 +167,14 @@ namespace NDbUnitDataEditor
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(80, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(86, 22);
             this.toolStripLabel2.Text = "Data file name:";
             // 
             // txtDataFileName
             // 
+            this.txtDataFileName.BackColor = System.Drawing.SystemColors.Window;
             this.txtDataFileName.Name = "txtDataFileName";
+            this.txtDataFileName.ReadOnly = true;
             this.txtDataFileName.Size = new System.Drawing.Size(100, 25);
             // 
             // btnBrowseDataFile
@@ -188,6 +195,7 @@ namespace NDbUnitDataEditor
             // btnReload
             // 
             this.btnReload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnReload.Enabled = false;
             this.btnReload.Image = ((System.Drawing.Image)(resources.GetObject("btnReload.Image")));
             this.btnReload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnReload.Name = "btnReload";
@@ -204,6 +212,17 @@ namespace NDbUnitDataEditor
             this.btnNewGuid.Size = new System.Drawing.Size(23, 22);
             this.btnNewGuid.Text = "Insert new Guid into cell";
             this.btnNewGuid.Click += new System.EventHandler(this.btnNewGuid_Click);
+            // 
+            // btnDataSetFromDatabase
+            // 
+            this.btnDataSetFromDatabase.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDataSetFromDatabase.Image = ((System.Drawing.Image)(resources.GetObject("btnDataSetFromDatabase.Image")));
+            this.btnDataSetFromDatabase.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDataSetFromDatabase.Name = "btnDataSetFromDatabase";
+            this.btnDataSetFromDatabase.Size = new System.Drawing.Size(23, 22);
+            this.btnDataSetFromDatabase.Text = "toolStripButton1";
+            this.btnDataSetFromDatabase.ToolTipText = "Get DataSet from Database";
+            this.btnDataSetFromDatabase.Click += new System.EventHandler(this.btnDataSetFromDatabase_Click);
             // 
             // treeView1
             // 
@@ -250,17 +269,6 @@ namespace NDbUnitDataEditor
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btnDataSetFromDatabase
-            // 
-            this.btnDataSetFromDatabase.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnDataSetFromDatabase.Image = ((System.Drawing.Image)(resources.GetObject("btnDataSetFromDatabase.Image")));
-            this.btnDataSetFromDatabase.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDataSetFromDatabase.Name = "btnDataSetFromDatabase";
-            this.btnDataSetFromDatabase.Size = new System.Drawing.Size(23, 22);
-            this.btnDataSetFromDatabase.Text = "toolStripButton1";
-            this.btnDataSetFromDatabase.ToolTipText = "Get DataSet from Database";
-            this.btnDataSetFromDatabase.Click += new System.EventHandler(this.btnDataSetFromDatabase_Click);
-            // 
             // DataEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,6 +314,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStripButton btnAbout;
         private System.Windows.Forms.ToolStripButton btnNewGuid;
         private System.Windows.Forms.ToolStripButton btnDataSetFromDatabase;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

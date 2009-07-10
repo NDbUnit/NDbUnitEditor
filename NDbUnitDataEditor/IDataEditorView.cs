@@ -13,6 +13,8 @@ namespace NDbUnitDataEditor
 
     public interface IDataEditorView
     {
+        void EnableSaveButton();
+        event EditorEventHandler SaveData;
         event EditorEventHandler GetDataSetFromDatabase;
         event EditorEventHandler CreateGuid;
         event EditorEventHandler ApplicationClose;
