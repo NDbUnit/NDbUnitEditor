@@ -31,5 +31,10 @@ namespace NDbUnitDataEditor
             dataGridView1.DataSource = bindingSource1;
         }
 
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (e.Exception is System.FormatException)
+                MessageBox.Show("Please input value with correct type for this column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }
