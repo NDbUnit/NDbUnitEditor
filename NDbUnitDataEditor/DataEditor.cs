@@ -33,6 +33,8 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler ReloadData;
 
+        public event EditorEventHandler SaveData;
+
         public DataEditor()
         {
             InitializeComponent();
@@ -153,6 +155,7 @@ namespace NDbUnitDataEditor
             return selectedFileName;
         }
 
+
         private TabPage AddTabPage(string tabName)
         {
             tabControl1.TabPages.Add(tabName);
@@ -217,7 +220,7 @@ namespace NDbUnitDataEditor
 
         private void btnSaveData_Click(object sender, EventArgs e)
         {
-            dataSet1.WriteXml(DataFileName);
+            SaveData();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -276,6 +279,19 @@ namespace NDbUnitDataEditor
         private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
         {
             GetDataSetFromDatabase();
+        }
+
+        private void txtSchemaFileName_TextChanged(object sender, EventArgs e)
+        {
+            if (SchemaFileName != "")
+            {
+                btnReload.Enabled = true;
+            }
+        }
+
+        public void EnableSaveButton()
+        {
+            btnSaveData.Enabled = true;
         }
 
     }

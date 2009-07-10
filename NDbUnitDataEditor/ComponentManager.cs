@@ -7,6 +7,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Rhino.Commons;
 using NDbUnit.Utility;
+using NDbUnitDataEditor.UI;
 
 
 namespace NDbUnitDataEditor
@@ -19,7 +20,7 @@ namespace NDbUnitDataEditor
 
             container.Register(Component.For<IDataEditorView>().ImplementedBy<DataEditor>().LifeStyle.Transient);
             container.Register(Component.For<DataEditorPresenter>().ImplementedBy<DataEditorPresenter>().LifeStyle.Transient);
-            container.Register(Component.For<IMessageDialog>().ImplementedBy<MessageDialog>().LifeStyle.Transient);
+            container.Register(Component.For<IDialogFactory>().ImplementedBy<DialogFactory>().LifeStyle.Transient);
             container.Register(Component.For<IUserSettings>().ImplementedBy<UserSettings>()
                 .Parameters(Parameter.ForKey("configFileType").Eq(UserSettings.Config.PrivateFile.ToString()))
                 .Parameters(Parameter.ForKey("applicationName").Eq("NDbUnitEditor")));
