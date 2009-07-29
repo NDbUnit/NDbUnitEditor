@@ -47,6 +47,17 @@ namespace NDbUnitDataEditor
             _dataEditor.CreateGuid += CreateGuid;
             _dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
             _dataEditor.SaveData += new EditorEventHandler(SaveData);
+            _dataEditor.DataViewChanged += HandleDataSetChange;
+
+        }
+
+        public void HandleDataSetChange()
+        {
+            DataSet dataSet = _dataEditor.Data;
+            if (dataSet.HasChanges())
+            {
+                _dataEditor.ToggleDataFileEdited(true);
+            }
         }
 
         void SaveData()
@@ -78,6 +89,7 @@ namespace NDbUnitDataEditor
                 }
                 dataSet.WriteXml(fileName);
                 _dataEditor.DataFileName = fileName;
+                _dataEditor.ToggleDataFileEdited(false);
             }
             catch (Exception ex)
             {

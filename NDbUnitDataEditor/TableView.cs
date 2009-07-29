@@ -8,12 +8,18 @@ using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
+    public delegate void TableViewEventHandler();
+
     public partial class TableView : UserControl
     {
+        
+
         public TableView()
         {
             InitializeComponent();
         }
+
+        public event TableViewEventHandler TableViewChanged;
 
         public object DataSource
         {
@@ -36,5 +42,11 @@ namespace NDbUnitDataEditor
             if (e.Exception is System.FormatException)
                 MessageBox.Show("Please input value with correct type for this column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            TableViewChanged();
+        }
+
     }
 }

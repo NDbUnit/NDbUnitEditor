@@ -35,6 +35,8 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler SaveData;
 
+        public event EditorEventHandler DataViewChanged;
+
         public DataEditor()
         {
             InitializeComponent();
@@ -100,7 +102,7 @@ namespace NDbUnitDataEditor
         {
             if (table != null)
             {
-                TabPage page = tabControl1.SelectedTab;
+                TabPage page = tbTableViews.SelectedTab;
                 TableView tbView = GetTabView(page);
                 tbView.DataSource = null;
                 tbView.DataSource = table;
@@ -127,7 +129,7 @@ namespace NDbUnitDataEditor
 
         public void CloseAllTabs()
         {
-            tabControl1.TabPages.Clear();
+            tbTableViews.TabPages.Clear();
         }
 
         public void CreateInitialPage()
@@ -158,13 +160,19 @@ namespace NDbUnitDataEditor
 
         private TabPage AddTabPage(string tabName)
         {
-            tabControl1.TabPages.Add(tabName);
+            tbTableViews.TabPages.Add(tabName);
             TabPage page = GetTabPage(tabName);
 
             TableView view = new TableView() { Dock = DockStyle.Fill };
+            view.TableViewChanged+=new TableViewEventHandler(TabPageEdited);
             page.Controls.Add(view);
 
             return page;
+        }
+
+        private void TabPageEdited()
+        {
+            DataViewChanged();
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -195,14 +203,14 @@ namespace NDbUnitDataEditor
 
         private void btnCloseTab_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab != null)
-                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+            if (tbTableViews.SelectedTab != null)
+                tbTableViews.TabPages.Remove(tbTableViews.SelectedTab);
         }
 
         private void btnNewGuid_Click(object sender, EventArgs e)
         {
             CreateGuid();
-            DataGridView theGrid = (tabControl1.SelectedTab.Controls.Find("dataGridView1", true))[0] as DataGridView;
+            DataGridView theGrid = (tbTableViews.SelectedTab.Controls.Find("dataGridView1", true))[0] as DataGridView;
 
             if (theGrid != null)
             {
@@ -238,7 +246,7 @@ namespace NDbUnitDataEditor
         private TabPage GetTabPage(string name)
         {
             TabPage found = null;
-            foreach (TabPage page in tabControl1.TabPages)
+            foreach (TabPage page in tbTableViews.TabPages)
                 if (page.Text == name)
                     found = page;
             return found;
@@ -259,7 +267,7 @@ namespace NDbUnitDataEditor
             TabPage page = GetTabPage(tbName);
             if (page == null)
                 page = AddTabPage(tbName);
-            tabControl1.SelectedTab = page;
+            tbTableViews.SelectedTab = page;
 
             foreach (DataTable table in dataSet1.Tables)
                 if (tbName == table.TableName)
@@ -293,6 +301,42 @@ namespace NDbUnitDataEditor
         {
             btnSaveData.Enabled = true;
         }
+
+        public void ToggleDataFileEdited(bool fileEdited)
+        {
+            if (fileEdited)
+                MarkActiveTabAsModified();
+            else
+                RemoveEditedMarksFromAllTabs();
+        }
+
+        private void MarkActiveTabAsModified()
+        {
+            var activeTab = tbTableViews.SelectedTab;
+            string title = activeTab.Text;
+            if(!title.EndsWith("*"))
+                title = string.Format("{0} *", title);
+            activeTab.Text = title;
+        }
+
+        private void RemoveEditedMarksFromAllTabs()
+        {
+            if(tbTableViews.TabCount==0)
+                return;
+
+            foreach(TabPage tab in tbTableViews.TabPages)
+            {
+                string title = tab.Text;
+                if (title.EndsWith(" *"))
+                {
+                    title = title.Remove(title.LastIndexOf(" *"));
+                }
+                 tab.Text = title;
+            }
+        }
+
+
+
 
     }
 }
