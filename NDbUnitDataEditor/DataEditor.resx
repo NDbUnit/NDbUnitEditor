@@ -204,16 +204,16 @@
   <data name="btnDataSetFromDatabase.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH6SURBVDhPrZM5a2JRFMcDKVJNO02qtGnCFPMVUqTPV1KJ
-        WCgoFsZ9wQVxw10UtbFwRUVxwQV9csUF97id3HNhYOC9kCnmweU+3rvnd87/f869ufmfTzAYvItGo690
-        uUOhUD0QCJzotw+65/1+v93n8z07HI5bwZzxePwxEomUS6USTCYTWK/XcLlc4Hw+w2w2g16vB+l0Glwu
-        V8Zut9/zIDQ42e/34Xq9wlfP6XSCYrEIFGAQApDD4fAtgBACZrOZ8ABUM9nv98BxHCwWC9jtdoAZj8cj
-        LJdL6Ha7kMlkYDweg8lk4gOoQQSDptMpO1yv16FWq0G5XGaB1CNIpVIwGo2EAV6vl2y3W5jP5yzLYDBg
-        O/qSz+eZgbiGwyHo9Xp+BR6Ph2w2G0CNGNTpdNhhrCaXy0EikYBkMsnAWq1WGICtQw8wuNlssta1Wi3I
-        ZrMQDochFosxuFqt5gPcbjdZrVYsQ6PRYPrb7TZ7R+10kIAazaAqlYoPoANC/rhdrVahUqmw7Ggmlk4l
-        MghKkslkfIDVaiX4E2Vg4N8ArAB9QFNRjlQq5QMsFssLXZtCocBGFw3FruCOc4HS6B0BsVjMiUSi34L3
-        wWg0PtAWvet0uqXBYACn0wk2mw2USiWWzUkkkjea/ec/XWCNRvODmvVLoVA8yeXyu6+CPgGVIiynJhkw
-        wgAAAABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHvSURBVDhPrZO5q1pBFMYfpHhV2jSp0r4mpMi/kCJ9/iRF
+        IhYKamPcRVwQUXF7iqI2Fq6oKC644MIVF9zj9mXOQCBwryRFBoa5y5zfOd83Z56e/ucIh8PP8Xj8G5u+
+        SCTSCAQCF/btZygUKgSDQRd7/+J2u99I5kwkEi+xWKxSLpcxm82w3W5xu91wvV6xWCzQ7/eRyWTg9Xqz
+        LpfrvQjCglODwQD3+x2PxuVyQalUAgNYpADC6XT6K0AQBNhsNkEEYJqF4/GI6XSK1WqFw+EAyng+n7Fe
+        r9Hr9ZDNZjGZTKQBfr9foKD5fM43NxoN1Ot1VCoVHsg8Qjqdxng8fgzY7/dYLpc8y3A45Cv5UigUuIE0
+        R6MRzGazWAJVsNvtQBopqNvt8s1UTT6fRzKZRCqV4mCj0SgNoKMjDyi41Wrxo2u328jlcohGo3h9feVw
+        vV4vBvh8PmGz2fAMzWaT6+90OvyZtLNGAjOaQ3U6nRjAGkT47XatVkO1WuXZyUwqnUnkEJKkVCrFALvd
+        LtBPkkGBfwKoAvKBTCU5kgCHw/GVzV2xWOStS4bSqdBKfUHS2B2BTCabyuXyz5L3wWq1fmBH9MNkMq0t
+        Fgs8Hg+cTie0Wi1UKtVUoVB8Z9nf/dMFNhgMb5lZnzQazUe1Wv38KOgXTG4sgJT5YxEAAAAASUVORK5C
+        YII=
 </value>
   </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

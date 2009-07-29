@@ -39,7 +39,7 @@ namespace NDbUnitDataEditor
             this.txtSchemaFileName = new System.Windows.Forms.ToolStripTextBox();
             this.btnBrowseSchemaFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.lblDataFileName = new System.Windows.Forms.ToolStripLabel();
             this.txtDataFileName = new System.Windows.Forms.ToolStripTextBox();
             this.btnBrowseDataFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -47,7 +47,7 @@ namespace NDbUnitDataEditor
             this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
             this.btnDataSetFromDatabase = new System.Windows.Forms.ToolStripButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tbTableViews = new System.Windows.Forms.TabControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -80,7 +80,7 @@ namespace NDbUnitDataEditor
             this.txtSchemaFileName,
             this.btnBrowseSchemaFile,
             this.toolStripSeparator2,
-            this.toolStripLabel2,
+            this.lblDataFileName,
             this.txtDataFileName,
             this.btnBrowseDataFile,
             this.toolStripSeparator3,
@@ -164,11 +164,11 @@ namespace NDbUnitDataEditor
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel2
+            // lblDataFileName
             // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(86, 22);
-            this.toolStripLabel2.Text = "Data file name:";
+            this.lblDataFileName.Name = "lblDataFileName";
+            this.lblDataFileName.Size = new System.Drawing.Size(86, 22);
+            this.lblDataFileName.Text = "Data file name:";
             // 
             // txtDataFileName
             // 
@@ -235,16 +235,16 @@ namespace NDbUnitDataEditor
             this.treeView1.TabIndex = 8;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
-            // tabControl1
+            // tbTableViews
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tbTableViews.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(613, 493);
-            this.tabControl1.TabIndex = 9;
+            this.tbTableViews.Location = new System.Drawing.Point(3, 3);
+            this.tbTableViews.Name = "tbTableViews";
+            this.tbTableViews.SelectedIndex = 0;
+            this.tbTableViews.Size = new System.Drawing.Size(613, 493);
+            this.tbTableViews.TabIndex = 9;
             // 
             // splitContainer1
             // 
@@ -260,7 +260,7 @@ namespace NDbUnitDataEditor
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel2.Controls.Add(this.tbTableViews);
             this.splitContainer1.Size = new System.Drawing.Size(872, 499);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 10;
@@ -297,7 +297,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnSaveData;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tbTableViews;
         private System.Windows.Forms.ToolStripButton btnReload;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripButton btnCloseTab;
@@ -306,7 +306,7 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStripTextBox txtSchemaFileName;
         private System.Windows.Forms.ToolStripButton btnBrowseSchemaFile;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel lblDataFileName;
         private System.Windows.Forms.ToolStripTextBox txtDataFileName;
         private System.Windows.Forms.ToolStripButton btnBrowseDataFile;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
