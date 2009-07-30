@@ -51,12 +51,15 @@ namespace NDbUnitDataEditor
 
         }
 
-        public void HandleDataSetChange()
+        public void HandleDataSetChange(TableViewEventArguments args)
         {
             DataSet dataSet = _dataEditor.Data;
             if (dataSet.HasChanges())
             {
-                _dataEditor.ToggleDataFileEdited(true);
+                DataTable table = dataSet.Tables[args.TabName];
+                var changes = table.GetChanges();
+                if(changes!=null)
+                _dataEditor.MarkTabAsEdited(args.TabName);
             }
         }
 
@@ -89,7 +92,7 @@ namespace NDbUnitDataEditor
                 }
                 dataSet.WriteXml(fileName);
                 _dataEditor.DataFileName = fileName;
-                _dataEditor.ToggleDataFileEdited(false);
+                _dataEditor.RemoveEditedMarksFromAllTabs();
             }
             catch (Exception ex)
             {
