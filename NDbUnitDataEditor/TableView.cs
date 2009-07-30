@@ -8,15 +8,14 @@ using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
-    public delegate void TableViewEventHandler();
+    
 
     public partial class TableView : UserControl
     {
-        
-
-        public TableView()
+        public TableView(string name)
         {
             InitializeComponent();
+            Name = name;
         }
 
         public event TableViewEventHandler TableViewChanged;
@@ -45,7 +44,8 @@ namespace NDbUnitDataEditor
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            TableViewChanged();
+            TableViewEventArguments args = new TableViewEventArguments(Name);
+            TableViewChanged(args);
         }
 
     }

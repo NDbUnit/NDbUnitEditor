@@ -11,10 +11,13 @@ namespace NDbUnitDataEditor
 {
     public delegate void EditorEventHandler();
 
+    public delegate void TableViewEventHandler(TableViewEventArguments args);
+
     public interface IDataEditorView
     {
-        void ToggleDataFileEdited(bool fileEdited);
-        event EditorEventHandler DataViewChanged;
+        void RemoveEditedMarksFromAllTabs();
+        void MarkTabAsEdited(string tabName);
+        event TableViewEventHandler DataViewChanged;
         void EnableSaveButton();
         event EditorEventHandler SaveData;
         event EditorEventHandler GetDataSetFromDatabase;

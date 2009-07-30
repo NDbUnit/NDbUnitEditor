@@ -1,12 +1,12 @@
-﻿using System;
+﻿extern alias CastleCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Castle.Core.Interceptor;
 using MbUnit.Framework;
 using Castle.Windsor;
-using Castle.Core.Interceptor;
 using Castle.MicroKernel.Registration;
-using Castle.Core;
 using Rhino.Commons;
 
 namespace Tests
@@ -51,9 +51,9 @@ namespace Tests
             container.Register(
                 Component.For<TestClassInterceptor>(),
                 Component.For<ITestClass1>().ImplementedBy<TestClass1>()
-                .Interceptors(InterceptorReference.ForType<TestClassInterceptor>()).First,
+                .Interceptors(CastleCore::Castle.Core.InterceptorReference.ForType<TestClassInterceptor>()).First,
                 Component.For<ITestClass2>().ImplementedBy<TestClass2>()
-                .Interceptors(InterceptorReference.ForType<TestClassInterceptor>()).First);
+                .Interceptors(CastleCore::Castle.Core.InterceptorReference.ForType<TestClassInterceptor>()).First);
 
             IoC.Initialize(container);
         }

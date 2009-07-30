@@ -35,7 +35,7 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler SaveData;
 
-        public event EditorEventHandler DataViewChanged;
+        public event TableViewEventHandler DataViewChanged;
 
         public DataEditor()
         {
@@ -163,16 +163,16 @@ namespace NDbUnitDataEditor
             tbTableViews.TabPages.Add(tabName);
             TabPage page = GetTabPage(tabName);
 
-            TableView view = new TableView() { Dock = DockStyle.Fill };
+            TableView view = new TableView(tabName) { Dock = DockStyle.Fill };
             view.TableViewChanged+=new TableViewEventHandler(TabPageEdited);
             page.Controls.Add(view);
 
             return page;
         }
 
-        private void TabPageEdited()
+        private void TabPageEdited(TableViewEventArguments args)
         {
-            DataViewChanged();
+            DataViewChanged(args);
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -302,36 +302,31 @@ namespace NDbUnitDataEditor
             btnSaveData.Enabled = true;
         }
 
-        public void ToggleDataFileEdited(bool fileEdited)
-        {
-            if (fileEdited)
-                MarkActiveTabAsModified();
-            else
-                RemoveEditedMarksFromAllTabs();
-        }
 
-        private void MarkActiveTabAsModified()
+
+        public void MarkTabAsEdited(string tabName)
         {
-            var activeTab = tbTableViews.SelectedTab;
-            string title = activeTab.Text;
-            if(!title.EndsWith("*"))
+            var selectedTab = tbTableViews.TabPages[tabName];
+            string title = selectedTab.Text;
+            if (!title.EndsWith("*"))
                 title = string.Format("{0} *", title);
-            activeTab.Text = title;
+            selectedTab.Text = title;
         }
 
-        private void RemoveEditedMarksFromAllTabs()
+
+        public void RemoveEditedMarksFromAllTabs()
         {
-            if(tbTableViews.TabCount==0)
+            if (tbTableViews.TabCount == 0)
                 return;
 
-            foreach(TabPage tab in tbTableViews.TabPages)
+            foreach (TabPage tab in tbTableViews.TabPages)
             {
                 string title = tab.Text;
                 if (title.EndsWith(" *"))
                 {
                     title = title.Remove(title.LastIndexOf(" *"));
                 }
-                 tab.Text = title;
+                tab.Text = title;
             }
         }
 
