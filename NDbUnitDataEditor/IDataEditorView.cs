@@ -15,6 +15,7 @@ namespace NDbUnitDataEditor
 
     public interface IDataEditorView
     {
+        bool TabIsMarkedAsEdited(string tabName);
         void RemoveEditedMarksFromAllTabs();
         void MarkTabAsEdited(string tabName);
         event TableViewEventHandler DataViewChanged;
