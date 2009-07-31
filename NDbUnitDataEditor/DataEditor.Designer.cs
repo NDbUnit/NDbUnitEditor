@@ -278,6 +278,7 @@ namespace NDbUnitDataEditor
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "DataEditor";
             this.Text = "NDbUnit Data Editor";
             this.Load += new System.EventHandler(this.Form1_Load);

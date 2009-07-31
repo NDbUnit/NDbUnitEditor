@@ -54,12 +54,15 @@ namespace NDbUnitDataEditor
         public void HandleDataSetChange(TableViewEventArguments args)
         {
             DataSet dataSet = _dataEditor.Data;
-            if (dataSet.HasChanges())
+            var tabName = args.TabName;
+            if (!string.IsNullOrEmpty(tabName) && dataSet.HasChanges())
             {
-                DataTable table = dataSet.Tables[args.TabName];
+                if (_dataEditor.TabIsMarkedAsEdited(tabName))
+                    return; //tab was already marked
+                DataTable table = dataSet.Tables[tabName];
                 var changes = table.GetChanges();
                 if(changes!=null)
-                _dataEditor.MarkTabAsEdited(args.TabName);
+                _dataEditor.MarkTabAsEdited(tabName);
             }
         }
 
@@ -112,6 +115,7 @@ namespace NDbUnitDataEditor
                     DataSet dataSet = _dataEditor.Data;
                     dataSet.ReadXmlSchema(schemaFileName);
                     _dataEditor.BindTableTree();
+
                     _dataEditor.EnableSaveButton();
                 }
             }
@@ -129,7 +133,7 @@ namespace NDbUnitDataEditor
                 
                 DataSet dataSet = _dataEditor.Data;
                 string dataFileName = _dataEditor.DataFileName;
-                if (dataFileName == null || dataFileName == "")
+                if (String.IsNullOrEmpty(dataFileName))
                 {
                     messageDialog.Show("Cannot load data. Please select data file name first");
                     return;
@@ -192,7 +196,15 @@ namespace NDbUnitDataEditor
             _dataEditor.SchemaFileName = _userSettings.GetSetting(SCHEMA_FILE_SETTINGS_KEY);
             _dataEditor.DataFileName = _userSettings.GetSetting(DATA_FILE_SETTINGS_KEY);
             CreateTableTree();
+            if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data!=null)
+            {
+                //read data if exists
+
+                DataSet dataSet = _dataEditor.Data;
+                dataSet.ReadXml(_dataEditor.DataFileName);
+            }
             _dataEditor.CreateInitialPage();
+
         }
 
         private void SaveSettings()

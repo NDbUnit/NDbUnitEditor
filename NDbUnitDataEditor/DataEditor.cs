@@ -160,7 +160,7 @@ namespace NDbUnitDataEditor
 
         private TabPage AddTabPage(string tabName)
         {
-            tbTableViews.TabPages.Add(tabName);
+            tbTableViews.TabPages.Add(tabName, tabName);
             TabPage page = GetTabPage(tabName);
 
             TableView view = new TableView(tabName) { Dock = DockStyle.Fill };
@@ -302,15 +302,20 @@ namespace NDbUnitDataEditor
             btnSaveData.Enabled = true;
         }
 
-
+        public bool TabIsMarkedAsEdited(string tabName)
+        {
+            var selectedTab = tbTableViews.TabPages[tabName];
+            string title = selectedTab.Text;
+            if (title.EndsWith("*"))
+                return true;
+            return false;
+        }
 
         public void MarkTabAsEdited(string tabName)
         {
             var selectedTab = tbTableViews.TabPages[tabName];
             string title = selectedTab.Text;
-            if (!title.EndsWith("*"))
-                title = string.Format("{0} *", title);
-            selectedTab.Text = title;
+            selectedTab.Text = string.Format("{0} *", title);     
         }
 
 
@@ -328,6 +333,13 @@ namespace NDbUnitDataEditor
                 }
                 tab.Text = title;
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.S))
+                SaveData();
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
 
