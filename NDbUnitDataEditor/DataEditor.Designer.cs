@@ -28,6 +28,7 @@ namespace NDbUnitDataEditor
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataEditor));
             this.btnClose = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -51,10 +52,15 @@ namespace NDbUnitDataEditor
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllButThisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeActiveTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -245,6 +251,7 @@ namespace NDbUnitDataEditor
             this.tbTableViews.SelectedIndex = 0;
             this.tbTableViews.Size = new System.Drawing.Size(613, 493);
             this.tbTableViews.TabIndex = 9;
+            this.tbTableViews.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbTableViews_MouseClick);
             // 
             // splitContainer1
             // 
@@ -269,6 +276,33 @@ namespace NDbUnitDataEditor
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeActiveTabToolStripMenuItem,
+            this.closeAllButThisToolStripMenuItem,
+            this.closeAllTabsToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 70);
+            // 
+            // closeAllTabsToolStripMenuItem
+            // 
+            this.closeAllTabsToolStripMenuItem.Name = "closeAllTabsToolStripMenuItem";
+            this.closeAllTabsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeAllTabsToolStripMenuItem.Text = "Close all tabs";
+            // 
+            // closeAllButThisToolStripMenuItem
+            // 
+            this.closeAllButThisToolStripMenuItem.Name = "closeAllButThisToolStripMenuItem";
+            this.closeAllButThisToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.closeAllButThisToolStripMenuItem.Text = "Close all but this";
+            // 
+            // closeActiveTabToolStripMenuItem
+            // 
+            this.closeActiveTabToolStripMenuItem.Name = "closeActiveTabToolStripMenuItem";
+            this.closeActiveTabToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.closeActiveTabToolStripMenuItem.Text = "Close active tab";
+            // 
             // DataEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +321,7 @@ namespace NDbUnitDataEditor
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,6 +351,10 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.ToolStripButton btnNewGuid;
         private System.Windows.Forms.ToolStripButton btnDataSetFromDatabase;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem closeAllTabsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeActiveTabToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeAllButThisToolStripMenuItem;
     }
 }
 

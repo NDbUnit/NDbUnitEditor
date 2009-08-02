@@ -162,7 +162,7 @@ namespace NDbUnitDataEditor
         {
             tbTableViews.TabPages.Add(tabName, tabName);
             TabPage page = GetTabPage(tabName);
-
+            //page.ContextMenuStrip = contextMenuStrip1;
             TableView view = new TableView(tabName) { Dock = DockStyle.Fill };
             view.TableViewChanged+=new TableViewEventHandler(TabPageEdited);
             page.Controls.Add(view);
@@ -340,6 +340,14 @@ namespace NDbUnitDataEditor
             if (keyData == (Keys.Control | Keys.S))
                 SaveData();
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void tbTableViews_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.contextMenuStrip1.Show(this.tbTableViews, e.Location);
+            }
         }
 
 
