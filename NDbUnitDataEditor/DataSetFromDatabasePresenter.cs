@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
+using NDbUnit.Core;
 
 namespace NDbUnitDataEditor
 {
@@ -43,7 +45,15 @@ namespace NDbUnitDataEditor
             OracleClient
         }
 
+        private INDbUnitTest _database;
+
+        private System.Data.IDbConnection _databaseConnection;
+
+        private string _databaseConnectionString;
+
         private DatabaseClientType _databaseType;
+
+        private DataSet _dataSet;
 
         IDataSetFromDatabaseView _dataSetFromDatabase;
 
@@ -54,21 +64,99 @@ namespace NDbUnitDataEditor
         public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase)
         {
             _dataSetFromDatabase = dataSetFromDatabase;
-            _dataSetFromDatabase.FillDataSetFromDatabase += FillDataSetFromDatabase;
+            _dataSetFromDatabase.GetDataSetFromDatabase += GetDataSetFromDatabase;
+            _dataSetFromDatabase.PutDataSetToDatabase += PutDataSetToDatabase;
             _dataSetFromDatabase.TestDatabaseConnection += TestDatabaseConnection;
             _dataSetFromDatabase.SelectDatabaseType += SetDatabaseType;
             FillPresenterWithSupportedDatabaseTypesList();
         }
 
+        public string DatabaseConnectionString
+        {
+            get
+            {
+                return _databaseConnectionString;
+            }
+            set
+            {
+                _databaseConnectionString = value;
+            }
+        }
+
+        public DatabaseClientType DatabaseType
+        {
+            get
+            {
+                return _databaseType;
+            }
+            set
+            {
+                _databaseType = value;
+            }
+        }
+
+        public DataSet DataSet
+        {
+            get
+            {
+                return _dataSet;
+            }
+        }
+
+        public bool DataSetFromDatabaseResult { get; set; }
+
+        public string XmlFilePath { get; set; }
+
+        public string XsdFilePath { get; set; }
+
         public void Start()
         {
+            _dataSetFromDatabase.DatabaseConnectionString = DatabaseConnectionString;
             _dataSetFromDatabase.Run();
         }
 
-        private void FillDataSetFromDatabase()
+        private void BuildNDbUnitInstance()
         {
-            //TODO: code this so that the dataset is filled from the database in this method!
-            throw new NotImplementedException("method not implemented!");
+
+            _databaseConnectionString = _dataSetFromDatabase.DatabaseConnectionString;
+            switch (_databaseType)
+            {
+                case DatabaseClientType.MySqlClient:
+                    {
+                        _databaseConnection = new MySql.Data.MySqlClient.MySqlConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Core.MySqlClient.MySqlDbUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                case DatabaseClientType.OleDBClient:
+                    {
+                        _databaseConnection = new System.Data.OleDb.OleDbConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Core.OleDb.OleDbUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                case DatabaseClientType.OracleClient:
+                    throw new InvalidOperationException("Oracle Client is not yet supported by NDbUnit!");
+                case DatabaseClientType.SqlCeClient:
+                    {
+                        _databaseConnection = new System.Data.SqlServerCe.SqlCeConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Core.SqlServerCe.SqlCeUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                case DatabaseClientType.SqlClient:
+                    {
+                        _databaseConnection = new System.Data.SqlClient.SqlConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Core.SqlClient.SqlDbUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                case DatabaseClientType.SqliteClient:
+                    {
+                        _databaseConnection = new System.Data.SQLite.SQLiteConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Core.SqlLite.SqlLiteUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                default:
+                    throw new InvalidOperationException("you have selected an invalid database type!");
+            }
+
         }
 
         private void FillPresenterWithSupportedDatabaseTypesList()
@@ -84,32 +172,40 @@ namespace NDbUnitDataEditor
              };
         }
 
-        private System.Data.IDbConnection GetConnection()
+        private void GetDataSetFromDatabase()
         {
             try
             {
-                switch (_databaseType)
-                {
-                    case DatabaseClientType.MySqlClient:
-                        return new MySql.Data.MySqlClient.MySqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
-                    case DatabaseClientType.OleDBClient:
-                        return new System.Data.OleDb.OleDbConnection(_dataSetFromDatabase.DatabaseConnectionString);
-                    case DatabaseClientType.OracleClient:
-                        throw new InvalidOperationException("Oracle Client is not yet supported by NDbUnit!");
-                    case DatabaseClientType.SqlCeClient:
-                        return new System.Data.SqlServerCe.SqlCeConnection(_dataSetFromDatabase.DatabaseConnectionString);
-                    case DatabaseClientType.SqlClient:
-                        return new System.Data.SqlClient.SqlConnection(_dataSetFromDatabase.DatabaseConnectionString);
-                    case DatabaseClientType.SqliteClient:
-                        return new System.Data.SQLite.SQLiteConnection(_dataSetFromDatabase.DatabaseConnectionString);
-                    default:
-                        throw new InvalidOperationException("you have selected an invalid database type!");
-                }
+                SetupNDbUnitForUse();
+
+                _database.ReadXmlSchema(XsdFilePath);
+                _dataSet = _database.GetDataSetFromDb();
+                _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
+                DataSetFromDatabaseResult = true;
             }
             catch (Exception)
             {
-                //if anything went wrong with the attempt to construct the IDbConnection, just return NULL b/c we don't care why
-                return null;
+                _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
+                DataSetFromDatabaseResult = false;
+            }
+
+        }
+
+        private void PutDataSetToDatabase()
+        {
+            try
+            {
+                SetupNDbUnitForUse();
+
+                _database.ReadXmlSchema(XsdFilePath);
+                _database.ReadXml(XmlFilePath);
+                _database.PerformDbOperation(DbOperationFlag.CleanInsertIdentity);
+
+                _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
+            }
+            catch (Exception)
+            {
+                _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
             }
 
         }
@@ -119,20 +215,24 @@ namespace NDbUnitDataEditor
             _databaseType = _dataSetFromDatabase.SelectedDatabaseConnectionType;
         }
 
+        private void SetupNDbUnitForUse()
+        {
+            BuildNDbUnitInstance();
+        }
+
         private void TestDatabaseConnection()
         {
-            using (System.Data.IDbConnection conn = GetConnection())
+
+            try
             {
-                try
-                {
-                    conn.Open();
-                    conn.Close();
-                    _dataSetFromDatabase.ConnectionTestResult = true;
-                }
-                catch (Exception)
-                {
-                    _dataSetFromDatabase.ConnectionTestResult = false;
-                }
+                BuildNDbUnitInstance();
+                _databaseConnection.Open();
+                _databaseConnection.Close();
+                _dataSetFromDatabase.ConnectionTestResult = true;
+            }
+            catch (Exception)
+            {
+                _dataSetFromDatabase.ConnectionTestResult = false;
             }
 
         }

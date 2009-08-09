@@ -11,6 +11,7 @@ namespace NDbUnitDataEditor
         {
             MessageBox.Show(message);
         }
+
     }
 
 }

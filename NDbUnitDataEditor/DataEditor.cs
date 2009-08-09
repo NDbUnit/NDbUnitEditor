@@ -13,11 +13,13 @@ namespace NDbUnitDataEditor
     {
         string _dataFileName = null;
 
+        private DataSet _dataSet = null;
+
+        private bool _dataSetLoadedFromDatabase;
+
         private string _newGuid;
 
         string _schemaFileName = null;
-
-        DataSet dataSet1 = null;
 
         public event EditorEventHandler ApplicationClose;
 
@@ -27,6 +29,8 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler CreateGuid;
 
+        public event TableViewEventHandler DataViewChanged;
+
         public event EditorEventHandler GetDataSetFromDatabase;
 
         public event EditorEventHandler Initialize;
@@ -35,24 +39,26 @@ namespace NDbUnitDataEditor
 
         public event EditorEventHandler SaveData;
 
-        public event TableViewEventHandler DataViewChanged;
-
         public DataEditor()
         {
             InitializeComponent();
-            dataSet1 = new DataSet();
+            _dataSet = new DataSet();
             Text += String.Format(" v{0}", Application.ProductVersion);
         }
+
+        public string DatabaseClientType { get; set; }
+
+        public string DatabaseConnectionString { get; set; }
 
         public DataSet Data
         {
             get
             {
-                return dataSet1;
+                return _dataSet;
             }
             set
             {
-                dataSet1 = value;
+                _dataSet = value;
             }
         }
 
@@ -62,7 +68,6 @@ namespace NDbUnitDataEditor
             {
                 return _dataFileName;
             }
-
             set
             {
                 txtDataFileName.Text = System.IO.Path.GetFileName(value);
@@ -114,10 +119,10 @@ namespace NDbUnitDataEditor
         {
             treeView1.Nodes.Clear();
 
-            TreeNode root = treeView1.Nodes.Add("dataset", dataSet1.DataSetName);
-            if (dataSet1.Tables != null && dataSet1.Tables.Count > 0)
+            TreeNode root = treeView1.Nodes.Add("dataset", _dataSet.DataSetName);
+            if (_dataSet.Tables != null && _dataSet.Tables.Count > 0)
             {
-                foreach (DataTable table in dataSet1.Tables)
+                foreach (DataTable table in _dataSet.Tables)
                 {
                     string key = String.Format("Table-{0}", table.TableName);
                     root.Nodes.Add(key, table.TableName);
@@ -134,11 +139,44 @@ namespace NDbUnitDataEditor
 
         public void CreateInitialPage()
         {
-            if (dataSet1.Tables != null && dataSet1.Tables.Count > 0)
+            if (_dataSet.Tables != null && _dataSet.Tables.Count > 0)
             {
-                DataTable table = dataSet1.Tables[0];
+                DataTable table = _dataSet.Tables[0];
                 AddTabPage(table.TableName);
                 BindDataTable(table);
+            }
+        }
+
+        public bool DataSetHasChanges()
+        {
+            return (_dataSetLoadedFromDatabase || _dataSet.HasChanges());
+        }
+
+        public void EnableSaveButton()
+        {
+            btnSaveData.Enabled = true;
+        }
+
+        public void MarkTabAsEdited(string tabName)
+        {
+            var selectedTab = tbTableViews.TabPages[tabName];
+            string title = selectedTab.Text;
+            selectedTab.Text = string.Format("{0} *", title);
+        }
+
+        public void RemoveEditedMarksFromAllTabs()
+        {
+            if (tbTableViews.TabCount == 0)
+                return;
+
+            foreach (TabPage tab in tbTableViews.TabPages)
+            {
+                string title = tab.Text;
+                if (title.EndsWith(" *"))
+                {
+                    title = title.Remove(title.LastIndexOf(" *"));
+                }
+                tab.Text = title;
             }
         }
 
@@ -157,6 +195,26 @@ namespace NDbUnitDataEditor
             return selectedFileName;
         }
 
+        public void SetDataSetChanged()
+        {
+            _dataSetLoadedFromDatabase = true;
+        }
+
+        public bool TabIsMarkedAsEdited(string tabName)
+        {
+            var selectedTab = tbTableViews.TabPages[tabName];
+            string title = selectedTab.Text;
+            if (title.EndsWith("*"))
+                return true;
+            return false;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.S))
+                SaveData();
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         private TabPage AddTabPage(string tabName)
         {
@@ -164,15 +222,10 @@ namespace NDbUnitDataEditor
             TabPage page = GetTabPage(tabName);
             //page.ContextMenuStrip = contextMenuStrip1;
             TableView view = new TableView(tabName) { Dock = DockStyle.Fill };
-            view.TableViewChanged+=new TableViewEventHandler(TabPageEdited);
+            view.TableViewChanged += new TableViewEventHandler(TabPageEdited);
             page.Controls.Add(view);
 
             return page;
-        }
-
-        private void TabPageEdited(TableViewEventArguments args)
-        {
-            DataViewChanged(args);
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
@@ -195,8 +248,8 @@ namespace NDbUnitDataEditor
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (dataSet1.HasChanges() && MessageBox.Show("Do you want to save changes before closing?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                dataSet1.WriteXml(DataFileName);
+            if (DataSetHasChanges() && MessageBox.Show("Do you want to save changes before closing?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                _dataSet.WriteXml(DataFileName);
             Close();
             ApplicationClose();
         }
@@ -205,6 +258,11 @@ namespace NDbUnitDataEditor
         {
             if (tbTableViews.SelectedTab != null)
                 tbTableViews.TabPages.Remove(tbTableViews.SelectedTab);
+        }
+
+        private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
+        {
+            GetDataSetFromDatabase();
         }
 
         private void btnNewGuid_Click(object sender, EventArgs e)
@@ -269,9 +327,22 @@ namespace NDbUnitDataEditor
                 page = AddTabPage(tbName);
             tbTableViews.SelectedTab = page;
 
-            foreach (DataTable table in dataSet1.Tables)
+            foreach (DataTable table in _dataSet.Tables)
                 if (tbName == table.TableName)
                     BindDataTable(table);
+        }
+
+        private void TabPageEdited(TableViewEventArguments args)
+        {
+            DataViewChanged(args);
+        }
+
+        private void tbTableViews_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                this.contextMenuStrip1.Show(this.tbTableViews, e.Location);
+            }
         }
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -284,11 +355,6 @@ namespace NDbUnitDataEditor
 
         }
 
-        private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
-        {
-            GetDataSetFromDatabase();
-        }
-
         private void txtSchemaFileName_TextChanged(object sender, EventArgs e)
         {
             if (SchemaFileName != "")
@@ -296,62 +362,6 @@ namespace NDbUnitDataEditor
                 btnReload.Enabled = true;
             }
         }
-
-        public void EnableSaveButton()
-        {
-            btnSaveData.Enabled = true;
-        }
-
-        public bool TabIsMarkedAsEdited(string tabName)
-        {
-            var selectedTab = tbTableViews.TabPages[tabName];
-            string title = selectedTab.Text;
-            if (title.EndsWith("*"))
-                return true;
-            return false;
-        }
-
-        public void MarkTabAsEdited(string tabName)
-        {
-            var selectedTab = tbTableViews.TabPages[tabName];
-            string title = selectedTab.Text;
-            selectedTab.Text = string.Format("{0} *", title);     
-        }
-
-
-        public void RemoveEditedMarksFromAllTabs()
-        {
-            if (tbTableViews.TabCount == 0)
-                return;
-
-            foreach (TabPage tab in tbTableViews.TabPages)
-            {
-                string title = tab.Text;
-                if (title.EndsWith(" *"))
-                {
-                    title = title.Remove(title.LastIndexOf(" *"));
-                }
-                tab.Text = title;
-            }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Control | Keys.S))
-                SaveData();
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void tbTableViews_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                this.contextMenuStrip1.Show(this.tbTableViews, e.Location);
-            }
-        }
-
-
-
 
     }
 }

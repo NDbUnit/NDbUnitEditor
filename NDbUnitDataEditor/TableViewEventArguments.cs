@@ -2,9 +2,10 @@ using System;
 
 namespace NDbUnitDataEditor
 {
-    public class TableViewEventArguments: EventArgs
+    public class TableViewEventArguments : EventArgs
     {
         private string _tabName = null;
+
         public TableViewEventArguments(string tabName)
         {
             _tabName = tabName;
@@ -17,5 +18,6 @@ namespace NDbUnitDataEditor
                 return _tabName;
             }
         }
+
     }
 }

@@ -20,5 +20,6 @@ namespace NDbUnitDataEditor
             DataEditorPresenter presenter = IoC.Resolve<DataEditorPresenter>();
             presenter.Start();
         }
+
     }
 }

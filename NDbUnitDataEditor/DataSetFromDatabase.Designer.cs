@@ -33,7 +33,8 @@
             this.btnTestConnection = new System.Windows.Forms.Button();
             this.cboDatabaseType = new System.Windows.Forms.ComboBox();
             this.lblDatabaseType = new System.Windows.Forms.Label();
-            this.btnFillDataSet = new System.Windows.Forms.Button();
+            this.btnGetDataSetFromDatabase = new System.Windows.Forms.Button();
+            this.btnPutDataSetToDatabase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblConnectionString
@@ -80,22 +81,33 @@
             this.lblDatabaseType.TabIndex = 4;
             this.lblDatabaseType.Text = "Database Type";
             // 
-            // btnFillDataSet
+            // btnGetDataSetFromDatabase
             // 
-            this.btnFillDataSet.Location = new System.Drawing.Point(581, 70);
-            this.btnFillDataSet.Name = "btnFillDataSet";
-            this.btnFillDataSet.Size = new System.Drawing.Size(130, 23);
-            this.btnFillDataSet.TabIndex = 5;
-            this.btnFillDataSet.Text = "Fill DataSet";
-            this.btnFillDataSet.UseVisualStyleBackColor = true;
-            this.btnFillDataSet.Click += new System.EventHandler(this.btnFillDataSet_Click);
+            this.btnGetDataSetFromDatabase.Location = new System.Drawing.Point(581, 70);
+            this.btnGetDataSetFromDatabase.Name = "btnGetDataSetFromDatabase";
+            this.btnGetDataSetFromDatabase.Size = new System.Drawing.Size(130, 23);
+            this.btnGetDataSetFromDatabase.TabIndex = 5;
+            this.btnGetDataSetFromDatabase.Text = "Database to DataSet";
+            this.btnGetDataSetFromDatabase.UseVisualStyleBackColor = true;
+            this.btnGetDataSetFromDatabase.Click += new System.EventHandler(this.btnGetDataSetFromDatabase_Click);
+            // 
+            // btnPutDataSetToDatabase
+            // 
+            this.btnPutDataSetToDatabase.Location = new System.Drawing.Point(581, 99);
+            this.btnPutDataSetToDatabase.Name = "btnPutDataSetToDatabase";
+            this.btnPutDataSetToDatabase.Size = new System.Drawing.Size(130, 23);
+            this.btnPutDataSetToDatabase.TabIndex = 6;
+            this.btnPutDataSetToDatabase.Text = "DataSet to Database";
+            this.btnPutDataSetToDatabase.UseVisualStyleBackColor = true;
+            this.btnPutDataSetToDatabase.Click += new System.EventHandler(this.btnPutDataSetToDatabase_Click);
             // 
             // DataSetFromDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 105);
-            this.Controls.Add(this.btnFillDataSet);
+            this.ClientSize = new System.Drawing.Size(723, 151);
+            this.Controls.Add(this.btnPutDataSetToDatabase);
+            this.Controls.Add(this.btnGetDataSetFromDatabase);
             this.Controls.Add(this.lblDatabaseType);
             this.Controls.Add(this.cboDatabaseType);
             this.Controls.Add(this.btnTestConnection);
@@ -107,7 +119,7 @@
             this.Name = "DataSetFromDatabase";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Fill DataSet from Database";
+            this.Text = "Sync DataSet with Database";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,6 +132,7 @@
         private System.Windows.Forms.Button btnTestConnection;
         private System.Windows.Forms.ComboBox cboDatabaseType;
         private System.Windows.Forms.Label lblDatabaseType;
-        private System.Windows.Forms.Button btnFillDataSet;
+        private System.Windows.Forms.Button btnGetDataSetFromDatabase;
+        private System.Windows.Forms.Button btnPutDataSetToDatabase;
     }
 }

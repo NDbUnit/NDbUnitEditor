@@ -11,7 +11,7 @@ namespace NDbUnitDataEditor.UI
         {
             CustomFileDialog fileDialog = new CustomFileDialog(dialogType);
             fileDialog.Filter = filter;
-            
+
             return fileDialog;
         }
 
@@ -20,5 +20,6 @@ namespace NDbUnitDataEditor.UI
             MessageDialog dialog = new MessageDialog();
             return dialog;
         }
+
     }
 }
