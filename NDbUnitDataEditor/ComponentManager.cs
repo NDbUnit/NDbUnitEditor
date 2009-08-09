@@ -9,7 +9,6 @@ using Rhino.Commons;
 using NDbUnit.Utility;
 using NDbUnitDataEditor.UI;
 
-
 namespace NDbUnitDataEditor
 {
     public class ComponentManager
@@ -27,7 +26,8 @@ namespace NDbUnitDataEditor
             container.Register(Component.For<IDataSetFromDatabaseView>().ImplementedBy<DataSetFromDatabase>().LifeStyle.Transient);
             container.Register(Component.For<DataSetFromDatabasePresenter>().ImplementedBy<DataSetFromDatabasePresenter>().LifeStyle.Transient);
             IoC.Initialize(container);
-            
+
         }
+
     }
 }

@@ -15,6 +15,8 @@ namespace NDbUnitDataEditor
 
     public interface IDataEditorView
     {
+        bool DataSetHasChanges();
+        void SetDataSetChanged();
         bool TabIsMarkedAsEdited(string tabName);
         void RemoveEditedMarksFromAllTabs();
         void MarkTabAsEdited(string tabName);
@@ -38,5 +40,7 @@ namespace NDbUnitDataEditor
         void Run();
         string SchemaFileName { get; set; }
         string DataFileName { get; set; }
+        string DatabaseConnectionString { get; set; }
+        string DatabaseClientType { get; set; }
     }
 }

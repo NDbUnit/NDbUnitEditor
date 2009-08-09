@@ -8,17 +8,16 @@ using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
-    
 
     public partial class TableView : UserControl
     {
+        public event TableViewEventHandler TableViewChanged;
+
         public TableView(string name)
         {
             InitializeComponent();
             Name = name;
         }
-
-        public event TableViewEventHandler TableViewChanged;
 
         public object DataSource
         {
@@ -29,11 +28,10 @@ namespace NDbUnitDataEditor
             }
         }
 
-        private void TableView_Load(object sender, EventArgs e)
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1.AutoGenerateColumns = true;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.DataSource = bindingSource1;
+            TableViewEventArguments args = new TableViewEventArguments(Name);
+            TableViewChanged(args);
         }
 
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -42,10 +40,11 @@ namespace NDbUnitDataEditor
                 MessageBox.Show("Please input value with correct type for this column", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void TableView_Load(object sender, EventArgs e)
         {
-            TableViewEventArguments args = new TableViewEventArguments(Name);
-            TableViewChanged(args);
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.DataSource = bindingSource1;
         }
 
     }

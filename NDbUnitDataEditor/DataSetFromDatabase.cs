@@ -10,7 +10,11 @@ namespace NDbUnitDataEditor
 {
     public partial class DataSetFromDatabase : Form, IDataSetFromDatabaseView
     {
-        public event DataSetFromDatabaseEvent FillDataSetFromDatabase;
+        private string _databaseConnectionString;
+
+        public event DataSetFromDatabaseEvent GetDataSetFromDatabase;
+
+        public event DataSetFromDatabaseEvent PutDataSetToDatabase;
 
         public event DataSetFromDatabaseEvent SelectDatabaseType;
 
@@ -34,7 +38,14 @@ namespace NDbUnitDataEditor
 
         public string DatabaseConnectionString
         {
-            get { return txtConnectionString.Text; }
+            get
+            {
+                return _databaseConnectionString;
+            }
+            set
+            {
+                _databaseConnectionString = value;
+            }
         }
 
         public IList<DataSetFromDatabasePresenter.DatabaseClientType> DatabaseConnectionTypes
@@ -45,19 +56,51 @@ namespace NDbUnitDataEditor
             }
         }
 
+        public bool GetDataSetFromDatabaseResult
+        {
+            set
+            {
+                if (value)
+                    MessageBox.Show("DataSet Filled from Database Successfully.", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Unable to Fill DataSet from Database!", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public bool PutDataSetToDatabaseResult
+        {
+            set
+            {
+                if (value)
+                    MessageBox.Show("Database Successfully updated with Current DataSet.", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Unable to update Database with current DataSet!", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public DataSetFromDatabasePresenter.DatabaseClientType SelectedDatabaseConnectionType
         {
             get { return (DataSetFromDatabasePresenter.DatabaseClientType)cboDatabaseType.SelectedValue; }
         }
 
+        public string XmlFilePathName { get; set; }
+
+        public string XsdFilePathName { get; set; }
+
         public void Run()
         {
+            txtConnectionString.Text = DatabaseConnectionString;
             this.ShowDialog();
         }
 
-        private void btnFillDataSet_Click(object sender, EventArgs e)
+        private void btnGetDataSetFromDatabase_Click(object sender, EventArgs e)
         {
-            FillDataSetFromDatabase();
+            GetDataSetFromDatabase();
+        }
+
+        private void btnPutDataSetToDatabase_Click(object sender, EventArgs e)
+        {
+            PutDataSetToDatabase();
         }
 
         private void btnTestConnection_Click(object sender, EventArgs e)

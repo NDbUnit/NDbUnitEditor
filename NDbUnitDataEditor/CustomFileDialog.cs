@@ -7,7 +7,8 @@ namespace NDbUnitDataEditor.UI
 {
     public class CustomFileDialog : IFileDialog
     {
-        FileDialog _dialog=null;
+        FileDialog _dialog = null;
+
         /// <summary>
         /// Initializes a new instance of the FileDialog class.
         /// </summary>
@@ -22,15 +23,22 @@ namespace NDbUnitDataEditor.UI
             }
         }
 
+        public string FileName
+        {
+            get
+            {
+                return _dialog.FileName;
+            }
+        }
+
         public string Filter
         {
             get { return _dialog.Filter; }
             set
             {
-            	_dialog.Filter = value;
+                _dialog.Filter = value;
             }
         }
-
 
         public FileDialogResult Show()
         {
@@ -41,12 +49,5 @@ namespace NDbUnitDataEditor.UI
                 return FileDialogResult.Cancel;
         }
 
-        public string FileName
-        {
-            get
-            {
-                return _dialog.FileName;
-            }
-        }
     }
 }
