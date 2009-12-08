@@ -28,7 +28,7 @@ namespace NDbUnitDataEditor
         event EditorEventHandler ApplicationClose;
         event EditorEventHandler BrowseForSchemaFile;
         string NewGuid { get; set; }
-        string SelectFile();
+        string SelectFile(string initialFilename, string selectionFilter);
         event EditorEventHandler BrowseForDataFile;
         DataSet Data { get; set; }
         void BindTableTree();
