@@ -6,6 +6,7 @@ using System.Data;
 using NDbUnit.Utility;
 using Rhino.Commons;
 using NDbUnitDataEditor.UI;
+using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
@@ -63,7 +64,7 @@ namespace NDbUnitDataEditor
             }
             catch (Exception ex)
             {
-                messageDialog.Show(String.Format("Unable to create schema tree. Exception:{0}", ex));
+                messageDialog.ShowError(String.Format("Unable to create schema tree. Exception:{0}", ex));
             }
         }
 
@@ -90,28 +91,20 @@ namespace NDbUnitDataEditor
 
                 DataSet dataSet = _dataEditor.Data;
                 string dataFileName = _dataEditor.DataFileName;
-                if (String.IsNullOrEmpty(dataFileName))
+
+                string errorMessage = ValidateInputBeforeReload(dataSet, dataFileName);
+                if (errorMessage != string.Empty)
                 {
-                    messageDialog.Show("Cannot load data. Please select data file name first");
-                    return;
-                }
-                if (dataSet == null)
-                {
-                    messageDialog.Show("Cannot find schema. Please make sure that there is a database schema loaded.");
+                    messageDialog.ShowError(errorMessage, "Error loading DataSet");
                     return;
                 }
 
-                if (!System.IO.File.Exists(dataFileName))
-                {
-                    messageDialog.Show("Specified file does not exists.");
-                    return;
-                }
                 _dataEditor.CloseAllTabs();
                 dataSet.ReadXml(dataFileName);
             }
             catch (Exception ex)
             {
-                messageDialog.Show(String.Format("Unspecified error occured. Exception: {0}", ex.Message));
+                messageDialog.ShowError(String.Format("Unspecified error occured. Exception: {0}", ex.Message));
                 //TODO: add some sort of error logging here
             }
 
@@ -127,14 +120,14 @@ namespace NDbUnitDataEditor
 
         public void SelectDataFile()
         {
-            string fileName = _dataEditor.SelectFile(string.Empty, "XML Data Files (*.xml)|*.xml");
+            string fileName = _dataEditor.SelectFile(_dataEditor.DataFileName, "XML Data Files (*.xml)|*.xml");
             if (!String.IsNullOrEmpty(fileName))
                 _dataEditor.DataFileName = fileName;
         }
 
         public void SelectSchemaFile()
         {
-            string fileName = _dataEditor.SelectFile(string.Empty, "XSD Schema Files (*.xsd)|*.xsd");
+            string fileName = _dataEditor.SelectFile(_dataEditor.SchemaFileName, "XSD Schema Files (*.xsd)|*.xsd");
             if (!String.IsNullOrEmpty(fileName))
             {
                 _dataEditor.SchemaFileName = fileName;
@@ -201,7 +194,7 @@ namespace NDbUnitDataEditor
             {
                 if (dataSet == null)
                 {
-                    messageDialog.Show("Cannot find schema. Please make sure that there is a database schema loaded.");
+                    messageDialog.ShowError("Cannot find schema. Please make sure that there is a database schema loaded.");
                     return;
                 }
                 string fileName = _dataEditor.DataFileName;
@@ -217,7 +210,7 @@ namespace NDbUnitDataEditor
                 string path = System.IO.Path.GetDirectoryName(fileName);
                 if (!System.IO.Directory.Exists(path))
                 {
-                    messageDialog.Show("Cannot save specified file");
+                    messageDialog.ShowError("Cannot save specified file");
                     return;
                 }
                 dataSet.WriteXml(fileName);
@@ -226,7 +219,7 @@ namespace NDbUnitDataEditor
             }
             catch (Exception ex)
             {
-                messageDialog.Show(String.Format("Unable to save file. Exception: {0}", ex.Message));
+                messageDialog.ShowError(String.Format("Unable to save file. Exception: {0}", ex.Message));
             }
         }
 
@@ -236,6 +229,25 @@ namespace NDbUnitDataEditor
             _userSettings.SaveSetting(SCHEMA_FILE_SETTINGS_KEY, _dataEditor.SchemaFileName);
             _userSettings.SaveSetting(DATABASE_CONNECTION_STRING_SETTINGS_KEY, _dataEditor.DatabaseConnectionString);
             _userSettings.SaveSetting(DATABASE_CLIENTTYPE_SETTINGS_KEY, _dataEditor.DatabaseClientType);
+        }
+
+        private string ValidateInputBeforeReload(DataSet dataSet, string fileName)
+        {
+            if (String.IsNullOrEmpty(fileName))
+            {
+                return "Cannot load data. Please select data file name first";
+            }
+            if (dataSet == null)
+            {
+                return "Cannot find schema. Please make sure that there is a database schema loaded.";
+            }
+
+            if (!System.IO.File.Exists(fileName))
+            {
+                return "Specified file does not exists.";
+            }
+
+            return string.Empty;
         }
 
     }
