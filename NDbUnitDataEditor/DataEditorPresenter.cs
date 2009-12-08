@@ -40,7 +40,7 @@ namespace NDbUnitDataEditor
             _dataEditor.ApplicationClose += SaveSettings;
             _dataEditor.CreateGuid += CreateGuid;
             _dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
-            _dataEditor.SaveData += new EditorEventHandler(SaveData);
+            _dataEditor.SaveData += SaveData;
             _dataEditor.DataViewChanged += HandleDataSetChange;
 
         }
@@ -127,14 +127,16 @@ namespace NDbUnitDataEditor
 
         public void SelectDataFile()
         {
-            string fileName = _dataEditor.SelectFile();
+            
+
+            string fileName = _dataEditor.SelectFile(string.Empty, "xml|XML Data File");
             if (!String.IsNullOrEmpty(fileName))
                 _dataEditor.DataFileName = fileName;
         }
 
         public void SelectSchemaFile()
         {
-            string fileName = _dataEditor.SelectFile();
+            string fileName = _dataEditor.SelectFile(string.Empty, "xsd|XSD Schema File");
             if (!String.IsNullOrEmpty(fileName))
             {
                 _dataEditor.SchemaFileName = fileName;

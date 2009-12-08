@@ -1,0 +1,12 @@
+-use MyMeta to connect to the DB and enumerate tables for user-selection (can use the simple example code from the myGen website for this!)
+-provide alpha-sorted list of table names; provide an easy 'select-all' and 'clear-all' tool for table selection
+-based on user-selected tables and database connection string, compose necessary settings for the input file (JobSettings.xml) for the template-gen job; possible that we will need to prompt user to select other settings (DB type?) too so that the .xml settings file is 'complete'; if too many settings start to stack up together, we may need to consider persisting them as either default settings or project-by-project settings
+-invoke ZEUSCMD.EXE and pass it the .xml settings file
+-load the XSD into the NDbUnitEditor; user must then save-as in order to overwrite the existing one they loaded in the beginning (or, if simpler, the resync-to-database option could just load the thing into memory in the NDbUnitEditor app and the 'save' target location could already be pointing to the location from which the file was loaded prior
+
+
+other ideas (uncertain which will be usesful)
+-invoke ZEUSCMD with the 'generate logfile' param, capture the log file and provide a viewer for it so that users can troubleshoot failures from within NDbUnitEditor
+-cram everything into a GUID-named working folder under the TEMP directory and clean it up after the run of the zeuscmd job
+-store everything the myGen process needs in a distributable ZIP file so that it can be versioned/deployed sep. from the app (?)
+-may need to add the 'provider' part of the connection string automatically for the user as its unlikely they can be trusted to provide it always!

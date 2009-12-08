@@ -46,10 +46,6 @@ namespace NDbUnitDataEditor
             Text += String.Format(" v{0}", Application.ProductVersion);
         }
 
-        public string DatabaseClientType { get; set; }
-
-        public string DatabaseConnectionString { get; set; }
-
         public DataSet Data
         {
             get
@@ -62,6 +58,10 @@ namespace NDbUnitDataEditor
             }
         }
 
+        public string DatabaseClientType { get; set; }
+
+        public string DatabaseConnectionString { get; set; }
+
         public string DataFileName
         {
             get
@@ -73,6 +73,19 @@ namespace NDbUnitDataEditor
                 txtDataFileName.Text = System.IO.Path.GetFileName(value);
                 txtDataFileName.ToolTipText = value;
                 _dataFileName = value;
+            }
+        }
+
+        
+        public string FileSelectFilter
+        {
+            get
+            {
+                return openFileDialog1.Filter;
+            }
+            set
+            {
+                openFileDialog1.Filter = value;
             }
         }
 
@@ -111,7 +124,6 @@ namespace NDbUnitDataEditor
                 TableView tbView = GetTabView(page);
                 tbView.DataSource = null;
                 tbView.DataSource = table;
-
             }
         }
 
@@ -139,7 +151,9 @@ namespace NDbUnitDataEditor
 
         public void CreateInitialPage()
         {
-            if (_dataSet.Tables != null && _dataSet.Tables.Count > 0)
+            if (_dataSet.Tables == null) return;
+
+            if (_dataSet.Tables.Count > 0)
             {
                 DataTable table = _dataSet.Tables[0];
                 AddTabPage(table.TableName);
@@ -185,9 +199,13 @@ namespace NDbUnitDataEditor
             Application.Run(this);
         }
 
-        public string SelectFile()
+        public string SelectFile(string initialFilename, string selectionFilter)
         {
+            openFileDialog1.FileName = initialFilename;
+            openFileDialog1.Filter = selectionFilter;
+
             string selectedFileName;
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 selectedFileName = openFileDialog1.FileName;
             else
