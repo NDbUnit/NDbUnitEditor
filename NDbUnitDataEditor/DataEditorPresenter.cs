@@ -127,16 +127,14 @@ namespace NDbUnitDataEditor
 
         public void SelectDataFile()
         {
-            
-
-            string fileName = _dataEditor.SelectFile(string.Empty, "xml|XML Data File");
+            string fileName = _dataEditor.SelectFile(string.Empty, "XML Data Files (*.xml)|*.xml");
             if (!String.IsNullOrEmpty(fileName))
                 _dataEditor.DataFileName = fileName;
         }
 
         public void SelectSchemaFile()
         {
-            string fileName = _dataEditor.SelectFile(string.Empty, "xsd|XSD Schema File");
+            string fileName = _dataEditor.SelectFile(string.Empty, "XSD Schema Files (*.xsd)|*.xsd");
             if (!String.IsNullOrEmpty(fileName))
             {
                 _dataEditor.SchemaFileName = fileName;
