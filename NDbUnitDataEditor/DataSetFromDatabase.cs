@@ -10,8 +10,6 @@ namespace NDbUnitDataEditor
 {
     public partial class DataSetFromDatabase : Form, IDataSetFromDatabaseView
     {
-        private string _databaseConnectionString;
-
         public event DataSetFromDatabaseEvent GetDataSetFromDatabase;
 
         public event DataSetFromDatabaseEvent PutDataSetToDatabase;
@@ -32,7 +30,7 @@ namespace NDbUnitDataEditor
                 if (value)
                     MessageBox.Show("Connection Successful", "Connection Test Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
-                    MessageBox.Show("Unable to connect to database!", "Connection Test Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("Unable to connect to database!\n{0}", ErrorMessage), "Connection Test Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -40,11 +38,11 @@ namespace NDbUnitDataEditor
         {
             get
             {
-                return _databaseConnectionString;
+                return txtConnectionString.Text;
             }
             set
             {
-                _databaseConnectionString = value;
+                txtConnectionString.Text = value;
             }
         }
 
@@ -55,6 +53,20 @@ namespace NDbUnitDataEditor
                 cboDatabaseType.DataSource = value;
             }
         }
+
+        public int DatabaseTypeSelectedIndex
+        {
+            get
+            {
+                return cboDatabaseType.SelectedIndex;
+            }
+            set
+            {
+                cboDatabaseType.SelectedIndex = value;
+            }
+        }
+
+        public string ErrorMessage { get; set; }
 
         public bool GetDataSetFromDatabaseResult
         {
@@ -105,6 +117,7 @@ namespace NDbUnitDataEditor
 
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
+
             TestDatabaseConnection();
         }
 

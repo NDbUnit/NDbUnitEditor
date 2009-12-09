@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 using Castle.Windsor;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
@@ -11,7 +10,7 @@ using NDbUnitDataEditor.UI;
 
 namespace NDbUnitDataEditor
 {
-    public class ComponentManager
+    public class ComponentRegistrar
     {
         public virtual void RegisterComponents()
         {
@@ -24,7 +23,7 @@ namespace NDbUnitDataEditor
                 .Parameters(Parameter.ForKey("configFileType").Eq(UserSettings.Config.PrivateFile.ToString()))
                 .Parameters(Parameter.ForKey("applicationName").Eq("NDbUnitEditor")));
             container.Register(Component.For<IDataSetFromDatabaseView>().ImplementedBy<DataSetFromDatabase>().LifeStyle.Transient);
-            container.Register(Component.For<DataSetFromDatabasePresenter>().ImplementedBy<DataSetFromDatabasePresenter>().LifeStyle.Transient);
+            container.Register(Component.For<DataSetFromDatabasePresenter>().ImplementedBy<DataSetFromDatabasePresenter>().LifeStyle.Singleton);
             IoC.Initialize(container);
 
         }

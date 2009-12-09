@@ -53,6 +53,7 @@ namespace NDbUnitDataEditor
 
         private DatabaseClientType _databaseType;
 
+        private int _databaseTypeSelectedIndex;
         private DataSet _dataSet;
 
         IDataSetFromDatabaseView _dataSetFromDatabase;
@@ -95,6 +96,17 @@ namespace NDbUnitDataEditor
             }
         }
 
+        public int DatabaseTypeSelectedIndex
+        {
+            get
+            {
+                return _databaseTypeSelectedIndex;
+            }
+            set
+            {
+                _databaseTypeSelectedIndex = value;
+            }
+        }
         public DataSet DataSet
         {
             get
@@ -112,6 +124,7 @@ namespace NDbUnitDataEditor
         public void Start()
         {
             _dataSetFromDatabase.DatabaseConnectionString = DatabaseConnectionString;
+            _dataSetFromDatabase.DatabaseTypeSelectedIndex = DatabaseTypeSelectedIndex;
             _dataSetFromDatabase.Run();
         }
 
@@ -183,7 +196,7 @@ namespace NDbUnitDataEditor
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
                 DataSetFromDatabaseResult = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
                 DataSetFromDatabaseResult = false;
@@ -203,7 +216,7 @@ namespace NDbUnitDataEditor
 
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
             }
@@ -222,16 +235,18 @@ namespace NDbUnitDataEditor
 
         private void TestDatabaseConnection()
         {
-
             try
             {
+                DatabaseConnectionString = _dataSetFromDatabase.DatabaseConnectionString;
+                DatabaseTypeSelectedIndex = _dataSetFromDatabase.DatabaseTypeSelectedIndex;
                 BuildNDbUnitInstance();
                 _databaseConnection.Open();
                 _databaseConnection.Close();
                 _dataSetFromDatabase.ConnectionTestResult = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _dataSetFromDatabase.ErrorMessage = ex.Message;
                 _dataSetFromDatabase.ConnectionTestResult = false;
             }
 
