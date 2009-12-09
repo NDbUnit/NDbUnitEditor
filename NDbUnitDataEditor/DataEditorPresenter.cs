@@ -88,7 +88,6 @@ namespace NDbUnitDataEditor
             IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
             try
             {
-
                 DataSet dataSet = _dataEditor.Data;
                 string dataFileName = _dataEditor.DataFileName;
 
@@ -99,7 +98,9 @@ namespace NDbUnitDataEditor
                     return;
                 }
 
-                _dataEditor.CloseAllTabs();
+                _dataEditor.CloseAllDocuments();
+                
+                dataSet.Clear();
                 dataSet.ReadXml(dataFileName);
             }
             catch (Exception ex)
@@ -160,7 +161,7 @@ namespace NDbUnitDataEditor
             {
                 _dataEditor.Data = presenter.DataSet;
                 _dataEditor.SetDataSetChanged();
-                _dataEditor.CloseAllTabs();
+                _dataEditor.CloseAllDocuments();
             }
 
             _dataEditor.DatabaseConnectionString = presenter.DatabaseConnectionString;

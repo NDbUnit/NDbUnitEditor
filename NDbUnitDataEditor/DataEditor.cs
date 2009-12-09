@@ -144,7 +144,7 @@ namespace NDbUnitDataEditor
             }
         }
 
-        public void CloseAllTabs()
+        public void CloseAllDocuments()
         {
             tbTableViews.TabPages.Clear();
         }

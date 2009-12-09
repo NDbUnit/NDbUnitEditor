@@ -20,14 +20,14 @@ namespace Tests.DataEditorPresenterTests
         {
             IDataEditorView view = _mocks.DynamicMock<IDataEditorView>();
             IEventRaiser eventRaiser = null;
-            DataSet dataSet = CreateDataSet(true);
+            DataSet dataSet = CreateDataSet();
             using (_mocks.Record())
             {
                 view.DataViewChanged += null;
                 eventRaiser = LastCall.IgnoreArguments().GetEventRaiser();
                 Expect.Call(() => view.MarkTabAsEdited("Tab1")).Repeat.Once();
-                
                 Expect.Call(view.Data).Return(dataSet);
+                Expect.Call(view.DataSetHasChanges()).Return(true);
             }
             _mocks.ReplayAll();
             DataEditorPresenter presenter = new DataEditorPresenter(view, null,null);
@@ -41,13 +41,14 @@ namespace Tests.DataEditorPresenterTests
         {
             IDataEditorView view = _mocks.DynamicMock<IDataEditorView>();
             IEventRaiser eventRaiser = null;
-            DataSet dataSet = CreateDataSet(false);
+            DataSet dataSet = CreateDataSet();
             using (_mocks.Record())
             {
                 view.DataViewChanged += null;
                 eventRaiser = LastCall.IgnoreArguments().GetEventRaiser();
                 Expect.Call(() => view.MarkTabAsEdited("Tab1")).Repeat.Never();
                 Expect.Call(view.Data).Return(dataSet);
+                Expect.Call(view.DataSetHasChanges()).Return(false);
             }
             _mocks.ReplayAll();
             DataEditorPresenter presenter = new DataEditorPresenter(view, null, null);
@@ -56,7 +57,7 @@ namespace Tests.DataEditorPresenterTests
             _mocks.VerifyAll();
         }
 
-        private DataSet CreateDataSet(bool hasChanges)
+        private DataSet CreateDataSet()
         {
             var dataset = new DataSet();
             DataTable table = dataset.Tables.Add("Tab1");
@@ -65,8 +66,8 @@ namespace Tests.DataEditorPresenterTests
             DataRow row = table.NewRow();
             row["Id"] = 1;
             table.Rows.Add(row);
-            if(!hasChanges)
-                table.AcceptChanges();
+            //if(!hasChanges)
+            //    table.AcceptChanges();
             return dataset;
 
         }
