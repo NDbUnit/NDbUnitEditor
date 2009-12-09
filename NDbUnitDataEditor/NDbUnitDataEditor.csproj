@@ -117,6 +117,7 @@
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="ComponentRegistrar.cs" />
+    <Compile Include="DatabaseClientType.cs" />
     <Compile Include="DataEditorPresenter.cs" />
     <Compile Include="DataSetFromDatabase.cs">
       <SubType>Form</SubType>
@@ -133,6 +134,7 @@
     <Compile Include="IDialogFactory.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="MessageDialog.cs" />
+    <Compile Include="NDbUnitManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

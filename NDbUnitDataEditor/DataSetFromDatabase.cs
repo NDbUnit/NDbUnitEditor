@@ -46,7 +46,7 @@ namespace NDbUnitDataEditor
             }
         }
 
-        public IList<DataSetFromDatabasePresenter.DatabaseClientType> DatabaseConnectionTypes
+        public IList<DatabaseClientType> DatabaseConnectionTypes
         {
             set
             {
@@ -75,7 +75,7 @@ namespace NDbUnitDataEditor
                 if (value)
                     MessageBox.Show("DataSet Filled from Database Successfully.", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
-                    MessageBox.Show("Unable to Fill DataSet from Database!", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("Unable to Fill DataSet from Database!\n{0}", ErrorMessage), "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -84,15 +84,15 @@ namespace NDbUnitDataEditor
             set
             {
                 if (value)
-                    MessageBox.Show("Database Successfully updated with Current DataSet.", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Database Successfully updated with Current DataSet.", "Database Update Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
-                    MessageBox.Show("Unable to update Database with current DataSet!", "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format("Unable to update Database with current DataSet!\n{0}", ErrorMessage), "DataSet Update Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public DataSetFromDatabasePresenter.DatabaseClientType SelectedDatabaseConnectionType
+        public DatabaseClientType SelectedDatabaseConnectionType
         {
-            get { return (DataSetFromDatabasePresenter.DatabaseClientType)cboDatabaseType.SelectedValue; }
+            get { return (DatabaseClientType)cboDatabaseType.SelectedValue; }
         }
 
         public string XmlFilePathName { get; set; }
