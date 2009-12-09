@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="yes"?>
+<DatabaseSchema xmlns="http://tempuri.org/DatabaseSchema.xsd">
+  <Role>
+    <ID>1</ID>
+    <Name>Admin</Name>
+    <Description>admin</Description>
+  </Role>
+  <Role>
+    <ID>2</ID>
+    <Name>User</Name>
+    <Description>user</Description>
+  </Role>
+  <User>
+    <ID>1</ID>
+    <FirstName>Steve</FirstName>
+    <LastName>Bohlen</LastName>
+    <Age>30</Age>
+  </User>
+  <User>
+    <ID>2</ID>
+    <FirstName>John</FirstName>
+    <LastName>Doe</LastName>
+    <Age>20</Age>
+    <SupervisorID>1</SupervisorID>
+  </User>
+</DatabaseSchema>

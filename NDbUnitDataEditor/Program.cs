@@ -13,8 +13,8 @@ namespace NDbUnitDataEditor
         [STAThread]
         static void Main()
         {
-            ComponentManager containerManager = new ComponentManager();
-            containerManager.RegisterComponents();
+            ComponentRegistrar registrar = new ComponentRegistrar();
+            registrar.RegisterComponents();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DataEditorPresenter presenter = IoC.Resolve<DataEditorPresenter>();
