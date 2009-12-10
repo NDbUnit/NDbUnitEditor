@@ -24,7 +24,7 @@ namespace NDbUnitDataEditor
                 .Parameters(Parameter.ForKey("applicationName").Eq("NDbUnitEditor")));
             container.Register(Component.For<IDataSetFromDatabaseView>().ImplementedBy<DataSetFromDatabase>().LifeStyle.Transient);
             container.Register(Component.For<DataSetFromDatabasePresenter>().LifeStyle.Singleton);
-            container.Register(Component.For<NDbUnitManager>().LifeStyle.Transient);
+            container.Register(Component.For<NDbUnitFacade>().LifeStyle.Transient);
             IoC.Initialize(container);
 
         }

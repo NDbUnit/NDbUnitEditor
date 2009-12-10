@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using NDbUnit.Core;
+using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
 
     public class DataSetFromDatabasePresenter
     {
-        private INDbUnitTest _database;
+        //private INDbUnitTest _database;
 
-        private IDbConnection _databaseConnection;
+        //private IDbConnection _databaseConnection;
 
         private string _databaseConnectionString;
 
@@ -23,21 +24,22 @@ namespace NDbUnitDataEditor
 
         IDataSetFromDatabaseView _dataSetFromDatabase;
 
-        private NDbUnitManager _nDbUnitManager;
+        private NDbUnitFacade _nDbUnit;
 
         /// <summary>
         /// Initializes a new instance of the DataSetFromDatabasePresenter class.
         /// </summary>
         /// <param name="nDbUnitManager"></param>
         /// <param name="dataSetFromDatabase"></param>
-        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitManager nDbUnitManager)
+        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitFacade nDbUnitManager)
         {
-            _nDbUnitManager = nDbUnitManager;
+            _nDbUnit = nDbUnitManager;
             _dataSetFromDatabase = dataSetFromDatabase;
             _dataSetFromDatabase.GetDataSetFromDatabase += GetDataSetFromDatabase;
             _dataSetFromDatabase.PutDataSetToDatabase += PutDataSetToDatabase;
             _dataSetFromDatabase.TestDatabaseConnection += TestDatabaseConnection;
             _dataSetFromDatabase.SelectDatabaseType += SetDatabaseType;
+            _dataSetFromDatabase.GetSchemaFromDatabase += GetSchemaFromDatabase;
             FillPresenterWithSupportedDatabaseTypesList();
         }
 
@@ -100,17 +102,16 @@ namespace NDbUnitDataEditor
 
         private void FillPresenterWithSupportedDatabaseTypesList()
         {
-            _dataSetFromDatabase.DatabaseConnectionTypes = _nDbUnitManager.GetSupportedClientTypesList();
+            _dataSetFromDatabase.DatabaseConnectionTypes = _nDbUnit.GetSupportedClientTypesList();
         }
 
         private void GetDataSetFromDatabase()
         {
             try
             {
-                SetupNDbUnitForUse();
+                SetupNDbUnit();
 
-                _database.ReadXmlSchema(XsdFilePath);
-                _dataSet = _database.GetDataSetFromDb();
+                _dataSet = _nDbUnit.GetDataSetFromDatabase(XsdFilePath);
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
                 DataSetFromDatabaseResult = true;
             }
@@ -123,16 +124,19 @@ namespace NDbUnitDataEditor
 
         }
 
+        private void GetSchemaFromDatabase()
+        {
+            //TODO: implement the ZEUSCMD-based script invocation class here
+            MessageBox.Show("Retrieving Schema!");
+        }
+
         private void PutDataSetToDatabase()
         {
             try
             {
-                SetupNDbUnitForUse();
+                SetupNDbUnit();
 
-                _database.ReadXmlSchema(XsdFilePath);
-                _database.ReadXml(XmlFilePath);
-                _database.PerformDbOperation(DbOperationFlag.CleanInsertIdentity);
-
+                _nDbUnit.PutDataSetToDatabase(XsdFilePath, XmlFilePath);
                 _dataSetFromDatabase.PutDataSetToDatabaseResult = true;
             }
             catch (Exception ex)
@@ -148,9 +152,9 @@ namespace NDbUnitDataEditor
             _databaseType = _dataSetFromDatabase.SelectedDatabaseConnectionType;
         }
 
-        private void SetupNDbUnitForUse()
+        private void SetupNDbUnit()
         {
-            _nDbUnitManager.BuildNDbUnitInstance(DatabaseConnectionString, DatabaseType, out _databaseConnection, out _database);
+            _nDbUnit.Setup(DatabaseConnectionString, DatabaseType);
         }
 
         private void TestDatabaseConnection()
@@ -159,10 +163,10 @@ namespace NDbUnitDataEditor
             {
                 DatabaseConnectionString = _dataSetFromDatabase.DatabaseConnectionString;
                 DatabaseTypeSelectedIndex = _dataSetFromDatabase.DatabaseTypeSelectedIndex;
-                SetupNDbUnitForUse();
-                _databaseConnection.Open();
-                _databaseConnection.Close();
-                _dataSetFromDatabase.ConnectionTestResult = true;
+
+                SetupNDbUnit();
+
+                _dataSetFromDatabase.ConnectionTestResult = _nDbUnit.TestConnection();
             }
             catch (Exception ex)
             {
