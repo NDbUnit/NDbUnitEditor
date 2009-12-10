@@ -10,13 +10,15 @@ namespace NDbUnitDataEditor
 {
     public partial class DataSetFromDatabase : Form, IDataSetFromDatabaseView
     {
-        public event DataSetFromDatabaseEvent GetDataSetFromDatabase;
+        public event DataSetDatabaseEvent GetDataSetFromDatabase;
 
-        public event DataSetFromDatabaseEvent PutDataSetToDatabase;
+        public event DataSetDatabaseEvent GetSchemaFromDatabase;
 
-        public event DataSetFromDatabaseEvent SelectDatabaseType;
+        public event DataSetDatabaseEvent PutDataSetToDatabase;
 
-        public event DataSetFromDatabaseEvent TestDatabaseConnection;
+        public event DataSetDatabaseEvent SelectDatabaseType;
+
+        public event DataSetDatabaseEvent TestDatabaseConnection;
 
         public DataSetFromDatabase()
         {
@@ -107,23 +109,32 @@ namespace NDbUnitDataEditor
 
         private void btnGetDataSetFromDatabase_Click(object sender, EventArgs e)
         {
-            GetDataSetFromDatabase();
+            if (GetDataSetFromDatabase != null)
+                GetDataSetFromDatabase();
+        }
+
+        private void btnGetSchemaFromDatabase_Click(object sender, EventArgs e)
+        {
+            if (GetSchemaFromDatabase != null)
+                GetSchemaFromDatabase();
         }
 
         private void btnPutDataSetToDatabase_Click(object sender, EventArgs e)
         {
-            PutDataSetToDatabase();
+            if (PutDataSetToDatabase != null)
+                PutDataSetToDatabase();
         }
 
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
-
-            TestDatabaseConnection();
+            if (TestDatabaseConnection != null)
+                TestDatabaseConnection();
         }
 
         private void cboDatabaseType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectDatabaseType();
+            if (SelectDatabaseType != null)
+                SelectDatabaseType();
         }
 
     }

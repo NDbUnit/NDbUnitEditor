@@ -5,14 +5,15 @@ using System.Text;
 namespace NDbUnitDataEditor
 {
 
-    public delegate void DataSetFromDatabaseEvent();
+    public delegate void DataSetDatabaseEvent();
 
     public interface IDataSetFromDatabaseView
     {
-        event DataSetFromDatabaseEvent TestDatabaseConnection;
-        event DataSetFromDatabaseEvent GetDataSetFromDatabase;
-        event DataSetFromDatabaseEvent PutDataSetToDatabase;
-        event DataSetFromDatabaseEvent SelectDatabaseType;
+        event DataSetDatabaseEvent TestDatabaseConnection;
+        event DataSetDatabaseEvent GetDataSetFromDatabase;
+        event DataSetDatabaseEvent GetSchemaFromDatabase;
+        event DataSetDatabaseEvent PutDataSetToDatabase;
+        event DataSetDatabaseEvent SelectDatabaseType;
         int DatabaseTypeSelectedIndex { get; set; }
         void Run();
         string ErrorMessage { get; set; }

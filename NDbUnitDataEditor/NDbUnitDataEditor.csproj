@@ -134,7 +134,7 @@
     <Compile Include="IDialogFactory.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="MessageDialog.cs" />
-    <Compile Include="NDbUnitManager.cs" />
+    <Compile Include="NDbUnitFacade.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
