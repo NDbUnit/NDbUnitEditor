@@ -212,6 +212,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NDbUnitDataEditor.Abstractions\NDbUnitDataEditor.Abstractions.csproj">
+      <Project>{2D2908FB-1BF3-4133-930C-2C527A8985D2}</Project>
+      <Name>NDbUnitDataEditor.Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserSettings\UserSettings.csproj">
       <Project>{752B3247-A20D-4CFF-B8A5-AFA8D791F0AC}</Project>
       <Name>UserSettings</Name>
