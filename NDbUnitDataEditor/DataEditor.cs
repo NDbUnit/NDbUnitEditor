@@ -144,7 +144,7 @@ namespace NDbUnitDataEditor
             }
         }
 
-        public void CloseAllDocuments()
+        public void CloseAllTabs()
         {
             tbTableViews.TabPages.Clear();
         }
@@ -274,8 +274,7 @@ namespace NDbUnitDataEditor
 
         private void btnCloseTab_Click(object sender, EventArgs e)
         {
-            if (tbTableViews.SelectedTab != null)
-                tbTableViews.TabPages.Remove(tbTableViews.SelectedTab);
+            CloseSelectedTab();
         }
 
         private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
@@ -360,6 +359,9 @@ namespace NDbUnitDataEditor
             if (e.Button == MouseButtons.Right)
             {
                 this.contextMenuStrip1.Show(this.tbTableViews, e.Location);
+                var tabPage = FindTabPageByClickPoint(e.Location);
+                if(tabPage!=null)
+                    tbTableViews.SelectedTab = tabPage;
             }
         }
 
@@ -381,5 +383,50 @@ namespace NDbUnitDataEditor
             }
         }
 
+        private void closeActiveTabToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CloseSelectedTab();            
+        }
+
+
+
+        private void CloseSelectedTab()
+        {
+            if (tbTableViews.SelectedTab != null)
+                tbTableViews.TabPages.Remove(tbTableViews.SelectedTab);
+        }
+
+        private void closeAllButThisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tbTableViews.TabPages == null || tbTableViews.TabPages.Count == 0)
+                return;
+            if (tbTableViews.TabPages.Count == 1) return;
+            var tabsToRemove = new List<TabPage>();
+            foreach (TabPage tab in tbTableViews.TabPages)
+                if (tab != tbTableViews.SelectedTab)
+                    tabsToRemove.Add(tab);
+            foreach (TabPage tab in tabsToRemove)
+                tbTableViews.TabPages.Remove(tab);
+        }
+
+        private void closeAllTabsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tbTableViews.TabPages == null || tbTableViews.TabPages.Count == 0)
+                return;
+            CloseAllTabs();
+        }
+
+        private TabPage FindTabPageByClickPoint(Point point)
+        {
+            if (tbTableViews.TabPages == null || tbTableViews.TabPages.Count == 0)
+                return null;
+            for (int i = 0; i < tbTableViews.TabPages.Count; i++)
+            {
+
+                if (tbTableViews.GetTabRect(i).Contains(point))
+                    return tbTableViews.TabPages[i];
+            }
+            return null;
+        }
     }
 }

@@ -98,7 +98,7 @@ namespace NDbUnitDataEditor
                     return;
                 }
 
-                _dataEditor.CloseAllDocuments();
+                _dataEditor.CloseAllTabs();
                 
                 dataSet.Clear();
                 dataSet.ReadXml(dataFileName);
@@ -161,7 +161,7 @@ namespace NDbUnitDataEditor
             {
                 _dataEditor.Data = presenter.DataSet;
                 _dataEditor.SetDataSetChanged();
-                _dataEditor.CloseAllDocuments();
+                _dataEditor.CloseAllTabs();
             }
 
             _dataEditor.DatabaseConnectionString = presenter.DatabaseConnectionString;

@@ -53,9 +53,9 @@ namespace NDbUnitDataEditor
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.closeAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeAllButThisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeActiveTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllButThisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -285,23 +285,26 @@ namespace NDbUnitDataEditor
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(162, 70);
             // 
-            // closeAllTabsToolStripMenuItem
+            // closeActiveTabToolStripMenuItem
             // 
-            this.closeAllTabsToolStripMenuItem.Name = "closeAllTabsToolStripMenuItem";
-            this.closeAllTabsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.closeAllTabsToolStripMenuItem.Text = "Close all tabs";
+            this.closeActiveTabToolStripMenuItem.Name = "closeActiveTabToolStripMenuItem";
+            this.closeActiveTabToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.closeActiveTabToolStripMenuItem.Text = "Close active tab";
+            this.closeActiveTabToolStripMenuItem.Click += new System.EventHandler(this.closeActiveTabToolStripMenuItem_Click);
             // 
             // closeAllButThisToolStripMenuItem
             // 
             this.closeAllButThisToolStripMenuItem.Name = "closeAllButThisToolStripMenuItem";
             this.closeAllButThisToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.closeAllButThisToolStripMenuItem.Text = "Close all but this";
+            this.closeAllButThisToolStripMenuItem.Click += new System.EventHandler(this.closeAllButThisToolStripMenuItem_Click);
             // 
-            // closeActiveTabToolStripMenuItem
+            // closeAllTabsToolStripMenuItem
             // 
-            this.closeActiveTabToolStripMenuItem.Name = "closeActiveTabToolStripMenuItem";
-            this.closeActiveTabToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.closeActiveTabToolStripMenuItem.Text = "Close active tab";
+            this.closeAllTabsToolStripMenuItem.Name = "closeAllTabsToolStripMenuItem";
+            this.closeAllTabsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.closeAllTabsToolStripMenuItem.Text = "Close all tabs";
+            this.closeAllTabsToolStripMenuItem.Click += new System.EventHandler(this.closeAllTabsToolStripMenuItem_Click);
             // 
             // DataEditor
             // 
