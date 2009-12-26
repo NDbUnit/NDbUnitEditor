@@ -33,7 +33,7 @@ namespace NDbUnitDataEditor
         DataSet Data { get; set; }
         void BindTableTree();
         void BindDataTable(DataTable table);
-        void CloseAllDocuments();
+        void CloseAllTabs();
         event EditorEventHandler Initialize;
         event EditorEventHandler ReloadData;
         void CreateInitialPage();
