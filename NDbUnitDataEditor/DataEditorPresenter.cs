@@ -7,9 +7,12 @@ using NDbUnit.Utility;
 using Rhino.Commons;
 using NDbUnitDataEditor.UI;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace NDbUnitDataEditor
 {
+
     public class DataEditorPresenter
     {
         private const string DATA_FILE_SETTINGS_KEY = "DataFilePath";
@@ -230,6 +233,10 @@ namespace NDbUnitDataEditor
             _userSettings.SaveSetting(SCHEMA_FILE_SETTINGS_KEY, _dataEditor.SchemaFileName);
             _userSettings.SaveSetting(DATABASE_CONNECTION_STRING_SETTINGS_KEY, _dataEditor.DatabaseConnectionString);
             _userSettings.SaveSetting(DATABASE_CLIENTTYPE_SETTINGS_KEY, _dataEditor.DatabaseClientType);
+        }
+        public void SaveSettings(string path)
+        {
+            throw new NotImplementedException("this method is not implemented yet");
         }
 
         private string ValidateInputBeforeReload(DataSet dataSet, string fileName)
