@@ -23,7 +23,6 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 
             ConnectionString = connectionString;
             DatabaseName = databaseName;
-            DatabaseTargetType = databaseTargetType;
             DataSetName = dataSetName;
             TablesToProcess = tablesToProcess;
 
@@ -38,28 +37,31 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 
         public string DatabaseName { get; private set; }
 
-        public string DatabaseTargetMappingFilename
+        public string DatabaseTargetMappingFileFullPath
         {
             get { return Path.GetFullPath(@"Generator\DBTargets.xml"); }
         }
 
-        public string DatabaseTargetType { get; private set; }
+        public string DatabaseTargetType
+        {
+            get { return "SqlClient"; }
+        }
 
         public string DataSetName { get; private set; }
 
-        public string LanguageMappingFilename
+        public string LanguageMappingFileFullPath
         {
             get { return Path.GetFullPath(@"Generator\Languages.xml"); }
         }
 
         public IEnumerable<string> TablesToProcess { get; private set; }
 
-        public string TemplateFilePathname
+        public string TemplateFileFullPath
         {
             get { return Path.GetFullPath(@"Generator\AnnotationsXSD.zeus"); }
         }
 
-        public string UserMetaDataFileName
+        public string UserMetaDataFileFullPath
         {
             get { return Path.GetFullPath(@"Generator\UserMetaData.xml"); }
         }
