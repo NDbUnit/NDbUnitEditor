@@ -8,10 +8,10 @@ namespace NDbUnitDataEditor.Abstractions
 {
     public interface IBuilderSettings
     {
-        string TemplateFilePathname { get; }
-        string UserMetaDataFileName { get; }
-        string DatabaseTargetMappingFilename { get; }
-        string LanguageMappingFilename { get; }
+        string TemplateFileFullPath { get; }
+        string UserMetaDataFileFullPath { get; }
+        string DatabaseTargetMappingFileFullPath { get; }
+        string LanguageMappingFileFullPath { get; }
         string ConnectionString { get; }
         string DatabaseName { get; }
         string DatabaseDriver { get; }

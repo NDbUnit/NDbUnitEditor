@@ -5,6 +5,9 @@
     <item name="__dbDriver" type="System.String" val="SQL" />
     <item name="__dbLanguageMappingFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\Languages.xml" />
     <item name="__dbTarget" type="System.String" val="SqlClient" />
+    <item name="__dbTargetMappingFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\DBTargets.xml" />
+    <item name="__defaultTemplatePath" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator" />
+    <item name="__language" type="System.String" val="C#" />
     <item name="__domainOverride" type="System.Boolean" val="True" />
     <item name="__userMetaDataFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\UserMetaData.xml" />
     <item name="__version" type="System.String" val="1.3.0.0" />
@@ -13,6 +16,6 @@
     <item name="dbDriver" type="System.String" val="SQL" />
     <item name="lstTables" type="System.Collections.ArrayList" val="System.String|H|table1;System.String|H|table2;System.String|H|table3;" />
     <item name="txtDatasetName" type="System.String" val="MyDataSet" />
-    <item name="txtPath" type="System.String" val="TODO: get the dynamic temp folder in here somehow!" />
+    <item name="txtPath" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\TestingFolderRoot\GeneratedDataSet.xsd" />
   </items>
 </obj>

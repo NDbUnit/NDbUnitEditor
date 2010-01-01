@@ -11,6 +11,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 {
     public class ZeusSchemaBuilder : ISchemaBuilder
     {
+        private const string OUTPUTDATASETFILENAME = "GeneratedDataset.xsd";
         private Folder _outputFolder;
 
         private string _pathToJobSettingsFile;
@@ -51,6 +52,8 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
         {
             _outputFolder = new Folder();
             _pathToJobSettingsFile = Path.Combine(_outputFolder.Path, JOBFILENAME);
+            if (!Directory.Exists(_outputFolder.Path))
+                Directory.CreateDirectory(_outputFolder.Path);
         }
 
         private ProcessStartInfo CreateProcessInfo()
@@ -62,7 +65,9 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 
         private DataSet DataSetFromXsd()
         {
-            throw new NotImplementedException();
+            DataSet dataset = new DataSet();
+            dataset.ReadXmlSchema(Path.Combine(_outputFolder.Path, OUTPUTDATASETFILENAME));
+            return dataset;
         }
 
         private void RunProcess()

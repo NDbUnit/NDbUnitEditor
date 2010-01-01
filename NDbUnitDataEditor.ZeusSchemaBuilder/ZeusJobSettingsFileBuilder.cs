@@ -12,8 +12,13 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 {
     public class ZeusJobSettingsFileBuilder : IZeusJobSettingsFileBuilder
     {
+        private const string OUTPUTFILENAME = "GeneratedDataSet.xsd";
+
+        private string _outputFileNameFullPath;
+
+        private string _outputFolderPath;
+
         IBuilderSettings _settings;
-        private string _outputFilePathname;
 
         /// <summary>
         /// Initializes a new instance of the ZeusJobSettingsFileBuilder class.
@@ -26,7 +31,8 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 
         public void BuildJobSettingsFile(string outputFilePathname)
         {
-            _outputFilePathname = Path.GetFullPath(outputFilePathname);
+            _outputFileNameFullPath = Path.GetFullPath(outputFilePathname);
+            _outputFolderPath = Path.GetDirectoryName(_outputFileNameFullPath);
             var doc = new XmlDocument();
             var writer = XmlWriter.Create(outputFilePathname);
             //writer.Formatting = Formatting.Indented;
@@ -34,7 +40,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
             writer.WriteStartElement("obj");
             writer.WriteAttributeString("name", string.Empty);
             writer.WriteAttributeString("uid", "28754f2a-da2d-45ec-87f0-2d461478f2b8");
-            writer.WriteAttributeString("path", _settings.TemplateFilePathname);
+            writer.WriteAttributeString("path", _settings.TemplateFileFullPath);
             writer.Close();
 
             doc.Load(outputFilePathname);
@@ -48,33 +54,25 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
             doc.Save(outputFilePathname);
         }
 
-        private string FormatTablesAsDelimitedString(IEnumerable<string> tablesToProcess)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            foreach (string table in tablesToProcess)
-            {
-                sb.Append(string.Format("System.String|H|{0};", table));
-            }
-
-            return sb.ToString();
-        }
         private void BuildAllItems(XmlDocument doc, XmlElement items)
         {
             BuildItem(doc, items, "__dbConnectionString", "System.String", _settings.ConnectionString);
             BuildItem(doc, items, "__dbDriver", "System.String", _settings.DatabaseDriver);
-            BuildItem(doc, items, "__dbLanguageMappingFileName", "System.String", _settings.LanguageMappingFilename);
+            BuildItem(doc, items, "__dbLanguageMappingFileName", "System.String", _settings.LanguageMappingFileFullPath);
             BuildItem(doc, items, "__dbTarget", "System.String", _settings.DatabaseTargetType);
+            BuildItem(doc, items, "__dbTargetMappingFileName", "System.String", _settings.DatabaseTargetMappingFileFullPath);
+            BuildItem(doc, items, "__defaultTemplatePath", "System.String", Path.GetFullPath("Generator"));
+            BuildItem(doc, items, "__language", "System.String", "C#");
             BuildItem(doc, items, "__domainOverride", "System.Boolean", "True");
-            BuildItem(doc, items, "__userMetaDataFileName", "System.String", _settings.UserMetaDataFileName);
+            BuildItem(doc, items, "__userMetaDataFileName", "System.String", _settings.UserMetaDataFileFullPath);
             BuildItem(doc, items, "__version", "System.String", "1.3.0.0");
             BuildItem(doc, items, "cmbDatabase", "System.String", _settings.DatabaseName);
             BuildItem(doc, items, "dbConnectionString", "System.Boolean", "True");
             BuildItem(doc, items, "dbDriver", "System.String", _settings.DatabaseDriver);
             BuildItem(doc, items, "lstTables", "System.Collections.ArrayList", FormatTablesAsDelimitedString(_settings.TablesToProcess));
             BuildItem(doc, items, "txtDatasetName", "System.String", _settings.DataSetName);
-            BuildItem(doc, items, "txtPath", "System.String", "TODO: get the dynamic temp folder in here somehow!");
-            
+            BuildItem(doc, items, "txtPath", "System.String", Path.Combine(_outputFolderPath, OUTPUTFILENAME));
+
         }
 
         private void BuildItem(XmlDocument document, XmlNode parent, string name, string type, string value)
@@ -86,6 +84,18 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
             item.SetAttribute("val", value);
 
             parent.AppendChild(item);
+        }
+
+        private string FormatTablesAsDelimitedString(IEnumerable<string> tablesToProcess)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string table in tablesToProcess)
+            {
+                sb.Append(string.Format("System.String|H|{0};", table));
+            }
+
+            return sb.ToString();
         }
 
     }
