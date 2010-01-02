@@ -89,6 +89,60 @@
       <Name>NDbUnitDataEditor.ZeusSchemaBuilder</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Generator\%24R1" />
+    <None Include="bin\Debug\Generator\AnnotationsXSD.zeus" />
+    <None Include="bin\Debug\Generator\Dnp.Utils.chm" />
+    <None Include="bin\Debug\Generator\dOOdads.chm" />
+    <None Include="bin\Debug\Generator\MyGeneration.chm" />
+    <None Include="bin\Debug\Generator\MyGenXsd3b.chm" />
+    <None Include="bin\Debug\Generator\MyMeta.chm" />
+    <None Include="bin\Debug\Generator\MyMeta.tlb" />
+    <None Include="bin\Debug\Generator\RegisterMyMeta.bat" />
+    <None Include="bin\Debug\Generator\UnregisterMyMeta12.reg" />
+    <None Include="bin\Debug\Generator\UnregisterMyMeta13.reg" />
+    <None Include="bin\Debug\Generator\Zeus.chm" />
+    <None Include="bin\Debug\Generator\zeusrun.cmd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Generator\adodb.dll" />
+    <Content Include="bin\Debug\Generator\changelog.txt" />
+    <Content Include="bin\Debug\Generator\CollapsibleSplitter.dll" />
+    <Content Include="bin\Debug\Generator\DbTargets.xml" />
+    <Content Include="bin\Debug\Generator\DefaultSettings.xml" />
+    <Content Include="bin\Debug\Generator\Dl3bak.Xsd3b.dll" />
+    <Content Include="bin\Debug\Generator\Dl3bak.Xsd3b.Uml14Xmi12Import.dll" />
+    <Content Include="bin\Debug\Generator\Dl3bak.Xsd3b.Xsd.dll" />
+    <Content Include="bin\Debug\Generator\Dl3bak.Xsd3b.Xslt.dll" />
+    <Content Include="bin\Debug\Generator\Dnp.Utils.dll" />
+    <Content Include="bin\Debug\Generator\FirebirdSql.Data.FirebirdClient.dll" />
+    <Content Include="bin\Debug\Generator\Interop.ADOX.dll" />
+    <Content Include="bin\Debug\Generator\Interop.MSDASC.dll" />
+    <Content Include="bin\Debug\Generator\Interop.MSScriptControl.dll" />
+    <Content Include="bin\Debug\Generator\Interop.Scripting.dll" />
+    <Content Include="bin\Debug\Generator\Languages.xml" />
+    <Content Include="bin\Debug\Generator\Mono.Security.dll" />
+    <Content Include="bin\Debug\Generator\MyGeneration.exe" />
+    <Content Include="bin\Debug\Generator\MyGeneration.ico" />
+    <Content Include="bin\Debug\Generator\MyGeneration.UI.Plugins.SqlTool.dll" />
+    <Content Include="bin\Debug\Generator\MyGenUtility.dll" />
+    <Content Include="bin\Debug\Generator\MyMeta.dll" />
+    <Content Include="bin\Debug\Generator\MyMeta.Plugins.DelimitedText.dll" />
+    <Content Include="bin\Debug\Generator\MyMeta.Plugins.SqlCe.dll" />
+    <Content Include="bin\Debug\Generator\MyMeta.Plugins.VistaDB3x.dll" />
+    <Content Include="bin\Debug\Generator\MyMeta.Plugins.Xsd3b.dll" />
+    <Content Include="bin\Debug\Generator\MySql.Data.dll" />
+    <Content Include="bin\Debug\Generator\Npgsql.dll" />
+    <Content Include="bin\Debug\Generator\PluginInterfaces.dll" />
+    <Content Include="bin\Debug\Generator\SciLexer.dll" />
+    <Content Include="bin\Debug\Generator\ScintillaNET.dll" />
+    <Content Include="bin\Debug\Generator\System.Data.SQLite.DLL" />
+    <Content Include="bin\Debug\Generator\todo.txt" />
+    <Content Include="bin\Debug\Generator\WeifenLuo.WinFormsUI.Docking.dll" />
+    <Content Include="bin\Debug\Generator\Zeus.dll" />
+    <Content Include="bin\Debug\Generator\ZeusCmd.exe" />
+    <Content Include="bin\Debug\Generator\ZeusProject.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

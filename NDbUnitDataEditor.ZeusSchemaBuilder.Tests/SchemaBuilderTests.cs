@@ -11,7 +11,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
     public class SchemaBuilderTests
     {
         [TestFixture]
-        public class WHen_Constructing_New_Instance
+        public class When_Constructing_New_Instance
         {
             [Test]
             public void Can_Create_Instance()
@@ -29,24 +29,23 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
             [SetUp]
             public void _Setup()
             {
-                string connectionString = "Provider=SQLOLEDB;User ID=sa; password=password;";
-                string databaseName = "tesbdb";
+                string connectionString = "Provider=SQLOLEDB;User ID=sa; password=aHJaeNN4;";
+                string databaseName = "testdb";
                 string databaseTargetType = "i will be ignored!";
-                string dataSetName = "TheDataSet";
+                string dataSetName = "GeneratedDataSet";
                 IEnumerable<string> tablesToProcess = new List<string>() { "Role", "UserRole", "User" };
-                _settings = new ZeusBuilderSettings(connectionString, 
-                                databaseName, 
-                                databaseTargetType, 
-                                dataSetName, 
+                _settings = new ZeusBuilderSettings(connectionString,
+                                databaseName,
+                                databaseTargetType,
+                                dataSetName,
                                 tablesToProcess);
             }
 
             [Test]
-            [Ignore("not yet implemented")]
             public void New_DataSet_Is_Returned()
             {
                 SchemaBuilder builder = new SchemaBuilder();
-                
+
                 DataSet dataset = builder.GetSchema(_settings);
                 Assert.IsNotNull(dataset);
             }
