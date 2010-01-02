@@ -11,16 +11,19 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 {
     public class ZeusSchemaBuilder : ISchemaBuilder
     {
-        private const string OUTPUTDATASETFILENAME = "GeneratedDataset.xsd";
+        private const string OUTPUT_DATASET_FILENAME = "GeneratedDataset.xsd";
+
+        private const int PROCESS_TIMEOUT = 20000;
+
         private Folder _outputFolder;
 
         private string _pathToJobSettingsFile;
 
-        private IZeusJobSettingsFileBuilder _settingsBuilder;
-
         private IBuilderSettings _settings;
 
-        private string JOBFILENAME = "JobSettings.xml";
+        private IZeusJobSettingsFileBuilder _settingsBuilder;
+
+        private string JOB_FILENAME = "JobSettings.xml";
 
         private string PATH_TO_ZEUS_EXE = @"Generator\Zeuscmd.exe";
 
@@ -51,7 +54,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
         private void CreateOutputFolder()
         {
             _outputFolder = new Folder();
-            _pathToJobSettingsFile = Path.Combine(_outputFolder.Path, JOBFILENAME);
+            _pathToJobSettingsFile = Path.Combine(_outputFolder.Path, JOB_FILENAME);
             if (!Directory.Exists(_outputFolder.Path))
                 Directory.CreateDirectory(_outputFolder.Path);
         }
@@ -66,14 +69,24 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
         private DataSet DataSetFromXsd()
         {
             DataSet dataset = new DataSet();
-            dataset.ReadXmlSchema(Path.Combine(_outputFolder.Path, OUTPUTDATASETFILENAME));
+            dataset.ReadXmlSchema(Path.Combine(_outputFolder.Path, OUTPUT_DATASET_FILENAME));
             return dataset;
         }
 
         private void RunProcess()
         {
-            var process = CreateProcessInfo();
-            Process.Start(process);
+            var info = CreateProcessInfo();
+
+            Process process = Process.Start(info);
+
+            process.WaitForExit(PROCESS_TIMEOUT);
+
+            if (process.HasExited == false)
+                if (process.Responding)
+                    process.CloseMainWindow();
+                else
+                    process.Kill();
+
         }
 
     }

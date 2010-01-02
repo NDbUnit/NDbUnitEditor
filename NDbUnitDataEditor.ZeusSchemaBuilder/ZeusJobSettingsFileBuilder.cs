@@ -71,7 +71,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
             BuildItem(doc, items, "dbDriver", "System.String", _settings.DatabaseDriver);
             BuildItem(doc, items, "lstTables", "System.Collections.ArrayList", FormatTablesAsDelimitedString(_settings.TablesToProcess));
             BuildItem(doc, items, "txtDatasetName", "System.String", _settings.DataSetName);
-            BuildItem(doc, items, "txtPath", "System.String", Path.Combine(_outputFolderPath, OUTPUTFILENAME));
+            BuildItem(doc, items, "txtPath", "System.String", _outputFolderPath);
 
         }
 
