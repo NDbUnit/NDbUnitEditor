@@ -218,6 +218,7 @@ namespace NDbUnitDataEditor
             // btnNewGuid
             // 
             this.btnNewGuid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNewGuid.Enabled = false;
             this.btnNewGuid.Image = ((System.Drawing.Image)(resources.GetObject("btnNewGuid.Image")));
             this.btnNewGuid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNewGuid.Name = "btnNewGuid";
@@ -243,7 +244,7 @@ namespace NDbUnitDataEditor
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(243, 489);
+            this.treeView1.Size = new System.Drawing.Size(243, 465);
             this.treeView1.TabIndex = 8;
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
             // 
@@ -255,7 +256,7 @@ namespace NDbUnitDataEditor
             this.tbTableViews.Location = new System.Drawing.Point(3, 3);
             this.tbTableViews.Name = "tbTableViews";
             this.tbTableViews.SelectedIndex = 0;
-            this.tbTableViews.Size = new System.Drawing.Size(613, 493);
+            this.tbTableViews.Size = new System.Drawing.Size(613, 469);
             this.tbTableViews.TabIndex = 9;
             this.tbTableViews.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbTableViews_MouseClick);
             // 
@@ -264,7 +265,7 @@ namespace NDbUnitDataEditor
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 28);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 52);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -274,7 +275,7 @@ namespace NDbUnitDataEditor
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tbTableViews);
-            this.splitContainer1.Size = new System.Drawing.Size(872, 499);
+            this.splitContainer1.Size = new System.Drawing.Size(872, 475);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 10;
             // 
@@ -335,21 +336,21 @@ namespace NDbUnitDataEditor
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.loadToolStripMenuItem.Text = "Load...";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
