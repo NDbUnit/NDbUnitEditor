@@ -29,16 +29,12 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
             [SetUp]
             public void _Setup()
             {
-                string connectionString = "Provider=SQLOLEDB;User ID=sa; password=aHJaeNN4;";
+                string connectionString = "Provider=SQLOLEDB;User ID=sa; password=password;";
                 string databaseName = "testdb";
                 string databaseTargetType = "i will be ignored!";
                 string dataSetName = "GeneratedDataSet";
                 IEnumerable<string> tablesToProcess = new List<string>() { "Role", "UserRole", "User" };
-                _settings = new ZeusBuilderSettings(connectionString,
-                                databaseName,
-                                databaseTargetType,
-                                dataSetName,
-                                tablesToProcess);
+                _settings = new   ZeusBuilderSettings(connectionString, databaseName, databaseTargetType, dataSetName, tablesToProcess, new ConnectionStringValidator(), new ConnectionStringProviderBuilder());
             }
 
             [Test]

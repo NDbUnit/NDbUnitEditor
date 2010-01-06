@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionStringValidator.cs" />
+    <Compile Include="ConnectionStringValidatorBrokenRule.cs" />
+    <Compile Include="InvalidationType.cs" />
     <Compile Include="ZeusBuilderSettings.cs" />
     <Compile Include="Folder.cs" />
     <Compile Include="IZeusJobSettingsFileBuilder.cs" />

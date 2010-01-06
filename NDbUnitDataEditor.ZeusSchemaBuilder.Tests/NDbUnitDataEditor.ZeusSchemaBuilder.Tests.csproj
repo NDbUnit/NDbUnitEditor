@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuilderSettingsTest.cs" />
+    <Compile Include="CoonectionStringValidatorTests.cs" />
     <Compile Include="FolderTests.cs" />
     <Compile Include="JobFileBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

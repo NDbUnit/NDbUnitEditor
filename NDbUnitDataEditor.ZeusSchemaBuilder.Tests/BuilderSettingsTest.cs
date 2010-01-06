@@ -21,11 +21,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
 
         private static IBuilderSettings ConstructValidInstance()
         {
-            return new ZeusBuilderSettings(CONN_STRING,
-                                           DB_NAME,
-                                           DB_TARGET_TYPE,
-                                           DATASET_NAME,
-                                           tables);
+            return new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, tables, new ConnectionStringValidator(), new ConnectionStringProviderBuilder());
         }
 
         [TestFixture]
@@ -36,7 +32,6 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
             {
                 IBuilderSettings settings = BuilderSettingsTest.ConstructValidInstance();
 
-                Assert.AreEqual(CONN_STRING, settings.ConnectionString);
                 Assert.AreEqual(DB_NAME, settings.DatabaseName);
                 Assert.AreEqual(DATASET_NAME, settings.DataSetName);
                 Assert.AreEqual(tables, settings.TablesToProcess);
@@ -45,46 +40,59 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
             [Test]
             public void Can_Prevent_Invalid_Connection_String()
             {
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(string.Empty, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, new List<string>() { "1" }));
+                Assert.Throws<ArgumentException>(() => new  ZeusBuilderSettings(string.Empty, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, new List<string> { "1" }, new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
             }
 
             [Test]
             public void Can_Prevent_Invalid_Database_Name()
             {
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, string.Empty, DB_TARGET_TYPE, DATASET_NAME, new List<string>() { "1" }));
+                Assert.Throws<ArgumentException>(() => new  ZeusBuilderSettings(CONN_STRING, string.Empty, DB_TARGET_TYPE, DATASET_NAME, new List<string> { "1" }, new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
             }
 
             [Test]
             public void Can_Prevent_Invalid_Database_Target_Type()
             {
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_TARGET_TYPE, string.Empty, DATASET_NAME, new List<string>() { "1" }));
+                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_TARGET_TYPE, string.Empty, DATASET_NAME, new List<string> { "1" }, new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
             }
 
             [Test]
             public void Can_Prevent_Invalid_Dataset_Name()
             {
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, string.Empty, new List<string>() { "1" }));
+                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, string.Empty, new List<string> { "1" }, new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
             }
 
             [Test]
             public void Can_Prevent_Invalid_Table_Names()
             {
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, new List<string>()));
-                Assert.Throws<ArgumentException>(() => new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, null));
+                Assert.Throws<ArgumentException>(() => new  ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, new List<string>(), new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
+                Assert.Throws<ArgumentException>(() => new  ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, null, new ConnectionStringValidator(), new ConnectionStringProviderBuilder()));
             }
         }
+
+        [TestFixture]
+        public class When_ConnectionString_Does_Not_Contain_Provider_Setting
+        {
+            [Test]
+            public void Can_Add_Missing_Setting()
+            {
+                var builder = new ZeusBuilderSettings(CONN_STRING, DB_NAME, DB_TARGET_TYPE, DATASET_NAME, tables, new ConnectionStringValidator(), new ConnectionStringProviderBuilder());
+
+                Assert.Contains(builder.ConnectionString.ToLowerInvariant(), "provider=sqloledb");
+            }
+        }
+
         [TestFixture]
         public class When_BuilderSettings_Is_Valid
         {
             [Test]
-            public void DatabaseType_Is_Expected()
+            public void DatabaseType_Is_SqlClient()
             {
                 var settings = BuilderSettingsTest.ConstructValidInstance();
                 Assert.AreEqual("SqlClient", settings.DatabaseTargetType);
             }
 
             [Test]
-            public void DatabaseDriver_Is_Expected()
+            public void DatabaseDriver_Is_SQL()
             {
                 var settings = BuilderSettingsTest.ConstructValidInstance();
                 Assert.AreEqual("SQL", settings.DatabaseDriver);

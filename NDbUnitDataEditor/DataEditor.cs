@@ -76,7 +76,7 @@ namespace NDbUnitDataEditor
             }
         }
 
-        
+
         public string FileSelectFilter
         {
             get
@@ -166,7 +166,7 @@ namespace NDbUnitDataEditor
             return (_dataSetLoadedFromDatabase || _dataSet.HasChanges());
         }
 
-        public void EnableSaveButton()
+        public void EnableSave()
         {
             btnSaveData.Enabled = true;
         }
@@ -347,6 +347,8 @@ namespace NDbUnitDataEditor
             foreach (DataTable table in _dataSet.Tables)
                 if (tbName == table.TableName)
                     BindDataTable(table);
+
+            btnNewGuid.Enabled = true;
         }
 
         private void TabPageEdited(TableViewEventArguments args)
@@ -360,7 +362,7 @@ namespace NDbUnitDataEditor
             {
                 this.contextMenuStrip1.Show(this.tbTableViews, e.Location);
                 var tabPage = FindTabPageByClickPoint(e.Location);
-                if(tabPage!=null)
+                if (tabPage != null)
                     tbTableViews.SelectedTab = tabPage;
             }
         }
@@ -385,7 +387,7 @@ namespace NDbUnitDataEditor
 
         private void closeActiveTabToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CloseSelectedTab();            
+            CloseSelectedTab();
         }
 
 

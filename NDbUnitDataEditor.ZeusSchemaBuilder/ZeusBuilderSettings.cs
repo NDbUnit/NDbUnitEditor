@@ -7,24 +7,38 @@ using System.IO;
 
 namespace NDbUnitDataEditor.ZeusSchemaBuilder
 {
-
+    public class ConnectionStringProviderBuilder
+    {
+    }
     public class ZeusBuilderSettings : IBuilderSettings
     {
+        private ConnectionStringProviderBuilder _connectionProviderBuilder;
+
+        private ConnectionStringValidator _connValidator;
+
         /// <summary>
         /// Initializes a new instance of the BuilderSettings class.
         /// </summary>
-        public ZeusBuilderSettings(string connectionString, string databaseName, string databaseTargetType, string dataSetName, IEnumerable<string> tablesToProcess)
+        /// <param name="connectionProviderBuilder"></param>
+        /// <param name="connectionValidator"></param>
+        public ZeusBuilderSettings(string connectionString, string databaseName, string databaseTargetType, string dataSetName, IEnumerable<string> tablesToProcess, ConnectionStringValidator connectionStringValidator, ConnectionStringProviderBuilder connectionProviderBuilder)
         {
+
+            _connectionProviderBuilder = connectionProviderBuilder;
+            _connValidator = connectionStringValidator;
+
+            ConnectionString = connectionString;
+            DatabaseName = databaseName;
+            DataSetName = dataSetName;
+            TablesToProcess = tablesToProcess;
+            
             ValidateConnectionString(connectionString);
             ValidateDatabaseName(databaseName);
             ValidateDataSetName(dataSetName);
             ValidateDatabaseTargetType(databaseTargetType);
             ValidateTablesToProcess(tablesToProcess);
 
-            ConnectionString = connectionString;
-            DatabaseName = databaseName;
-            DataSetName = dataSetName;
-            TablesToProcess = tablesToProcess;
+            
 
         }
 
@@ -66,10 +80,20 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
             get { return Path.GetFullPath(@"Generator\UserMetaData.xml"); }
         }
 
+        private void AddMissingProviderStatement(string connectionString)
+        {
+            ConnectionString = "Provider=SQLOLEDB;" + connectionString;
+        }
+
         private void ValidateConnectionString(string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString))
+            var brokenRules = _connValidator.Validate(connectionString);
+
+            if (brokenRules.Where(br => br.Invalidation == InvalidationType.EmptyOrNull).Count() != 0)
                 throw new ArgumentException("connectionString cannot be null or empty!");
+
+            if (brokenRules.Where(br => br.Invalidation == InvalidationType.MissingProviderSetting).Count() != 0)
+                AddMissingProviderStatement(connectionString);
         }
 
         private void ValidateDatabaseName(string databaseName)
