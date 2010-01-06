@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<obj name="" uid="28754f2a-da2d-45ec-87f0-2d461478f2b8" path="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\AnnotationsXSD.zeus">
+<obj name="" uid="28754f2a-da2d-45ec-87f0-2d461478f2b8" path="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\AnnotationsXSD.zeus">
   <items>
     <item name="__dbConnectionString" type="System.String" val="Provider=SQLOLEDB;User ID=sa;password=password;" />
     <item name="__dbDriver" type="System.String" val="SQL" />
-    <item name="__dbLanguageMappingFileName" type="System.String" val="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\Languages.xml" />
+    <item name="__dbLanguageMappingFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\Languages.xml" />
     <item name="__dbTarget" type="System.String" val="SqlClient" />
-    <item name="__dbTargetMappingFileName" type="System.String" val="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\DBTargets.xml" />
-    <item name="__defaultTemplatePath" type="System.String" val="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator" />
+    <item name="__dbTargetMappingFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\DBTargets.xml" />
+    <item name="__defaultTemplatePath" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator" />
     <item name="__language" type="System.String" val="C#" />
     <item name="__domainOverride" type="System.Boolean" val="True" />
-    <item name="__userMetaDataFileName" type="System.String" val="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\UserMetaData.xml" />
+    <item name="__userMetaDataFileName" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\bin\Debug\Generator\UserMetaData.xml" />
     <item name="__version" type="System.String" val="1.3.0.0" />
     <item name="cmbDatabase" type="System.String" val="testdb" />
     <item name="dbConnectionString" type="System.Boolean" val="True" />
     <item name="dbDriver" type="System.String" val="SQL" />
     <item name="lstTables" type="System.Collections.ArrayList" val="System.String|H|table1;System.String|H|table2;System.String|H|table3;" />
     <item name="txtDatasetName" type="System.String" val="MyDataSet" />
-    <item name="txtPath" type="System.String" val="C:\_Vault\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\TestingFolderRoot" />
+    <item name="txtPath" type="System.String" val="C:\_oss\NDbUnitEditor\NDbUnitDataEditor.ZeusSchemaBuilder.Tests\TestingFolderRoot" />
   </items>
 </obj>

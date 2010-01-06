@@ -26,7 +26,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
 
                 Assert.IsFalse(File.Exists(OUTPUT_FILENAME), String.Format("Test precondition not satisfied: file {0} should not exist!", OUTPUT_FILENAME));
 
-                IBuilderSettings settings = new ZeusBuilderSettings("Provider=SQLOLEDB;User ID=sa;password=password;", "testdb", "SqlClient", "MyDataSet", new List<string> { "table1", "table2", "table3" });
+                IBuilderSettings settings = new   ZeusBuilderSettings("Provider=SQLOLEDB;User ID=sa;password=password;", "testdb", "SqlClient", "MyDataSet", new List<string> { "table1", "table2", "table3" }, new ConnectionStringValidator(), new ConnectionStringProviderBuilder());
 
                 var fileBuilder = new ZeusJobSettingsFileBuilder(settings);
                 fileBuilder.BuildJobSettingsFile(OUTPUT_FILENAME);

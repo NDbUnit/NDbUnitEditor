@@ -21,7 +21,7 @@ namespace NDbUnitDataEditor
         void RemoveEditedMarksFromAllTabs();
         void MarkTabAsEdited(string tabName);
         event TableViewEventHandler DataViewChanged;
-        void EnableSaveButton();
+        void EnableSave();
         event EditorEventHandler SaveData;
         event EditorEventHandler GetDataSetFromDatabase;
         event EditorEventHandler CreateGuid;

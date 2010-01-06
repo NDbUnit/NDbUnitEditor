@@ -56,13 +56,13 @@ namespace NDbUnitDataEditor
             {
                 string schemaFileName = _dataEditor.SchemaFileName;
 
-                if (System.IO.File.Exists(schemaFileName))
+                if (File.Exists(schemaFileName))
                 {
                     DataSet dataSet = _dataEditor.Data;
                     dataSet.ReadXmlSchema(schemaFileName);
                     _dataEditor.BindTableTree();
 
-                    _dataEditor.EnableSaveButton();
+                    _dataEditor.EnableSave();
                 }
             }
             catch (Exception ex)
@@ -211,8 +211,8 @@ namespace NDbUnitDataEditor
                         return;
                 }
                 //verify if path is correct
-                string path = System.IO.Path.GetDirectoryName(fileName);
-                if (!System.IO.Directory.Exists(path))
+                string path = Path.GetDirectoryName(fileName);
+                if (!Directory.Exists(path))
                 {
                     messageDialog.ShowError("Cannot save specified file");
                     return;
@@ -250,7 +250,7 @@ namespace NDbUnitDataEditor
                 return "Cannot find schema. Please make sure that there is a database schema loaded.";
             }
 
-            if (!System.IO.File.Exists(fileName))
+            if (!File.Exists(fileName))
             {
                 return "Specified file does not exists.";
             }
