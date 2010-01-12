@@ -74,11 +74,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuilderSettingsTest.cs" />
-    <Compile Include="CoonectionStringValidatorTests.cs" />
+    <Compile Include="ConnectionStringValidatorTests.cs" />
     <Compile Include="FolderTests.cs" />
+    <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="JobFileBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaBuilderTests.cs" />
+    <Compile Include="TableListBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDbUnitDataEditor.Abstractions\NDbUnitDataEditor.Abstractions.csproj">

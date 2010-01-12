@@ -5,9 +5,11 @@ using System.Text;
 using MbUnit.Framework;
 using System.Data;
 using NDbUnitDataEditor.Abstractions;
+using NDbUnitDataEditor.ZeusSchemaBuilder;
 
 namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
 {
+
     public class SchemaBuilderTests
     {
         [TestFixture]
@@ -21,21 +23,12 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
 
         }
 
+        
+
         [TestFixture]
         [Category("Integration")]
-        public class When_Creating_Schema
+        public class When_Creating_Schema : IntegrationTestBase
         {
-            private IBuilderSettings _settings;
-            [SetUp]
-            public void _Setup()
-            {
-                string connectionString = "Provider=SQLOLEDB;User ID=sa; password=password;";
-                string databaseName = "testdb";
-                string databaseTargetType = "i will be ignored!";
-                string dataSetName = "GeneratedDataSet";
-                IEnumerable<string> tablesToProcess = new List<string>() { "Role", "UserRole", "User" };
-                _settings = new   ZeusBuilderSettings(connectionString, databaseName, databaseTargetType, dataSetName, tablesToProcess, new ConnectionStringValidator(), new ConnectionStringProviderBuilder());
-            }
 
             [Test]
             public void New_DataSet_Is_Returned()
@@ -45,6 +38,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
                 DataSet dataset = builder.GetSchema(_settings);
                 Assert.IsNotNull(dataset);
             }
+
         }
     }
 }
