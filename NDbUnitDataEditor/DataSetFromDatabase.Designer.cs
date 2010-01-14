@@ -36,6 +36,7 @@
             this.btnGetDataSetFromDatabase = new System.Windows.Forms.Button();
             this.btnPutDataSetToDatabase = new System.Windows.Forms.Button();
             this.btnGetSchemaFromDatabase = new System.Windows.Forms.Button();
+            this.lblSqlServerOnlyMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblConnectionString
@@ -50,8 +51,9 @@
             // txtConnectionString
             // 
             this.txtConnectionString.Location = new System.Drawing.Point(158, 10);
+            this.txtConnectionString.Multiline = true;
             this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.Size = new System.Drawing.Size(374, 20);
+            this.txtConnectionString.Size = new System.Drawing.Size(374, 54);
             this.txtConnectionString.TabIndex = 1;
             // 
             // btnTestConnection
@@ -67,7 +69,7 @@
             // cboDatabaseType
             // 
             this.cboDatabaseType.FormattingEnabled = true;
-            this.cboDatabaseType.Location = new System.Drawing.Point(158, 37);
+            this.cboDatabaseType.Location = new System.Drawing.Point(158, 70);
             this.cboDatabaseType.Name = "cboDatabaseType";
             this.cboDatabaseType.Size = new System.Drawing.Size(245, 21);
             this.cboDatabaseType.TabIndex = 3;
@@ -76,7 +78,7 @@
             // lblDatabaseType
             // 
             this.lblDatabaseType.AutoSize = true;
-            this.lblDatabaseType.Location = new System.Drawing.Point(12, 40);
+            this.lblDatabaseType.Location = new System.Drawing.Point(12, 73);
             this.lblDatabaseType.Name = "lblDatabaseType";
             this.lblDatabaseType.Size = new System.Drawing.Size(80, 13);
             this.lblDatabaseType.TabIndex = 4;
@@ -112,11 +114,22 @@
             this.btnGetSchemaFromDatabase.UseVisualStyleBackColor = true;
             this.btnGetSchemaFromDatabase.Click += new System.EventHandler(this.btnGetSchemaFromDatabase_Click);
             // 
+            // lblSqlServerOnlyMessage
+            // 
+            this.lblSqlServerOnlyMessage.AutoSize = true;
+            this.lblSqlServerOnlyMessage.Location = new System.Drawing.Point(276, 133);
+            this.lblSqlServerOnlyMessage.Name = "lblSqlServerOnlyMessage";
+            this.lblSqlServerOnlyMessage.Size = new System.Drawing.Size(256, 13);
+            this.lblSqlServerOnlyMessage.TabIndex = 8;
+            this.lblSqlServerOnlyMessage.Text = "This feature only works with SQL Server Selected >>";
+            this.lblSqlServerOnlyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // DataSetFromDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 165);
+            this.Controls.Add(this.lblSqlServerOnlyMessage);
             this.Controls.Add(this.btnGetSchemaFromDatabase);
             this.Controls.Add(this.btnPutDataSetToDatabase);
             this.Controls.Add(this.btnGetDataSetFromDatabase);
@@ -147,5 +160,6 @@
         private System.Windows.Forms.Button btnGetDataSetFromDatabase;
         private System.Windows.Forms.Button btnPutDataSetToDatabase;
         private System.Windows.Forms.Button btnGetSchemaFromDatabase;
+        private System.Windows.Forms.Label lblSqlServerOnlyMessage;
     }
 }
