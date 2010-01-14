@@ -31,7 +31,6 @@ namespace Tests.DataEditorPresenterTests
         [Test]
         public void CanSaveApplicationSettings()       
         {
-
             var view = MockRepository.GenerateStub<IDataEditorView>();
            
             var settings = new NdbUnitEditorSettings();
@@ -41,7 +40,7 @@ namespace Tests.DataEditorPresenterTests
             var fileDialog = MockRepository.GenerateStub<IFileDialog>();
             fileDialog.Stub(d => d.FileName).Return(_settingsFileName);
             fileDialog.Stub(d => d.Show()).Return(FileDialogResult.OK);
-            dialogFactory.Stub(f => f.CreateFileDialog(FileDialogType.SaveFileDilaog, ".xml")).Return(fileDialog);
+            dialogFactory.Stub(f => f.CreateFileDialog(FileDialogType.SaveFileDilaog, "XML files|*.xml")).Return(fileDialog);
 
             var userSettings = MockRepository.GenerateStub<IUserSettings>();
             var settingsManager = MockRepository.GenerateStub<INdbUnitEditorSettingsManager>();
