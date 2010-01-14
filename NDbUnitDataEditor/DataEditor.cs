@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
+using NDbUnit.Utility;
 
 namespace NDbUnitDataEditor
 {
@@ -20,6 +21,8 @@ namespace NDbUnitDataEditor
         private string _newGuid;
 
         string _schemaFileName = null;
+
+        public string ProjectFileName { get; set; }
 
         public event EditorEventHandler ApplicationClose;
 
@@ -38,6 +41,12 @@ namespace NDbUnitDataEditor
         public event EditorEventHandler ReloadData;
 
         public event EditorEventHandler SaveData;
+
+        public event EditorEventHandler SaveEditorSettings;
+
+        public event EditorEventHandler SaveEditorSettingsAs;
+
+        public event EditorEventHandler LoadEditorSettings;
 
         public DataEditor()
         {
@@ -433,17 +442,34 @@ namespace NDbUnitDataEditor
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            LoadEditorSettings();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SaveEditorSettings();
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SaveEditorSettingsAs();
         }
+
+
+
+        public NdbUnitEditorSettings GetEditorSettings()
+        {
+            NdbUnitEditorSettings settings = new NdbUnitEditorSettings
+            {
+                XMLDataFilePath = DataFileName,
+                SchemaFilePath = SchemaFileName,
+                DatabaseClientType = DatabaseClientType,
+                DatabaseConnectionString = DatabaseConnectionString
+            };
+            return settings;
+        }
+
+
+
     }
 }

@@ -27,13 +27,15 @@ namespace NDbUnitDataEditor
 
         private IDialogFactory _dialogFactory;
 
+        private INdbUnitEditorSettingsManager _settingsManager;
         private IUserSettings _userSettings;
 
         /// <summary>
         /// Initializes a new instance of the DataEditorPresenter class.
         /// </summary>
-        public DataEditorPresenter(IDataEditorView dataEditor, IDialogFactory dialogFactory, IUserSettings userSettings)
+        public DataEditorPresenter(IDataEditorView dataEditor, IDialogFactory dialogFactory, IUserSettings userSettings, INdbUnitEditorSettingsManager settingsManager)
         {
+            _settingsManager = settingsManager;
             _userSettings = userSettings;
             _dialogFactory = dialogFactory;
             _dataEditor = dataEditor;
@@ -46,6 +48,9 @@ namespace NDbUnitDataEditor
             _dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
             _dataEditor.SaveData += SaveData;
             _dataEditor.DataViewChanged += HandleDataSetChange;
+            _dataEditor.SaveEditorSettings += SaveEditorSettings;
+            _dataEditor.SaveEditorSettingsAs += SaveEditorSettingsAs;
+            _dataEditor.LoadEditorSettings+=LoadEditorSettings;
 
         }
 
@@ -234,10 +239,45 @@ namespace NDbUnitDataEditor
             _userSettings.SaveSetting(DATABASE_CONNECTION_STRING_SETTINGS_KEY, _dataEditor.DatabaseConnectionString);
             _userSettings.SaveSetting(DATABASE_CLIENTTYPE_SETTINGS_KEY, _dataEditor.DatabaseClientType);
         }
-        public void SaveSettings(string path)
+        public void SaveEditorSettings()
         {
-            throw new NotImplementedException("this method is not implemented yet");
+            string filePath = _dataEditor.ProjectFileName;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                var dialog = _dialogFactory.CreateFileDialog(FileDialogType.SaveFileDilaog, "XML files|*.xml");
+                if (dialog.Show() != FileDialogResult.OK)
+                    return;
+                filePath = dialog.FileName;
+                _dataEditor.ProjectFileName = filePath;   
+            }            
+            NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
+            _settingsManager.SaveSettings(settings, filePath);
+             
         }
+
+        public void SaveEditorSettingsAs()
+        {
+            var dialog = _dialogFactory.CreateFileDialog(FileDialogType.SaveFileDilaog, "XML files|*.xml");
+            if (dialog.Show() != FileDialogResult.OK)
+                return;
+            NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
+            _settingsManager.SaveSettings(settings, dialog.FileName);
+            _dataEditor.ProjectFileName = dialog.FileName;
+
+        }
+
+        public void LoadEditorSettings()
+        {
+            var dialog = _dialogFactory.CreateFileDialog(FileDialogType.OpenFileDialog, "XML files|*.xml");
+            if (dialog.Show() != FileDialogResult.OK)
+                return;
+            NdbUnitEditorSettings settings = _settingsManager.LoadSettings(dialog.FileName);
+            _dataEditor.SchemaFileName = settings.SchemaFilePath;
+            _dataEditor.DataFileName = settings.XMLDataFilePath;
+            _dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
+        }
+
+
 
         private string ValidateInputBeforeReload(DataSet dataSet, string fileName)
         {

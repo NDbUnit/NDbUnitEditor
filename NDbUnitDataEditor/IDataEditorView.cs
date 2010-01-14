@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
+using NDbUnit.Utility;
 
 namespace NDbUnitDataEditor
 {
@@ -15,6 +16,9 @@ namespace NDbUnitDataEditor
 
     public interface IDataEditorView
     {
+        event EditorEventHandler SaveEditorSettingsAs;
+        string ProjectFileName { get; set; }
+        event EditorEventHandler LoadEditorSettings;
         bool DataSetHasChanges();
         void SetDataSetChanged();
         bool TabIsMarkedAsEdited(string tabName);
@@ -27,6 +31,7 @@ namespace NDbUnitDataEditor
         event EditorEventHandler CreateGuid;
         event EditorEventHandler ApplicationClose;
         event EditorEventHandler BrowseForSchemaFile;
+        event EditorEventHandler SaveEditorSettings;
         string NewGuid { get; set; }
         string SelectFile(string initialFilename, string selectionFilter);
         event EditorEventHandler BrowseForDataFile;
@@ -42,5 +47,7 @@ namespace NDbUnitDataEditor
         string DataFileName { get; set; }
         string DatabaseConnectionString { get; set; }
         string DatabaseClientType { get; set; }
+        NdbUnitEditorSettings GetEditorSettings();
+
     }
 }
