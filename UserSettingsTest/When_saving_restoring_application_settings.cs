@@ -4,7 +4,7 @@ using NDbUnit.Utility;
 using System.IO;
 
 
-namespace Tests.DataEditorPresenterTests
+namespace UserSettingsTest
 {
     public class When_saving_restoring_application_settings
     {

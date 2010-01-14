@@ -30,7 +30,7 @@ namespace Tests.DataEditorPresenterTests
                 Expect.Call(view.DataSetHasChanges()).Return(true);
             }
             _mocks.ReplayAll();
-            DataEditorPresenter presenter = new DataEditorPresenter(view, null,null);
+            DataEditorPresenter presenter = new DataEditorPresenter(view, null,null, null);
             TableViewEventArguments eventArguments = new TableViewEventArguments("Tab1");
             eventRaiser.Raise(eventArguments);
             _mocks.VerifyAll();
@@ -51,7 +51,7 @@ namespace Tests.DataEditorPresenterTests
                 Expect.Call(view.DataSetHasChanges()).Return(false);
             }
             _mocks.ReplayAll();
-            DataEditorPresenter presenter = new DataEditorPresenter(view, null, null);
+            DataEditorPresenter presenter = new DataEditorPresenter(view, null, null, null);
             TableViewEventArguments eventArguments = new TableViewEventArguments("Tab1");
             eventRaiser.Raise(eventArguments);
             _mocks.VerifyAll();
