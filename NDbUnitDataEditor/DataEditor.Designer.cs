@@ -234,7 +234,7 @@ namespace NDbUnitDataEditor
             this.btnDataSetFromDatabase.Name = "btnDataSetFromDatabase";
             this.btnDataSetFromDatabase.Size = new System.Drawing.Size(23, 22);
             this.btnDataSetFromDatabase.Text = "toolStripButton1";
-            this.btnDataSetFromDatabase.ToolTipText = "Get DataSet from Database";
+            this.btnDataSetFromDatabase.ToolTipText = "Interact with live Database";
             this.btnDataSetFromDatabase.Click += new System.EventHandler(this.btnDataSetFromDatabase_Click);
             // 
             // treeView1

@@ -94,6 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentRegistrarTests.cs" />
     <Compile Include="DataEditorPresenterTests\When_saving_restoring_application_settings.cs" />
     <Compile Include="DataEditorPresenterTests\When_Table_is_edited.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

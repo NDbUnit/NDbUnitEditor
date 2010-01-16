@@ -68,6 +68,7 @@
             // 
             // cboDatabaseType
             // 
+            this.cboDatabaseType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDatabaseType.FormattingEnabled = true;
             this.cboDatabaseType.Location = new System.Drawing.Point(158, 70);
             this.cboDatabaseType.Name = "cboDatabaseType";

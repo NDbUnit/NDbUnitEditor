@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F9BD70F8-E218-49A8-9005-6032F2BEF124}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -229,6 +229,10 @@
     <ProjectReference Include="..\NDbUnitDataEditor.Abstractions\NDbUnitDataEditor.Abstractions.csproj">
       <Project>{2D2908FB-1BF3-4133-930C-2C527A8985D2}</Project>
       <Name>NDbUnitDataEditor.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDbUnitDataEditor.ZeusSchemaBuilder\NDbUnitDataEditor.ZeusSchemaBuilder.csproj">
+      <Project>{B33204CE-F6F7-4874-8E7E-57CF2C5D5BA5}</Project>
+      <Name>NDbUnitDataEditor.ZeusSchemaBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserSettings\UserSettings.csproj">
       <Project>{752B3247-A20D-4CFF-B8A5-AFA8D791F0AC}</Project>

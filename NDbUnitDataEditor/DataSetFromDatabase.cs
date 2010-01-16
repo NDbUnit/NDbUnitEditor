@@ -131,11 +131,29 @@ namespace NDbUnitDataEditor
                 TestDatabaseConnection();
         }
 
+        private void SetSchemaGenerationDisabled()
+        {
+            lblSqlServerOnlyMessage.Visible = true;
+            btnGetSchemaFromDatabase.Enabled = false;
+        }
+        private void SetSchemaGenerationEnabled()
+        {
+            lblSqlServerOnlyMessage.Visible = false;
+            btnGetSchemaFromDatabase.Enabled = true;
+        }
         private void cboDatabaseType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (SelectedDatabaseConnectionType != DatabaseClientType.SqlClient)
+                SetSchemaGenerationDisabled();
+            else
+                SetSchemaGenerationEnabled();
+
+
             if (SelectDatabaseType != null)
                 SelectDatabaseType();
         }
+
+        
 
     }
 }
