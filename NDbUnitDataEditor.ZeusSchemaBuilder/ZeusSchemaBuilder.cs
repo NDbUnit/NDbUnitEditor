@@ -6,6 +6,7 @@ using NDbUnitDataEditor.Abstractions;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Configuration;
 
 namespace NDbUnitDataEditor.ZeusSchemaBuilder
 {
@@ -27,12 +28,18 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
 
         private string PATH_TO_ZEUS_EXE = @"Generator\Zeuscmd.exe";
 
+        private void VerifyZeusEngineExists()
+        {
+            if (!File.Exists(PATH_TO_ZEUS_EXE))
+                throw new ConfigurationErrorsException(String.Format("The file {0} was not found.  Ensure the required support files for the Schema Generator are located in the GENERATOR folder directly beneath the folder that contains the NDbUnitDataEditor program!", PATH_TO_ZEUS_EXE));
+        }
         /// <summary>
         /// Initializes a new instance of the SchemaBuilder class.
         /// </summary>
         /// <param name="settingsBuilder"></param>
         public ZeusSchemaBuilder(IZeusJobSettingsFileBuilder settingsBuilder)
         {
+            VerifyZeusEngineExists();
             _settingsBuilder = settingsBuilder;
         }
 
@@ -62,7 +69,6 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder
         private ProcessStartInfo CreateProcessInfo()
         {
             string arguments = string.Format("-i {0}", _pathToJobSettingsFile);
-
             return new ProcessStartInfo(PATH_TO_ZEUS_EXE, arguments);
         }
 

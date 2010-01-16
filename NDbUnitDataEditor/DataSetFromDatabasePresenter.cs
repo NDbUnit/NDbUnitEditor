@@ -4,6 +4,8 @@ using System.Text;
 using System.Data;
 using NDbUnit.Core;
 using System.Windows.Forms;
+using NDbUnitDataEditor.Abstractions;
+using NDbUnitDataEditor.ZeusSchemaBuilder;
 
 namespace NDbUnitDataEditor
 {
@@ -14,6 +16,8 @@ namespace NDbUnitDataEditor
 
         //private IDbConnection _databaseConnection;
 
+        private ConnectionStringProviderBuilder _connectionStringProviderBuilder = null;
+        private ConnectionStringValidator _connectionStringValidator = null;
         private string _databaseConnectionString;
 
         private DatabaseClientType _databaseType;
@@ -24,15 +28,20 @@ namespace NDbUnitDataEditor
 
         IDataSetFromDatabaseView _dataSetFromDatabase;
 
+        private ISchemaBuilder _schemaBuilder;
         private NDbUnitFacade _nDbUnit;
+        private IBuilderSettings _schemaBuilderSettings = null;
 
         /// <summary>
         /// Initializes a new instance of the DataSetFromDatabasePresenter class.
         /// </summary>
         /// <param name="nDbUnitManager"></param>
         /// <param name="dataSetFromDatabase"></param>
-        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitFacade nDbUnitManager)
+        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitFacade nDbUnitManager, ISchemaBuilder schemaBuilder, ConnectionStringValidator connectionStringValidator, ConnectionStringProviderBuilder connectionStringProviderBuiilder)
         {
+            _connectionStringProviderBuilder = connectionStringProviderBuiilder;
+            _connectionStringValidator = connectionStringValidator;
+            _schemaBuilder = schemaBuilder;
             _nDbUnit = nDbUnitManager;
             _dataSetFromDatabase = dataSetFromDatabase;
             _dataSetFromDatabase.GetDataSetFromDatabase += GetDataSetFromDatabase;
@@ -124,10 +133,25 @@ namespace NDbUnitDataEditor
 
         }
 
+        private void BuildSchemaBuilderSettings()
+        {
+            _schemaBuilderSettings = new ZeusBuilderSettings(_databaseConnectionString,
+                                         "testdb",
+                                         "default",
+                                         "GeneratedDataSet",
+                                         new List<string> { "User", "Role", "UserRole"}, 
+                                         _connectionStringValidator, 
+                                         _connectionStringProviderBuilder );
+            
+            
+
+        }
         private void GetSchemaFromDatabase()
         {
-            //TODO: implement the ZEUSCMD-based script invocation class here
-            MessageBox.Show("Retrieving Schema!");
+            BuildSchemaBuilderSettings();
+            _dataSet = _schemaBuilder.GetSchema(_schemaBuilderSettings);
+
+            DataSetFromDatabaseResult = true;
         }
 
         private void PutDataSetToDatabase()
