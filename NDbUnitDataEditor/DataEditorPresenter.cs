@@ -15,13 +15,10 @@ namespace NDbUnitDataEditor
 
     public class DataEditorPresenter
     {
-        private const string DATA_FILE_SETTINGS_KEY = "DataFilePath";
 
-        private const string DATABASE_CLIENTTYPE_SETTINGS_KEY = "DatabaseClientType";
+        private const string DEFAULT_PROJECT_FILE_NAME = "DefaultProject.xml";
 
-        private const string DATABASE_CONNECTION_STRING_SETTINGS_KEY = "DatabaseConnectionString";
-
-        private const string SCHEMA_FILE_SETTINGS_KEY = "SchemaFilePath";
+        private const string RECENT_PROJECT_FILE_KEY = "RecentProjectFileName";
 
         private IDataEditorView _dataEditor;
 
@@ -173,17 +170,17 @@ namespace NDbUnitDataEditor
             }
 
             _dataEditor.DatabaseConnectionString = presenter.DatabaseConnectionString;
+            //_dataEditor.DatabaseClientType = presenter.DatabaseType.ToString();
             //TODO: retreive selected database client type the same way
         }
 
         private void InitializeView()
         {
-            _dataEditor.SchemaFileName = _userSettings.GetSetting(SCHEMA_FILE_SETTINGS_KEY);
-            _dataEditor.DataFileName = _userSettings.GetSetting(DATA_FILE_SETTINGS_KEY);
-            _dataEditor.DatabaseClientType = _userSettings.GetSetting(DATABASE_CLIENTTYPE_SETTINGS_KEY);
-            _dataEditor.DatabaseConnectionString = _userSettings.GetSetting(DATABASE_CONNECTION_STRING_SETTINGS_KEY);
-
+            var projectFileName = _userSettings.GetSetting(RECENT_PROJECT_FILE_KEY);
+            if (File.Exists(projectFileName))
+                LoadEditorSettings(projectFileName);
             CreateTableTree();
+
             if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
             {
                 //read data if exists
@@ -234,21 +231,21 @@ namespace NDbUnitDataEditor
 
         private void SaveSettings()
         {
-            _userSettings.SaveSetting(DATA_FILE_SETTINGS_KEY, _dataEditor.DataFileName);
-            _userSettings.SaveSetting(SCHEMA_FILE_SETTINGS_KEY, _dataEditor.SchemaFileName);
-            _userSettings.SaveSetting(DATABASE_CONNECTION_STRING_SETTINGS_KEY, _dataEditor.DatabaseConnectionString);
-            _userSettings.SaveSetting(DATABASE_CLIENTTYPE_SETTINGS_KEY, _dataEditor.DatabaseClientType);
+            var projectFile = _dataEditor.ProjectFileName;
+            if (String.IsNullOrEmpty(projectFile))
+                projectFile = DEFAULT_PROJECT_FILE_NAME;
+            NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
+            _settingsManager.SaveSettings(settings, projectFile);
+            _userSettings.SaveSetting(RECENT_PROJECT_FILE_KEY, projectFile);
         }
+
         public void SaveEditorSettings()
         {
             string filePath = _dataEditor.ProjectFileName;
             if (string.IsNullOrEmpty(filePath))
             {
-                var dialog = _dialogFactory.CreateFileDialog(FileDialogType.SaveFileDilaog, "XML files|*.xml");
-                if (dialog.Show() != FileDialogResult.OK)
-                    return;
-                filePath = dialog.FileName;
-                _dataEditor.ProjectFileName = filePath;   
+                SaveEditorSettingsAs();
+                return;
             }            
             NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
             _settingsManager.SaveSettings(settings, filePath);
@@ -271,11 +268,19 @@ namespace NDbUnitDataEditor
             var dialog = _dialogFactory.CreateFileDialog(FileDialogType.OpenFileDialog, "XML files|*.xml");
             if (dialog.Show() != FileDialogResult.OK)
                 return;
-            NdbUnitEditorSettings settings = _settingsManager.LoadSettings(dialog.FileName);
+            LoadEditorSettings(dialog.FileName);            
+        }
+
+        public void LoadEditorSettings(string fileName)
+        {
+            NdbUnitEditorSettings settings = _settingsManager.LoadSettings(fileName);
             _dataEditor.SchemaFileName = settings.SchemaFilePath;
             _dataEditor.DataFileName = settings.XMLDataFilePath;
             _dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
+            _dataEditor.ProjectFileName = fileName;
         }
+
+
 
 
 
