@@ -12,25 +12,15 @@ namespace NDbUnitDataEditor
 
     public class DataSetFromDatabasePresenter
     {
-        //private INDbUnitTest _database;
-
-        //private IDbConnection _databaseConnection;
-
         private ConnectionStringProviderBuilder _connectionStringProviderBuilder = null;
+
         private ConnectionStringValidator _connectionStringValidator = null;
-        private string _databaseConnectionString;
-
-        private DatabaseClientType _databaseType;
-
-        private int _databaseTypeSelectedIndex;
-
-        private DataSet _dataSet;
 
         IDataSetFromDatabaseView _dataSetFromDatabase;
 
-        private ISchemaBuilder _schemaBuilder;
         private NDbUnitFacade _nDbUnit;
-        private IBuilderSettings _schemaBuilderSettings = null;
+
+        private ISchemaBuilder _schemaBuilder;
 
         /// <summary>
         /// Initializes a new instance of the DataSetFromDatabasePresenter class.
@@ -52,61 +42,40 @@ namespace NDbUnitDataEditor
             FillPresenterWithSupportedDatabaseTypesList();
         }
 
-        public string DatabaseConnectionString
-        {
-            get
-            {
-                return _databaseConnectionString;
-            }
-            set
-            {
-                _databaseConnectionString = value;
-            }
-        }
+        public string DatabaseConnectionString { get; set; }
 
-        public DatabaseClientType DatabaseType
-        {
-            get
-            {
-                return _databaseType;
-            }
-            set
-            {
-                _databaseType = value;
-            }
-        }
+        public DatabaseClientType DatabaseType { get; set; }
 
-        public int DatabaseTypeSelectedIndex
-        {
-            get
-            {
-                return _databaseTypeSelectedIndex;
-            }
-            set
-            {
-                _databaseTypeSelectedIndex = value;
-            }
-        }
+        public int DatabaseTypeSelectedIndex { get; set; }
 
-        public DataSet DataSet
-        {
-            get
-            {
-                return _dataSet;
-            }
-        }
+        public bool DataFileHasChanged { get; set; }
 
-        public bool DataSetFromDatabaseResult { get; set; }
+        public string DataFilePath { get; set; }
 
-        public string XmlFilePath { get; set; }
+        public DataSet DataSet { get; private set; }
 
-        public string XsdFilePath { get; set; }
+        public bool OperationResult { get; set; }
+
+        public bool SchemaFileHasChanged { get; set; }
+
+        public string SchemaFilePath { get; set; }
 
         public void Start()
         {
             _dataSetFromDatabase.DatabaseConnectionString = DatabaseConnectionString;
             _dataSetFromDatabase.DatabaseTypeSelectedIndex = DatabaseTypeSelectedIndex;
             _dataSetFromDatabase.Run();
+        }
+
+        private IBuilderSettings CreateSchemaBuilderSettings()
+        {
+            return new ZeusBuilderSettings(DatabaseConnectionString,
+                                         "testdb", //TODO: get this from some UI selection
+                                         "default",
+                                         "GeneratedDataSet", //TODO: get this from some UI
+                                         new List<string> { "User", "Role", "UserRole" }, //TODO: Get this list from a new UI checklistbox-like thing
+                                         _connectionStringValidator,
+                                         _connectionStringProviderBuilder);
         }
 
         private void FillPresenterWithSupportedDatabaseTypesList()
@@ -118,40 +87,54 @@ namespace NDbUnitDataEditor
         {
             try
             {
-                SetupNDbUnit();
+                var selectedFilename = _dataSetFromDatabase.SelectFile(DataFilePath, "XML Data Files (*.xml)|*.xml");
 
-                _dataSet = _nDbUnit.GetDataSetFromDatabase(XsdFilePath);
-                _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
-                DataSetFromDatabaseResult = true;
+                if (!string.IsNullOrEmpty(selectedFilename))
+                {
+                    SetupNDbUnit();
+
+                    DataSet = _nDbUnit.GetDataSetFromDatabase(SchemaFilePath);
+                    _dataSetFromDatabase.GetDataSetFromDatabaseResult = true;
+                    OperationResult = true;
+                    DataFileHasChanged = true;
+                    DataFilePath = selectedFilename;
+
+                    DataSet.WriteXml(selectedFilename);
+                }
+
             }
             catch (Exception ex)
             {
                 _dataSetFromDatabase.ErrorMessage = ex.Message;
                 _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
-                DataSetFromDatabaseResult = false;
+                OperationResult = false;
             }
 
         }
 
-        private void BuildSchemaBuilderSettings()
-        {
-            _schemaBuilderSettings = new ZeusBuilderSettings(_databaseConnectionString,
-                                         "testdb",
-                                         "default",
-                                         "GeneratedDataSet",
-                                         new List<string> { "User", "Role", "UserRole"}, 
-                                         _connectionStringValidator, 
-                                         _connectionStringProviderBuilder );
-            
-            
-
-        }
         private void GetSchemaFromDatabase()
         {
-            BuildSchemaBuilderSettings();
-            _dataSet = _schemaBuilder.GetSchema(_schemaBuilderSettings);
+            var selectedFilename = _dataSetFromDatabase.SelectFile(DataFilePath, "XSD Schema Files (*.xsd)|*.xsd");
 
-            DataSetFromDatabaseResult = true;
+            try
+            {
+                if (!string.IsNullOrEmpty(selectedFilename))
+                {
+                    IBuilderSettings settings = CreateSchemaBuilderSettings();
+                    DataSet = _schemaBuilder.GetSchema(settings);
+                    SchemaFileHasChanged = true;
+                    SchemaFilePath = selectedFilename;
+                    OperationResult = true;
+
+                    DataSet.WriteXmlSchema(selectedFilename);
+                }
+            }
+            catch (Exception ex)
+            {
+                _dataSetFromDatabase.ErrorMessage = ex.Message;
+                _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
+                OperationResult = false;
+            }
         }
 
         private void PutDataSetToDatabase()
@@ -160,7 +143,7 @@ namespace NDbUnitDataEditor
             {
                 SetupNDbUnit();
 
-                _nDbUnit.PutDataSetToDatabase(XsdFilePath, XmlFilePath);
+                _nDbUnit.PutDataSetToDatabase(SchemaFilePath, DataFilePath);
                 _dataSetFromDatabase.PutDataSetToDatabaseResult = true;
             }
             catch (Exception ex)
@@ -173,7 +156,7 @@ namespace NDbUnitDataEditor
 
         private void SetDatabaseType()
         {
-            _databaseType = _dataSetFromDatabase.SelectedDatabaseConnectionType;
+            DatabaseType = _dataSetFromDatabase.SelectedDatabaseConnectionType;
         }
 
         private void SetupNDbUnit()

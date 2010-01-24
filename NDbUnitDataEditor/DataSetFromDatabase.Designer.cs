@@ -37,6 +37,7 @@
             this.btnPutDataSetToDatabase = new System.Windows.Forms.Button();
             this.btnGetSchemaFromDatabase = new System.Windows.Forms.Button();
             this.lblSqlServerOnlyMessage = new System.Windows.Forms.Label();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // lblConnectionString
@@ -162,5 +163,6 @@
         private System.Windows.Forms.Button btnPutDataSetToDatabase;
         private System.Windows.Forms.Button btnGetSchemaFromDatabase;
         private System.Windows.Forms.Label lblSqlServerOnlyMessage;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

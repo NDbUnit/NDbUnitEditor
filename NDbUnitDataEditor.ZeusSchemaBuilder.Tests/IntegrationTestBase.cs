@@ -20,7 +20,7 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
         [SetUp]
         public void _Setup()
         {
-            _connectionString = "Provider=SQLOLEDB;User ID=sa; password=password;Initial Catalog=testdb";
+            _connectionString = "Provider=SQLOLEDB;User ID=sa; password=aHJaeNN4;Initial Catalog=testdb";
             string databaseName = "testdb";
             string databaseTargetType = "i will be ignored!";
             string dataSetName = "GeneratedDataSet";
