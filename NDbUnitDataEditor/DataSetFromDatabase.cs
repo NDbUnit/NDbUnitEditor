@@ -81,6 +81,21 @@ namespace NDbUnitDataEditor
             }
         }
 
+        public string SelectFile(string initialFilename, string selectionFilter)
+        {
+            saveFileDialog.FileName = initialFilename;
+            saveFileDialog.Filter = selectionFilter;
+
+            string selectedFileName;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                selectedFileName = saveFileDialog.FileName;
+            else
+                selectedFileName = String.Empty;
+            return selectedFileName;
+        }
+
+
         public bool PutDataSetToDatabaseResult
         {
             set

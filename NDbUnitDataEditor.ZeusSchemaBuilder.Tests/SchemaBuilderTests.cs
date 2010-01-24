@@ -23,8 +23,6 @@ namespace NDbUnitDataEditor.ZeusSchemaBuilder.Tests
 
         }
 
-        
-
         [TestFixture]
         [Category("Integration")]
         public class When_Creating_Schema : IntegrationTestBase

@@ -9,6 +9,7 @@ namespace NDbUnitDataEditor
 
     public interface IDataSetFromDatabaseView
     {
+        string SelectFile(string initialFilename, string selectionFilter);
         event DataSetDatabaseEvent TestDatabaseConnection;
         event DataSetDatabaseEvent GetDataSetFromDatabase;
         event DataSetDatabaseEvent GetSchemaFromDatabase;

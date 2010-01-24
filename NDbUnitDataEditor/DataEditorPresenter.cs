@@ -47,7 +47,7 @@ namespace NDbUnitDataEditor
             _dataEditor.DataViewChanged += HandleDataSetChange;
             _dataEditor.SaveEditorSettings += SaveEditorSettings;
             _dataEditor.SaveEditorSettingsAs += SaveEditorSettingsAs;
-            _dataEditor.LoadEditorSettings+=LoadEditorSettings;
+            _dataEditor.LoadEditorSettings += LoadEditorSettings;
 
         }
 
@@ -104,7 +104,7 @@ namespace NDbUnitDataEditor
                 }
 
                 _dataEditor.CloseAllTabs();
-                
+
                 dataSet.Clear();
                 dataSet.ReadXml(dataFileName);
             }
@@ -155,30 +155,39 @@ namespace NDbUnitDataEditor
         private void GetDataSetFromDatabase()
         {
             var presenter = IoC.Resolve<DataSetFromDatabasePresenter>();
-            presenter.XsdFilePath = _dataEditor.SchemaFileName;
-            presenter.XmlFilePath = _dataEditor.DataFileName;
+            presenter.SchemaFilePath = _dataEditor.SchemaFileName;
+            presenter.DataFilePath = _dataEditor.DataFileName;
             presenter.DatabaseConnectionString = _dataEditor.DatabaseConnectionString;
             //TODO: set database client type the same way
 
             presenter.Start();
 
-            if (presenter.DataSetFromDatabaseResult == true)
+            if (presenter.OperationResult)
             {
+                if (presenter.DataFileHasChanged)
+                    _dataEditor.DataFileName = presenter.DataFilePath;
+
+                if (presenter.SchemaFileHasChanged)
+                    _dataEditor.SchemaFileName = presenter.SchemaFilePath;
+
                 _dataEditor.Data = presenter.DataSet;
                 _dataEditor.SetDataSetChanged();
                 _dataEditor.CloseAllTabs();
+
+                ResetSchema();
+                ReInitializeView();
             }
 
             _dataEditor.DatabaseConnectionString = presenter.DatabaseConnectionString;
-            //_dataEditor.DatabaseClientType = presenter.DatabaseType.ToString();
-            //TODO: retreive selected database client type the same way
+
+            _dataEditor.DatabaseClientType = presenter.DatabaseType.ToString();
+
+
+
         }
 
-        private void InitializeView()
+        private void ReInitializeView()
         {
-            var projectFileName = _userSettings.GetSetting(RECENT_PROJECT_FILE_KEY);
-            if (File.Exists(projectFileName))
-                LoadEditorSettings(projectFileName);
             CreateTableTree();
 
             if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
@@ -189,7 +198,24 @@ namespace NDbUnitDataEditor
                 dataSet.ReadXml(_dataEditor.DataFileName);
             }
             _dataEditor.CreateInitialPage();
+        }
 
+        private void InitializeView()
+        {
+            var projectFileName = _userSettings.GetSetting(RECENT_PROJECT_FILE_KEY);
+            if (File.Exists(projectFileName))
+                LoadEditorSettings(projectFileName);
+
+            CreateTableTree();
+            
+            if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
+            {
+                //read data if exists
+
+                DataSet dataSet = _dataEditor.Data;
+                dataSet.ReadXml(_dataEditor.DataFileName);
+            }
+            _dataEditor.CreateInitialPage();
         }
 
         void SaveData()
@@ -245,11 +271,12 @@ namespace NDbUnitDataEditor
             if (string.IsNullOrEmpty(filePath))
             {
                 SaveEditorSettingsAs();
-                return;
-            }            
+                return;    
+            }
+
             NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
             _settingsManager.SaveSettings(settings, filePath);
-             
+                                
         }
 
         public void SaveEditorSettingsAs()
