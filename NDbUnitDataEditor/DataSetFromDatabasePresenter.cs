@@ -164,6 +164,18 @@ namespace NDbUnitDataEditor
             _nDbUnit.Setup(DatabaseConnectionString, DatabaseType);
         }
 
+        public void SetDatabaseType(string databaseTypeName)
+        {
+            if (String.IsNullOrEmpty(databaseTypeName))
+                return;
+            DatabaseTypeSelectedIndex = (int)Enum.Parse(typeof(DatabaseClientType), databaseTypeName);
+        }
+
+        public string DatabaseTypeName
+        {
+            get { return DatabaseType.ToString(); }
+        }
+
         private void TestDatabaseConnection()
         {
             try
