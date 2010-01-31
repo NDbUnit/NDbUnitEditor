@@ -158,7 +158,7 @@ namespace NDbUnitDataEditor
             presenter.SchemaFilePath = _dataEditor.SchemaFileName;
             presenter.DataFilePath = _dataEditor.DataFileName;
             presenter.DatabaseConnectionString = _dataEditor.DatabaseConnectionString;
-            //TODO: set database client type the same way
+            presenter.SetDatabaseType(_dataEditor.DatabaseClientType);
 
             presenter.Start();
 
@@ -179,11 +179,10 @@ namespace NDbUnitDataEditor
             }
 
             _dataEditor.DatabaseConnectionString = presenter.DatabaseConnectionString;
+            _dataEditor.DatabaseClientType = presenter.DatabaseTypeName;
+            //TODO: retreive selected database client type the same way
 
             _dataEditor.DatabaseClientType = presenter.DatabaseType.ToString();
-
-
-
         }
 
         private void ReInitializeView()
@@ -206,8 +205,13 @@ namespace NDbUnitDataEditor
             if (File.Exists(projectFileName))
                 LoadEditorSettings(projectFileName);
 
+            PopulateWithData();            
+        }
+
+        private void PopulateWithData()
+        {
             CreateTableTree();
-            
+
             if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
             {
                 //read data if exists
@@ -295,7 +299,8 @@ namespace NDbUnitDataEditor
             var dialog = _dialogFactory.CreateFileDialog(FileDialogType.OpenFileDialog, "XML files|*.xml");
             if (dialog.Show() != FileDialogResult.OK)
                 return;
-            LoadEditorSettings(dialog.FileName);            
+            LoadEditorSettings(dialog.FileName);
+            PopulateWithData();
         }
 
         public void LoadEditorSettings(string fileName)
@@ -304,6 +309,7 @@ namespace NDbUnitDataEditor
             _dataEditor.SchemaFileName = settings.SchemaFilePath;
             _dataEditor.DataFileName = settings.XMLDataFilePath;
             _dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
+            _dataEditor.DatabaseClientType = settings.DatabaseClientType;
             _dataEditor.ProjectFileName = fileName;
         }
 
