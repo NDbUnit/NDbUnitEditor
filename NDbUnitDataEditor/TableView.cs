@@ -42,8 +42,8 @@ namespace NDbUnitDataEditor
 
         private void TableView_Load(object sender, EventArgs e)
         {
-            dataGridView1.AutoGenerateColumns = true;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoGenerateColumns = true;            
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView1.DataSource = bindingSource1;
         }
 
