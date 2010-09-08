@@ -12,8 +12,6 @@ namespace NDbUnitDataEditor
     {
         public event DataSetDatabaseEvent GetDataSetFromDatabase;
 
-        public event DataSetDatabaseEvent GetSchemaFromDatabase;
-
         public event DataSetDatabaseEvent PutDataSetToDatabase;
 
         public event DataSetDatabaseEvent SelectDatabaseType;
@@ -81,21 +79,6 @@ namespace NDbUnitDataEditor
             }
         }
 
-        public string SelectFile(string initialFilename, string selectionFilter)
-        {
-            saveFileDialog.FileName = initialFilename;
-            saveFileDialog.Filter = selectionFilter;
-
-            string selectedFileName;
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                selectedFileName = saveFileDialog.FileName;
-            else
-                selectedFileName = String.Empty;
-            return selectedFileName;
-        }
-
-
         public bool PutDataSetToDatabaseResult
         {
             set
@@ -122,16 +105,24 @@ namespace NDbUnitDataEditor
             this.ShowDialog();
         }
 
+        public string SelectFile(string initialFilename, string selectionFilter)
+        {
+            saveFileDialog.FileName = initialFilename;
+            saveFileDialog.Filter = selectionFilter;
+
+            string selectedFileName;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                selectedFileName = saveFileDialog.FileName;
+            else
+                selectedFileName = String.Empty;
+            return selectedFileName;
+        }
+
         private void btnGetDataSetFromDatabase_Click(object sender, EventArgs e)
         {
             if (GetDataSetFromDatabase != null)
                 GetDataSetFromDatabase();
-        }
-
-        private void btnGetSchemaFromDatabase_Click(object sender, EventArgs e)
-        {
-            if (GetSchemaFromDatabase != null)
-                GetSchemaFromDatabase();
         }
 
         private void btnPutDataSetToDatabase_Click(object sender, EventArgs e)
@@ -146,29 +137,11 @@ namespace NDbUnitDataEditor
                 TestDatabaseConnection();
         }
 
-        private void SetSchemaGenerationDisabled()
-        {
-            lblSqlServerOnlyMessage.Visible = true;
-            btnGetSchemaFromDatabase.Enabled = false;
-        }
-        private void SetSchemaGenerationEnabled()
-        {
-            lblSqlServerOnlyMessage.Visible = false;
-            btnGetSchemaFromDatabase.Enabled = true;
-        }
         private void cboDatabaseType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SelectedDatabaseConnectionType != DatabaseClientType.SqlClient)
-                SetSchemaGenerationDisabled();
-            else
-                SetSchemaGenerationEnabled();
-
-
             if (SelectDatabaseType != null)
                 SelectDatabaseType();
         }
-
-        
 
     }
 }

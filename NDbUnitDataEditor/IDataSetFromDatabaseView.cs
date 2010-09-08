@@ -12,7 +12,6 @@ namespace NDbUnitDataEditor
         string SelectFile(string initialFilename, string selectionFilter);
         event DataSetDatabaseEvent TestDatabaseConnection;
         event DataSetDatabaseEvent GetDataSetFromDatabase;
-        event DataSetDatabaseEvent GetSchemaFromDatabase;
         event DataSetDatabaseEvent PutDataSetToDatabase;
         event DataSetDatabaseEvent SelectDatabaseType;
         int DatabaseTypeSelectedIndex { get; set; }

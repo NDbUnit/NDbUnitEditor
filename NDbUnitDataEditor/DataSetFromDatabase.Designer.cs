@@ -35,8 +35,6 @@
             this.lblDatabaseType = new System.Windows.Forms.Label();
             this.btnGetDataSetFromDatabase = new System.Windows.Forms.Button();
             this.btnPutDataSetToDatabase = new System.Windows.Forms.Button();
-            this.btnGetSchemaFromDatabase = new System.Windows.Forms.Button();
-            this.lblSqlServerOnlyMessage = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
@@ -106,33 +104,11 @@
             this.btnPutDataSetToDatabase.UseVisualStyleBackColor = true;
             this.btnPutDataSetToDatabase.Click += new System.EventHandler(this.btnPutDataSetToDatabase_Click);
             // 
-            // btnGetSchemaFromDatabase
-            // 
-            this.btnGetSchemaFromDatabase.Location = new System.Drawing.Point(542, 128);
-            this.btnGetSchemaFromDatabase.Name = "btnGetSchemaFromDatabase";
-            this.btnGetSchemaFromDatabase.Size = new System.Drawing.Size(169, 23);
-            this.btnGetSchemaFromDatabase.TabIndex = 7;
-            this.btnGetSchemaFromDatabase.Text = "Get Schema from Database";
-            this.btnGetSchemaFromDatabase.UseVisualStyleBackColor = true;
-            this.btnGetSchemaFromDatabase.Click += new System.EventHandler(this.btnGetSchemaFromDatabase_Click);
-            // 
-            // lblSqlServerOnlyMessage
-            // 
-            this.lblSqlServerOnlyMessage.AutoSize = true;
-            this.lblSqlServerOnlyMessage.Location = new System.Drawing.Point(276, 133);
-            this.lblSqlServerOnlyMessage.Name = "lblSqlServerOnlyMessage";
-            this.lblSqlServerOnlyMessage.Size = new System.Drawing.Size(256, 13);
-            this.lblSqlServerOnlyMessage.TabIndex = 8;
-            this.lblSqlServerOnlyMessage.Text = "This feature only works with SQL Server Selected >>";
-            this.lblSqlServerOnlyMessage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // DataSetFromDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 165);
-            this.Controls.Add(this.lblSqlServerOnlyMessage);
-            this.Controls.Add(this.btnGetSchemaFromDatabase);
+            this.ClientSize = new System.Drawing.Size(723, 131);
             this.Controls.Add(this.btnPutDataSetToDatabase);
             this.Controls.Add(this.btnGetDataSetFromDatabase);
             this.Controls.Add(this.lblDatabaseType);
@@ -161,8 +137,6 @@
         private System.Windows.Forms.Label lblDatabaseType;
         private System.Windows.Forms.Button btnGetDataSetFromDatabase;
         private System.Windows.Forms.Button btnPutDataSetToDatabase;
-        private System.Windows.Forms.Button btnGetSchemaFromDatabase;
-        private System.Windows.Forms.Label lblSqlServerOnlyMessage;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }

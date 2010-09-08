@@ -38,7 +38,6 @@ namespace NDbUnitDataEditor
             _dataSetFromDatabase.PutDataSetToDatabase += PutDataSetToDatabase;
             _dataSetFromDatabase.TestDatabaseConnection += TestDatabaseConnection;
             _dataSetFromDatabase.SelectDatabaseType += SetDatabaseType;
-            _dataSetFromDatabase.GetSchemaFromDatabase += GetSchemaFromDatabase;
             FillPresenterWithSupportedDatabaseTypesList();
         }
 
@@ -112,30 +111,6 @@ namespace NDbUnitDataEditor
 
         }
 
-        private void GetSchemaFromDatabase()
-        {
-            var selectedFilename = _dataSetFromDatabase.SelectFile(DataFilePath, "XSD Schema Files (*.xsd)|*.xsd");
-
-            try
-            {
-                if (!string.IsNullOrEmpty(selectedFilename))
-                {
-                    IBuilderSettings settings = CreateSchemaBuilderSettings();
-                    DataSet = _schemaBuilder.GetSchema(settings);
-                    SchemaFileHasChanged = true;
-                    SchemaFilePath = selectedFilename;
-                    OperationResult = true;
-
-                    DataSet.WriteXmlSchema(selectedFilename);
-                }
-            }
-            catch (Exception ex)
-            {
-                _dataSetFromDatabase.ErrorMessage = ex.Message;
-                _dataSetFromDatabase.GetDataSetFromDatabaseResult = false;
-                OperationResult = false;
-            }
-        }
 
         private void PutDataSetToDatabase()
         {
