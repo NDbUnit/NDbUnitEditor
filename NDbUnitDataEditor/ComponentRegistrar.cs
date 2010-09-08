@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Castle.Windsor;
-using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Rhino.Commons;
 using NDbUnit.Utility;
 using NDbUnitDataEditor.UI;
-using NDbUnitDataEditor.Abstractions;
-using NDbUnitDataEditor.ZeusSchemaBuilder;
 
 namespace NDbUnitDataEditor
 {
@@ -55,14 +50,6 @@ namespace NDbUnitDataEditor
             _container.Register
             (
                 Component.For<NDbUnitFacade>().LifeStyle.Transient
-            );
-
-            //MyGeneration Schema-generation components
-            _container.Register
-            (
-                Component.For<ISchemaBuilder>().ImplementedBy<SchemaBuilder>().LifeStyle.Transient,
-                Component.For<ConnectionStringValidator>().LifeStyle.Transient,
-                Component.For<ConnectionStringProviderBuilder>().LifeStyle.Transient                
             );
 
             IoC.Initialize(_container);

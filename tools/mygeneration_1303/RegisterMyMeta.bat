@@ -1,1 +1,0 @@
-%WINDIR%\Microsoft.NET\Framework\v2.0.50727\RegAsm.exe MyMeta.dll /tlb:MyMeta.tlb
