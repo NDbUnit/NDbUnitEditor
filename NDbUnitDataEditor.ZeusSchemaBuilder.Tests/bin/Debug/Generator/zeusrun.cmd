@@ -1,2 +1,0 @@
-rem zeuscmd -t C:\_oss\NDbUnitEditor\tools\mygeneration_1303\Templates\TypedDataSet\AnnotationsXSD.zeus -c C:\_oss\NDbUnitEditor\tools\mygeneration_1303\Output\JobSettings.xml
-zeuscmd -i C:\_oss\NDbUnitEditor\tools\mygeneration_1303\Output\JobSettings.xml

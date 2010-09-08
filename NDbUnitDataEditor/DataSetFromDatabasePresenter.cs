@@ -1,37 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using NDbUnit.Core;
-using System.Windows.Forms;
-using NDbUnitDataEditor.Abstractions;
-using NDbUnitDataEditor.ZeusSchemaBuilder;
+
 
 namespace NDbUnitDataEditor
 {
 
     public class DataSetFromDatabasePresenter
     {
-        private ConnectionStringProviderBuilder _connectionStringProviderBuilder = null;
-
-        private ConnectionStringValidator _connectionStringValidator = null;
-
         IDataSetFromDatabaseView _dataSetFromDatabase;
 
         private NDbUnitFacade _nDbUnit;
-
-        private ISchemaBuilder _schemaBuilder;
 
         /// <summary>
         /// Initializes a new instance of the DataSetFromDatabasePresenter class.
         /// </summary>
         /// <param name="nDbUnitManager"></param>
         /// <param name="dataSetFromDatabase"></param>
-        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitFacade nDbUnitManager, ISchemaBuilder schemaBuilder, ConnectionStringValidator connectionStringValidator, ConnectionStringProviderBuilder connectionStringProviderBuiilder)
+        public DataSetFromDatabasePresenter(IDataSetFromDatabaseView dataSetFromDatabase, NDbUnitFacade nDbUnitManager)
         {
-            _connectionStringProviderBuilder = connectionStringProviderBuiilder;
-            _connectionStringValidator = connectionStringValidator;
-            _schemaBuilder = schemaBuilder;
             _nDbUnit = nDbUnitManager;
             _dataSetFromDatabase = dataSetFromDatabase;
             _dataSetFromDatabase.GetDataSetFromDatabase += GetDataSetFromDatabase;
@@ -64,17 +50,6 @@ namespace NDbUnitDataEditor
             _dataSetFromDatabase.DatabaseConnectionString = DatabaseConnectionString;
             _dataSetFromDatabase.DatabaseTypeSelectedIndex = DatabaseTypeSelectedIndex;
             _dataSetFromDatabase.Run();
-        }
-
-        private IBuilderSettings CreateSchemaBuilderSettings()
-        {
-            return new ZeusBuilderSettings(DatabaseConnectionString,
-                                         "testdb", //TODO: get this from some UI selection
-                                         "default",
-                                         "GeneratedDataSet", //TODO: get this from some UI
-                                         new List<string> { "User", "Role", "UserRole" }, //TODO: Get this list from a new UI checklistbox-like thing
-                                         _connectionStringValidator,
-                                         _connectionStringProviderBuilder);
         }
 
         private void FillPresenterWithSupportedDatabaseTypesList()
