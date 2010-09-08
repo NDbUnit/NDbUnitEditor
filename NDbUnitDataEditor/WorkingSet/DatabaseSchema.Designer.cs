@@ -368,7 +368,7 @@ namespace NDbUnitDataEditor.WorkingSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class RoleDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class RoleDataTable : global::System.Data.TypedTableBase<RoleRow> {
             
             private global::System.Data.DataColumn columnID;
             
@@ -486,12 +486,6 @@ namespace NDbUnitDataEditor.WorkingSet {
             public RoleRow FindByID(int ID) {
                 return ((RoleRow)(this.Rows.Find(new object[] {
                             ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -666,7 +660,7 @@ namespace NDbUnitDataEditor.WorkingSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class UserRoleDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class UserRoleDataTable : global::System.Data.TypedTableBase<UserRoleRow> {
             
             private global::System.Data.DataColumn columnUserID;
             
@@ -780,12 +774,6 @@ namespace NDbUnitDataEditor.WorkingSet {
                 return ((UserRoleRow)(this.Rows.Find(new object[] {
                             UserID,
                             RoleID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -952,7 +940,7 @@ namespace NDbUnitDataEditor.WorkingSet {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class UserDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class UserDataTable : global::System.Data.TypedTableBase<UserRow> {
             
             private global::System.Data.DataColumn columnID;
             
@@ -1095,12 +1083,6 @@ namespace NDbUnitDataEditor.WorkingSet {
             public UserRow FindByID(int ID) {
                 return ((UserRow)(this.Rows.Find(new object[] {
                             ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public virtual global::System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
