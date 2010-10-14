@@ -18,44 +18,39 @@ namespace Tests.DataEditorPresenterTests
         [Test]
         public void Tab_Is_Marked_As_Changed_When_DataViewChanged_Event_Is_Fired_And_DataSet_Contains_Changes()
         {
-            IDataEditorView view = _mocks.DynamicMock<IDataEditorView>();
-            IEventRaiser eventRaiser = null;
-            DataSet dataSet = CreateDataSet();
-            using (_mocks.Record())
-            {
-                view.DataViewChanged += null;
-                eventRaiser = LastCall.IgnoreArguments().GetEventRaiser();
-                Expect.Call(() => view.MarkTabAsEdited("Tab1")).Repeat.Once();
-                Expect.Call(view.Data).Return(dataSet);
-                Expect.Call(view.DataSetHasChanges()).Return(true);
-            }
-            _mocks.ReplayAll();
-            DataEditorPresenter presenter = new DataEditorPresenter(view, null,null, null);
-            TableViewEventArguments eventArguments = new TableViewEventArguments("Tab1");
-            eventRaiser.Raise(eventArguments);
-            _mocks.VerifyAll();
+			var tabName = "Tab1";
+			IDataEditorView view = MockRepository.GenerateStub<IDataEditorView>();
+			IDataSetProvider dataSetProvider = MockRepository.GenerateStub<IDataSetProvider>();
+			dataSetProvider.Stub(d => d.HasTableChanged(tabName)).Return(true);
+			view.Stub(v => v.DataSetHasChanges()).Return(true);
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataViewChanged+=null);
+           
+			DataEditorPresenter presenter = CreatePresenter(view, dataSetProvider);
+            eventRaiser.Raise(tabName);
+			view.AssertWasCalled(v => v.MarkTabAsEdited(tabName), o => o.Repeat.Once());
         }
+
 
         [Test]
         public void Tab_Is_Not_Marked_As_Changed_When_DataViewChanged_Event_Is_Fired_And_DataSet_Contains_No_Changes()
         {
-            IDataEditorView view = _mocks.DynamicMock<IDataEditorView>();
-            IEventRaiser eventRaiser = null;
-            DataSet dataSet = CreateDataSet();
-            using (_mocks.Record())
-            {
-                view.DataViewChanged += null;
-                eventRaiser = LastCall.IgnoreArguments().GetEventRaiser();
-                Expect.Call(() => view.MarkTabAsEdited("Tab1")).Repeat.Never();
-                Expect.Call(view.Data).Return(dataSet);
-                Expect.Call(view.DataSetHasChanges()).Return(false);
-            }
-            _mocks.ReplayAll();
-            DataEditorPresenter presenter = new DataEditorPresenter(view, null, null, null);
-            TableViewEventArguments eventArguments = new TableViewEventArguments("Tab1");
-            eventRaiser.Raise(eventArguments);
-            _mocks.VerifyAll();
+			var tabName = "Tab1";
+			IDataEditorView view = MockRepository.GenerateStub<IDataEditorView>();
+			IDataSetProvider dataSetProvider = MockRepository.GenerateStub<IDataSetProvider>();
+			dataSetProvider.Stub(d => d.HasTableChanged(tabName)).Return(false);
+			view.Stub(v => v.DataSetHasChanges()).Return(false);
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataViewChanged += null);
+
+			DataEditorPresenter presenter = CreatePresenter(view, dataSetProvider);
+			eventRaiser.Raise(tabName);
+			view.AssertWasNotCalled(v => v.MarkTabAsEdited(tabName));
         }
+
+		private DataEditorPresenter CreatePresenter(IDataEditorView view, IDataSetProvider datasetProvider)
+		{
+			var presenter = new DataEditorPresenter(view, null, null, null, datasetProvider);
+			return presenter;
+		}
 
         private DataSet CreateDataSet()
         {
@@ -66,8 +61,6 @@ namespace Tests.DataEditorPresenterTests
             DataRow row = table.NewRow();
             row["Id"] = 1;
             table.Rows.Add(row);
-            //if(!hasChanges)
-            //    table.AcceptChanges();
             return dataset;
 
         }

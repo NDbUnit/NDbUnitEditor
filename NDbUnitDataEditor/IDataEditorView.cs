@@ -10,37 +10,33 @@ using NDbUnit.Utility;
 
 namespace NDbUnitDataEditor
 {
-    public delegate void EditorEventHandler();
-
-    public delegate void TableViewEventHandler(TableViewEventArguments args);
-
     public interface IDataEditorView
     {
-        event EditorEventHandler SaveEditorSettingsAs;
+        event Action SaveEditorSettingsAs;
         string ProjectFileName { get; set; }
-        event EditorEventHandler LoadEditorSettings;
+        event Action LoadEditorSettings;
         bool DataSetHasChanges();
         void SetDataSetChanged();
         bool TabIsMarkedAsEdited(string tabName);
         void RemoveEditedMarksFromAllTabs();
         void MarkTabAsEdited(string tabName);
-        event TableViewEventHandler DataViewChanged;
+        event Action<string> DataViewChanged;
         void EnableSave();
-        event EditorEventHandler SaveData;
-        event EditorEventHandler GetDataSetFromDatabase;
-        event EditorEventHandler CreateGuid;
-        event EditorEventHandler ApplicationClose;
-        event EditorEventHandler BrowseForSchemaFile;
-        event EditorEventHandler SaveEditorSettings;
+        event Action SaveData;
+        event Action GetDataSetFromDatabase;
+        event Action CreateGuid;
+        event Action ApplicationClose;
+        event Action BrowseForSchemaFile;
+        event Action SaveEditorSettings;
         string NewGuid { get; set; }
         string SelectFile(string initialFilename, string selectionFilter);
-        event EditorEventHandler BrowseForDataFile;
-        DataSet Data { get; set; }
+        event Action BrowseForDataFile;
+        DataSet Data {set; }
         void BindTableTree();
         void BindDataTable(DataTable table);
         void CloseAllTabs();
-        event EditorEventHandler Initialize;
-        event EditorEventHandler ReloadData;
+        event Action Initialize;
+        event Action ReloadData;
         void CreateInitialPage();
         void Run();
         string SchemaFileName { get; set; }

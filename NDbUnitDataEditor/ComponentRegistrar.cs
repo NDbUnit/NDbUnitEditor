@@ -31,6 +31,7 @@ namespace NDbUnitDataEditor
             _container.Register
             (
                 Component.For<IDataEditorView>().ImplementedBy<DataEditor>().LifeStyle.Transient,
+				Component.For<IDataSetProvider>().ImplementedBy<DataSetProvider>().LifeStyle.Transient,
                 Component.For<DataEditorPresenter>().LifeStyle.Transient,
                 Component.For<IDialogFactory>().ImplementedBy<DialogFactory>().LifeStyle.Transient,
                 Component.For<IDataSetFromDatabaseView>().ImplementedBy<DataSetFromDatabase>().LifeStyle.Transient,

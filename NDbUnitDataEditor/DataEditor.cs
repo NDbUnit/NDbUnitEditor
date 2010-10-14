@@ -24,43 +24,38 @@ namespace NDbUnitDataEditor
 
         public string ProjectFileName { get; set; }
 
-        public event EditorEventHandler ApplicationClose;
+        public event Action ApplicationClose;
 
-        public event EditorEventHandler BrowseForDataFile;
+		public event Action BrowseForDataFile;
 
-        public event EditorEventHandler BrowseForSchemaFile;
+		public event Action BrowseForSchemaFile;
 
-        public event EditorEventHandler CreateGuid;
+		public event Action CreateGuid;
 
-        public event TableViewEventHandler DataViewChanged;
+        public event Action<string> DataViewChanged;
 
-        public event EditorEventHandler GetDataSetFromDatabase;
+		public event Action GetDataSetFromDatabase;
 
-        public event EditorEventHandler Initialize;
+		public event Action Initialize;
 
-        public event EditorEventHandler ReloadData;
+		public event Action ReloadData;
 
-        public event EditorEventHandler SaveData;
+		public event Action SaveData;
 
-        public event EditorEventHandler SaveEditorSettings;
+		public event Action SaveEditorSettings;
 
-        public event EditorEventHandler SaveEditorSettingsAs;
+		public event Action SaveEditorSettingsAs;
 
-        public event EditorEventHandler LoadEditorSettings;
+		public event Action LoadEditorSettings;
 
         public DataEditor()
         {
             InitializeComponent();
-            _dataSet = new DataSet();
             Text += String.Format(" v{0}", Application.ProductVersion);
         }
 
         public DataSet Data
         {
-            get
-            {
-                return _dataSet;
-            }
             set
             {
                 _dataSet = value;
@@ -249,7 +244,7 @@ namespace NDbUnitDataEditor
             TabPage page = GetTabPage(tabName);
             //page.ContextMenuStrip = contextMenuStrip1;
             TableView view = new TableView(tabName) { Dock = DockStyle.Fill };
-            view.TableViewChanged += new TableViewEventHandler(TabPageEdited);
+			view.TableViewChanged += TabPageEdited;
             page.Controls.Add(view);
 
             return page;
@@ -360,9 +355,9 @@ namespace NDbUnitDataEditor
             btnNewGuid.Enabled = true;
         }
 
-        private void TabPageEdited(TableViewEventArguments args)
+        private void TabPageEdited(string tabName)
         {
-            DataViewChanged(args);
+            DataViewChanged(tabName);
         }
 
         private void tbTableViews_MouseClick(object sender, MouseEventArgs e)

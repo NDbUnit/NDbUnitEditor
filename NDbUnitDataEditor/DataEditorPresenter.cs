@@ -16,6 +16,7 @@ namespace NDbUnitDataEditor
     public class DataEditorPresenter
     {
 
+		private IDataSetProvider _datasetProvider;
         private const string DEFAULT_PROJECT_FILE_NAME = "DefaultProject.xml";
 
         private const string RECENT_PROJECT_FILE_KEY = "RecentProjectFileName";
@@ -30,8 +31,9 @@ namespace NDbUnitDataEditor
         /// <summary>
         /// Initializes a new instance of the DataEditorPresenter class.
         /// </summary>
-        public DataEditorPresenter(IDataEditorView dataEditor, IDialogFactory dialogFactory, IUserSettings userSettings, INdbUnitEditorSettingsManager settingsManager)
+        public DataEditorPresenter(IDataEditorView dataEditor, IDialogFactory dialogFactory, IUserSettings userSettings, INdbUnitEditorSettingsManager settingsManager, IDataSetProvider datasetProvider)
         {
+			_datasetProvider = datasetProvider;
             _settingsManager = settingsManager;
             _userSettings = userSettings;
             _dialogFactory = dialogFactory;
@@ -60,8 +62,8 @@ namespace NDbUnitDataEditor
 
                 if (File.Exists(schemaFileName))
                 {
-                    DataSet dataSet = _dataEditor.Data;
-                    dataSet.ReadXmlSchema(schemaFileName);
+					_datasetProvider.ReadSchemaFromFile(schemaFileName);
+
                     _dataEditor.BindTableTree();
 
                     _dataEditor.EnableSave();
@@ -73,17 +75,13 @@ namespace NDbUnitDataEditor
             }
         }
 
-        public void HandleDataSetChange(TableViewEventArguments args)
+        public void HandleDataSetChange(string tabName)
         {
-            DataSet dataSet = _dataEditor.Data;
-            var tabName = args.TabName;
             if (!string.IsNullOrEmpty(tabName) && _dataEditor.DataSetHasChanges())
             {
                 if (_dataEditor.TabIsMarkedAsEdited(tabName))
                     return; //tab was already marked
-                DataTable table = dataSet.Tables[tabName];
-                var changes = table.GetChanges();
-                if (changes != null)
+                if (_datasetProvider.HasTableChanged(tabName))
                     _dataEditor.MarkTabAsEdited(tabName);
             }
         }
@@ -93,10 +91,9 @@ namespace NDbUnitDataEditor
             IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
             try
             {
-                DataSet dataSet = _dataEditor.Data;
                 string dataFileName = _dataEditor.DataFileName;
 
-                string errorMessage = ValidateInputBeforeReload(dataSet, dataFileName);
+                string errorMessage = ValidateInputBeforeReload(dataFileName);
                 if (errorMessage != string.Empty)
                 {
                     messageDialog.ShowError(errorMessage, "Error loading DataSet");
@@ -104,9 +101,7 @@ namespace NDbUnitDataEditor
                 }
 
                 _dataEditor.CloseAllTabs();
-
-                dataSet.Clear();
-                dataSet.ReadXml(dataFileName);
+				_datasetProvider.ReadDataFromFile(dataFileName);
             }
             catch (Exception ex)
             {
@@ -114,14 +109,6 @@ namespace NDbUnitDataEditor
                 //TODO: add some sort of error logging here
             }
 
-        }
-
-        public void ResetSchema()
-        {
-            DataSet dataSet = _dataEditor.Data;
-            dataSet.Clear();
-            dataSet.Dispose();
-            _dataEditor.Data = new DataSet();
         }
 
         public void SelectDataFile()
@@ -137,13 +124,14 @@ namespace NDbUnitDataEditor
             if (!String.IsNullOrEmpty(fileName))
             {
                 _dataEditor.SchemaFileName = fileName;
-                ResetSchema();
+				_datasetProvider.ResetSchema();
                 CreateTableTree();
             }
         }
 
         public void Start()
         {
+			_dataEditor.Data = _datasetProvider.Data;
             _dataEditor.Run();
         }
 
@@ -174,7 +162,7 @@ namespace NDbUnitDataEditor
                 _dataEditor.SetDataSetChanged();
                 _dataEditor.CloseAllTabs();
 
-                ResetSchema();
+                _datasetProvider.ResetSchema();
                 ReInitializeView();
             }
 
@@ -189,12 +177,10 @@ namespace NDbUnitDataEditor
         {
             CreateTableTree();
 
-            if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
+            if (!String.IsNullOrEmpty(_dataEditor.DataFileName))
             {
                 //read data if exists
-
-                DataSet dataSet = _dataEditor.Data;
-                dataSet.ReadXml(_dataEditor.DataFileName);
+                _datasetProvider.ReadDataFromFile(_dataEditor.DataFileName);
             }
             _dataEditor.CreateInitialPage();
         }
@@ -212,27 +198,20 @@ namespace NDbUnitDataEditor
         {
             CreateTableTree();
 
-            if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && _dataEditor.Data != null)
+            if (!String.IsNullOrEmpty(_dataEditor.DataFileName))
             {
                 //read data if exists
 
-                DataSet dataSet = _dataEditor.Data;
-                dataSet.ReadXml(_dataEditor.DataFileName);
+                _datasetProvider.ReadDataFromFile(_dataEditor.DataFileName);
             }
             _dataEditor.CreateInitialPage();
         }
 
         void SaveData()
         {
-            DataSet dataSet = _dataEditor.Data;
             IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
             try
             {
-                if (dataSet == null)
-                {
-                    messageDialog.ShowError("Cannot find schema. Please make sure that there is a database schema loaded.");
-                    return;
-                }
                 string fileName = _dataEditor.DataFileName;
                 if (fileName == null || fileName == "")
                 {
@@ -249,7 +228,7 @@ namespace NDbUnitDataEditor
                     messageDialog.ShowError("Cannot save specified file");
                     return;
                 }
-                dataSet.WriteXml(fileName);
+                _datasetProvider.SaveDataToFile(fileName);
                 _dataEditor.DataFileName = fileName;
                 _dataEditor.RemoveEditedMarksFromAllTabs();
             }
@@ -317,15 +296,11 @@ namespace NDbUnitDataEditor
 
 
 
-        private string ValidateInputBeforeReload(DataSet dataSet, string fileName)
+        private string ValidateInputBeforeReload(string fileName)
         {
             if (String.IsNullOrEmpty(fileName))
             {
                 return "Cannot load data. Please select data file name first";
-            }
-            if (dataSet == null)
-            {
-                return "Cannot find schema. Please make sure that there is a database schema loaded.";
             }
 
             if (!File.Exists(fileName))
