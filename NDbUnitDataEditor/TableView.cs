@@ -11,7 +11,7 @@ namespace NDbUnitDataEditor
 
     public partial class TableView : UserControl
     {
-        public event TableViewEventHandler TableViewChanged;
+        public event Action<string> TableViewChanged;
 
         public TableView(string name)
         {
@@ -30,8 +30,7 @@ namespace NDbUnitDataEditor
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            TableViewEventArguments args = new TableViewEventArguments(Name);
-            TableViewChanged(args);
+            TableViewChanged(Name);
         }
 
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
