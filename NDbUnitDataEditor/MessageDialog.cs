@@ -32,6 +32,15 @@ namespace NDbUnitDataEditor
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-    }
+		public bool ShowYesNo(string message)
+		{
+			if (MessageBox.Show(message, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				return true;
+			return false;
+
+		}
+	}
+
+
 
 }

@@ -10,40 +10,40 @@ using NDbUnit.Utility;
 
 namespace NDbUnitDataEditor
 {
-    public interface IDataEditorView
-    {
-        event Action SaveEditorSettingsAs;
-        string ProjectFileName { get; set; }
-        event Action LoadEditorSettings;
-        bool DataSetHasChanges();
-        void SetDataSetChanged();
-        bool TabIsMarkedAsEdited(string tabName);
-        void RemoveEditedMarksFromAllTabs();
-        void MarkTabAsEdited(string tabName);
-        event Action<string> DataViewChanged;
-        void EnableSave();
-        event Action SaveData;
-        event Action GetDataSetFromDatabase;
-        event Action CreateGuid;
-        event Action ApplicationClose;
-        event Action BrowseForSchemaFile;
-        event Action SaveEditorSettings;
-        string NewGuid { get; set; }
-        string SelectFile(string initialFilename, string selectionFilter);
-        event Action BrowseForDataFile;
-        DataSet Data {set; }
-        void BindTableTree();
-        void BindDataTable(DataTable table);
-        void CloseAllTabs();
-        event Action Initialize;
-        event Action ReloadData;
-        void CreateInitialPage();
-        void Run();
-        string SchemaFileName { get; set; }
-        string DataFileName { get; set; }
-        string DatabaseConnectionString { get; set; }
-        string DatabaseClientType { get; set; }
-        NdbUnitEditorSettings GetEditorSettings();
+	public interface IDataEditorView
+	{
 
-    }
+		void OpenTableView(DataTable table);
+		event Action<string> TableTreeNodeDblClicked;
+		void CloseApplication();
+		event Action ExitApp;
+		event Action SaveEditorSettingsAs;
+		string ProjectFileName { get; set; }
+		event Action LoadEditorSettings;
+		bool TabIsMarkedAsEdited(string tabName);
+		void RemoveEditedMarksFromAllTabs();
+		void MarkTabAsEdited(string tabName);
+		event Action<string> DataViewChanged;
+		void EnableSave();
+		event Action SaveData;
+		event Action GetDataSetFromDatabase;
+		event Action CreateGuid;
+		event Action BrowseForSchemaFile;
+		event Action SaveEditorSettings;
+		string NewGuid { get; set; }
+		string SelectFile(string initialFilename, string selectionFilter);
+		event Action BrowseForDataFile;
+		void BindTableTree(string rootNodeName, IEnumerable<string> tableNames);
+		void BindDataTable(DataTable table);
+		void CloseAllTabs();
+		event Action Initialize;
+		event Action ReloadData;
+		void Run();
+		string SchemaFileName { get; set; }
+		string DataFileName { get; set; }
+		string DatabaseConnectionString { get; set; }
+		string DatabaseClientType { get; set; }
+		NdbUnitEditorSettings GetEditorSettings();
+
+	}
 }
