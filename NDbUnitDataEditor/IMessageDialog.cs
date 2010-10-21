@@ -12,6 +12,7 @@ namespace NDbUnitDataEditor
         void ShowWarning(string message);
         void ShowError(string message, string caption);
         void ShowError(string message);
+		bool ShowYesNo(string message);
         
     }
 }

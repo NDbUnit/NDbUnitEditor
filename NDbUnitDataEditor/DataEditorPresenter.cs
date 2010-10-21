@@ -38,11 +38,10 @@ namespace NDbUnitDataEditor
             _userSettings = userSettings;
             _dialogFactory = dialogFactory;
             _dataEditor = dataEditor;
-            _dataEditor.Initialize += InitializeView;
+            _dataEditor.Initialize += OnInitializeView;
             _dataEditor.ReloadData += ReloadData;
             _dataEditor.BrowseForDataFile += SelectDataFile;
             _dataEditor.BrowseForSchemaFile += SelectSchemaFile;
-            _dataEditor.ApplicationClose += SaveSettings;
             _dataEditor.CreateGuid += CreateGuid;
             _dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
             _dataEditor.SaveData += SaveData;
@@ -50,34 +49,55 @@ namespace NDbUnitDataEditor
             _dataEditor.SaveEditorSettings += SaveEditorSettings;
             _dataEditor.SaveEditorSettingsAs += SaveEditorSettingsAs;
             _dataEditor.LoadEditorSettings += LoadEditorSettings;
-
+			_dataEditor.ExitApp += OnExitingApplication;
+			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
         }
+
+		private void OnOpenTable(string tableName)
+		{
+			var table = _datasetProvider.GetTable(tableName);
+			if (table == null)
+				return;
+			_dataEditor.OpenTableView(table);
+		}
+
+		public void OnExitingApplication()
+		{
+			if (DataSetHasChanges)
+			{
+				var messageDialog = _dialogFactory.CreateMessageDialog();
+				if (messageDialog.ShowYesNo("Do you want to save changes before closing?"))
+					_datasetProvider.SaveDataToFile(_dataEditor.DataFileName);
+			}
+			SaveSettings();
+			_dataEditor.CloseApplication();
+		}
 
         public void CreateTableTree()
         {
             IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
-            try
-            {
-                string schemaFileName = _dataEditor.SchemaFileName;
+			try
+			{
+				string schemaFileName = _dataEditor.SchemaFileName;
 
-                if (File.Exists(schemaFileName))
-                {
+				if (File.Exists(schemaFileName))
+				{
 					_datasetProvider.ReadSchemaFromFile(schemaFileName);
 
-                    _dataEditor.BindTableTree();
+					_dataEditor.BindTableTree(_datasetProvider.DataSetName, _datasetProvider.GetTableNames());
 
-                    _dataEditor.EnableSave();
-                }
-            }
-            catch (Exception ex)
-            {
-                messageDialog.ShowError(String.Format("Unable to create schema tree. Exception:{0}", ex));
-            }
+					_dataEditor.EnableSave();
+				}
+			}
+			catch (Exception ex)
+			{
+				messageDialog.ShowError(String.Format("Unable to create schema tree. Exception:{0}", ex));
+			}
         }
 
         public void HandleDataSetChange(string tabName)
         {
-            if (!string.IsNullOrEmpty(tabName) && _dataEditor.DataSetHasChanges())
+            if (!string.IsNullOrEmpty(tabName) && DataSetHasChanges)
             {
                 if (_dataEditor.TabIsMarkedAsEdited(tabName))
                     return; //tab was already marked
@@ -85,6 +105,7 @@ namespace NDbUnitDataEditor
                     _dataEditor.MarkTabAsEdited(tabName);
             }
         }
+
 
         public void ReloadData()
         {
@@ -131,7 +152,6 @@ namespace NDbUnitDataEditor
 
         public void Start()
         {
-			_dataEditor.Data = _datasetProvider.Data;
             _dataEditor.Run();
         }
 
@@ -157,9 +177,7 @@ namespace NDbUnitDataEditor
 
                 if (presenter.SchemaFileHasChanged)
                     _dataEditor.SchemaFileName = presenter.SchemaFilePath;
-
-                _dataEditor.Data = presenter.DataSet;
-                _dataEditor.SetDataSetChanged();
+				_datasetProvider.DataSetLoadedFromDatabase = true;
                 _dataEditor.CloseAllTabs();
 
                 _datasetProvider.ResetSchema();
@@ -173,6 +191,14 @@ namespace NDbUnitDataEditor
             _dataEditor.DatabaseClientType = presenter.DatabaseType.ToString();
         }
 
+		private bool DataSetHasChanges
+		{
+			get
+			{
+				return (_datasetProvider.DataSetLoadedFromDatabase || _datasetProvider.HasChanges());
+			}
+		}
+
         private void ReInitializeView()
         {
             CreateTableTree();
@@ -182,10 +208,18 @@ namespace NDbUnitDataEditor
                 //read data if exists
                 _datasetProvider.ReadDataFromFile(_dataEditor.DataFileName);
             }
-            _dataEditor.CreateInitialPage();
+			OpenFirstTable();
         }
 
-        private void InitializeView()
+		private void OpenFirstTable()
+		{
+			var table = _datasetProvider.GetFirstTable();
+			if (table == null)
+				return;
+			_dataEditor.OpenTableView(table);
+		}
+
+        private void OnInitializeView()
         {
             var projectFileName = _userSettings.GetSetting(RECENT_PROJECT_FILE_KEY);
             if (File.Exists(projectFileName))
@@ -204,7 +238,7 @@ namespace NDbUnitDataEditor
 
                 _datasetProvider.ReadDataFromFile(_dataEditor.DataFileName);
             }
-            _dataEditor.CreateInitialPage();
+			OpenFirstTable();
         }
 
         void SaveData()
