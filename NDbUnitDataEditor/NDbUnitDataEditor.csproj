@@ -158,7 +158,7 @@
     <Compile Include="IDataSetFromDatabaseView.cs" />
     <Compile Include="IDialogFactory.cs" />
     <Compile Include="IMessageDialog.cs" />
-    <Compile Include="MessageDialog.cs" />
+    <Compile Include="MessageCreator.cs" />
     <Compile Include="NDbUnitFacade.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

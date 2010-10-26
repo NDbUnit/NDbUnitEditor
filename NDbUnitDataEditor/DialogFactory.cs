@@ -15,9 +15,9 @@ namespace NDbUnitDataEditor.UI
             return fileDialog;
         }
 
-        public IMessageDialog CreateMessageDialog()
+        public IMessageCreator CreateMessageDialog()
         {
-            MessageDialog dialog = new MessageDialog();
+            MessageCreator dialog = new MessageCreator();
             return dialog;
         }
 
