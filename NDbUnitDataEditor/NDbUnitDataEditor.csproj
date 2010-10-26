@@ -157,7 +157,7 @@
     <Compile Include="IDataEditorView.cs" />
     <Compile Include="IDataSetFromDatabaseView.cs" />
     <Compile Include="IDialogFactory.cs" />
-    <Compile Include="IMessageDialog.cs" />
+    <Compile Include="IMessageCreator.cs" />
     <Compile Include="MessageCreator.cs" />
     <Compile Include="NDbUnitFacade.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
