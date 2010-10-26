@@ -7,7 +7,7 @@ namespace NDbUnitDataEditor.UI
 {
     public interface IDialogFactory
     {
-        IMessageDialog CreateMessageDialog();
+        IMessageCreator CreateMessageDialog();
         IFileDialog CreateFileDialog(FileDialogType dialogType, string filter);
     }
 }

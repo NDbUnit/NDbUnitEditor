@@ -15,7 +15,7 @@ namespace Tests.DataEditorPresenterTests
 {
 	public class PresenterTestBase
 	{
-		protected IMessageDialog messageDialog;
+		protected IMessageCreator messageDialog;
 		protected IDataEditorView view;
 		protected IDataSetProvider datasetProvider;
 		protected IDialogFactory dialogFactory;
@@ -27,7 +27,7 @@ namespace Tests.DataEditorPresenterTests
 			datasetProvider = MockRepository.GenerateStub<IDataSetProvider>();
 			view = MockRepository.GenerateStub<IDataEditorView>();
 			dialogFactory = MockRepository.GenerateStub<IDialogFactory>();
-			messageDialog = MockRepository.GenerateStub<IMessageDialog>();
+			messageDialog = MockRepository.GenerateStub<IMessageCreator>();
 			settings = MockRepository.GenerateStub<IUserSettings>();
 			settingsManger = MockRepository.GenerateStub<INdbUnitEditorSettingsManager>();
 		}

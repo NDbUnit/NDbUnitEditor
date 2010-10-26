@@ -66,7 +66,7 @@ namespace NDbUnitDataEditor
 			if (DataSetHasChanges)
 			{
 				var messageDialog = _dialogFactory.CreateMessageDialog();
-				if (messageDialog.ShowYesNo("Do you want to save changes before closing?"))
+				if (messageDialog.AskUser("Do you want to save changes before closing?"))
 					_datasetProvider.SaveDataToFile(_dataEditor.DataFileName);
 			}
 			SaveSettings();
@@ -75,7 +75,7 @@ namespace NDbUnitDataEditor
 
         public void CreateTableTree()
         {
-            IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
+            IMessageCreator messageDialog = _dialogFactory.CreateMessageDialog();
 			try
 			{
 				string schemaFileName = _dataEditor.SchemaFileName;
@@ -109,7 +109,7 @@ namespace NDbUnitDataEditor
 
         public void ReloadData()
         {
-            IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
+            IMessageCreator messageDialog = _dialogFactory.CreateMessageDialog();
             try
             {
                 string dataFileName = _dataEditor.DataFileName;
@@ -235,7 +235,6 @@ namespace NDbUnitDataEditor
             if (!String.IsNullOrEmpty(_dataEditor.DataFileName))
             {
                 //read data if exists
-
                 _datasetProvider.ReadDataFromFile(_dataEditor.DataFileName);
             }
 			OpenFirstTable();
@@ -243,7 +242,7 @@ namespace NDbUnitDataEditor
 
         void SaveData()
         {
-            IMessageDialog messageDialog = _dialogFactory.CreateMessageDialog();
+            IMessageCreator messageDialog = _dialogFactory.CreateMessageDialog();
             try
             {
                 string fileName = _dataEditor.DataFileName;
@@ -304,7 +303,6 @@ namespace NDbUnitDataEditor
             NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
             _settingsManager.SaveSettings(settings, dialog.FileName);
             _dataEditor.ProjectFileName = dialog.FileName;
-
         }
 
         public void LoadEditorSettings()

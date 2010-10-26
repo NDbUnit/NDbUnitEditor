@@ -31,7 +31,7 @@ namespace Tests.DataEditorPresenterTests
 			datasetProvider.DataSetLoadedFromDatabase = true;
 			dialogFactory.Stub(f => f.CreateMessageDialog()).Return(messageDialog);
 			RaiseExitAppEvent();
-			messageDialog.AssertWasCalled(d => d.ShowYesNo(null), o => o.IgnoreArguments());
+			messageDialog.AssertWasCalled(d => d.AskUser(null), o => o.IgnoreArguments());
 		}
 
 		[Test]
@@ -42,7 +42,7 @@ namespace Tests.DataEditorPresenterTests
 			dialogFactory.Stub(f => f.CreateMessageDialog()).Return(messageDialog);
 			RaiseExitAppEvent();
 
-			messageDialog.AssertWasNotCalled(d => d.ShowYesNo(null), o => o.IgnoreArguments());
+			messageDialog.AssertWasNotCalled(d => d.AskUser(null), o => o.IgnoreArguments());
 		}
 
 		private void RaiseExitAppEvent()
