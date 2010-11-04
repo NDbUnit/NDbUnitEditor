@@ -179,19 +179,6 @@ namespace NDbUnitDataEditor
 			Application.Run(this);
 		}
 
-		public string SelectFile(string initialFilename, string selectionFilter)
-		{
-			openFileDialog1.FileName = initialFilename;
-			openFileDialog1.Filter = selectionFilter;
-
-			string selectedFileName;
-
-			if (openFileDialog1.ShowDialog() == DialogResult.OK)
-				selectedFileName = openFileDialog1.FileName;
-			else
-				selectedFileName = String.Empty;
-			return selectedFileName;
-		}
 
 		public bool TabIsMarkedAsEdited(string tabName)
 		{
@@ -413,8 +400,6 @@ namespace NDbUnitDataEditor
 		{
 			SaveEditorSettingsAs();
 		}
-
-
 
 		public NdbUnitEditorSettings GetEditorSettings()
 		{

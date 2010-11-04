@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Rhino.Commons;
 using NDbUnit.Utility;
 using NDbUnitDataEditor.UI;
+using System.Reflection;
 
 namespace NDbUnitDataEditor
 {
@@ -33,9 +34,12 @@ namespace NDbUnitDataEditor
                 Component.For<IDataEditorView>().ImplementedBy<DataEditor>().LifeStyle.Transient,
 				Component.For<IDataSetProvider>().ImplementedBy<DataSetProvider>().LifeStyle.Transient,
                 Component.For<DataEditorPresenter>().LifeStyle.Transient,
-                Component.For<IDialogFactory>().ImplementedBy<DialogFactory>().LifeStyle.Transient,
+                Component.For<IFileDialogCreator>().ImplementedBy<FileDialogCreator>().LifeStyle.Transient,
+				Component.For<IMessageCreator>().ImplementedBy<MessageCreator>().LifeStyle.Transient,
                 Component.For<IDataSetFromDatabaseView>().ImplementedBy<DataSetFromDatabase>().LifeStyle.Transient,
-                Component.For<DataSetFromDatabasePresenter>().LifeStyle.Singleton
+                Component.For<DataSetFromDatabasePresenter>().LifeStyle.Singleton,
+				Component.For<IApplicationController>().ImplementedBy<ApplicationController>(),
+				Component.For<IEventAggregator>().ImplementedBy<EventAggregator>()
             );
 
             //settings persistennce and retrieval
@@ -46,6 +50,9 @@ namespace NDbUnitDataEditor
                     .Parameters(Parameter.ForKey("applicationName").Eq("NDbUnitEditor")),
                 Component.For<INdbUnitEditorSettingsManager>().ImplementedBy<NdbUnitEditorSettingsManager>().LifeStyle.Transient
             );
+
+			_container.Register(
+				AllTypes.Of<ICommand>().FromAssembly(Assembly.GetExecutingAssembly()));
 
             //NDbUnit interaction
             _container.Register
