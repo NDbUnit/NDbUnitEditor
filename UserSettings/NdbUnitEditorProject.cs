@@ -7,7 +7,7 @@ using System.IO;
 namespace NDbUnit.Utility
 {
     [Serializable]
-    public class NdbUnitEditorSettings
+    public class NdbUnitEditorProject
     {
         public string SchemaFilePath { get; set; }
         public string XMLDataFilePath { get; set; }

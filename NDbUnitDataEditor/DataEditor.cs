@@ -37,11 +37,11 @@ namespace NDbUnitDataEditor
 
 		public event Action SaveData;
 
-		public event Action SaveEditorSettings;
+		public event Action SaveProject;
 
-		public event Action SaveEditorSettingsAs;
+		public event Action SaveProjectAs;
 
-		public event Action LoadEditorSettings;
+		public event Action LoadProject;
 
 		public event Action ExitApp;
 
@@ -388,22 +388,22 @@ namespace NDbUnitDataEditor
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			LoadEditorSettings();
+			LoadProject();
 		}
 
 		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SaveEditorSettings();
+			SaveProject();
 		}
 
 		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SaveEditorSettingsAs();
+			SaveProjectAs();
 		}
 
-		public NdbUnitEditorSettings GetEditorSettings()
+		public NdbUnitEditorProject GetEditorSettings()
 		{
-			NdbUnitEditorSettings settings = new NdbUnitEditorSettings
+			NdbUnitEditorProject settings = new NdbUnitEditorProject
 			{
 				XMLDataFilePath = DataFileName,
 				SchemaFilePath = SchemaFileName,

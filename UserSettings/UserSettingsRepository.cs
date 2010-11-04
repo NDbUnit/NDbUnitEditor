@@ -9,7 +9,7 @@ namespace NDbUnit.Utility
     /// <summary>
     /// Encapsulates interaction with config files to save and load application values.
     /// </summary>
-    public class UserSettings : IUserSettings
+    public class UserSettingsRepository : IUserSettingsRepository
     {
         /// <summary>
         /// Controls the type of config file to interact with
@@ -59,7 +59,7 @@ namespace NDbUnit.Utility
         /// <param name="configFileType">Type of the config file.</param>
         /// <param name="companyName">Name of the company.</param>
         /// <param name="applicationName">Name of the application.</param>
-        public UserSettings(Config configFileType, string companyName, string applicationName)
+        public UserSettingsRepository(Config configFileType, string companyName, string applicationName)
         {
             _configFileType = configFileType;
 
@@ -75,7 +75,7 @@ namespace NDbUnit.Utility
         /// </summary>
         /// <param name="configFileType">Type of the config file.</param>
         /// <param name="applicationName">Name of the application.</param>
-        public UserSettings(Config configFileType, string applicationName)
+        public UserSettingsRepository(Config configFileType, string applicationName)
         {
             _configFileType = configFileType;
 

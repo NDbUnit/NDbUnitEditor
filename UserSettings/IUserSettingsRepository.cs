@@ -6,10 +6,10 @@ using System.IO;
 
 namespace NDbUnit.Utility
 {
-    public interface IUserSettings
+    public interface IUserSettingsRepository
     {
         string GetSetting(string key);
-        UserSettings.UserSettingOperationResult RemoveSetting(string key);
+        UserSettingsRepository.UserSettingOperationResult RemoveSetting(string key);
         void SaveSetting(string key, string value);
     }
 }

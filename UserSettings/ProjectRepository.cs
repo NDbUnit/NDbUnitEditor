@@ -6,9 +6,9 @@ using System.IO;
 
 namespace NDbUnit.Utility
 {
-    public class NdbUnitEditorSettingsManager : INdbUnitEditorSettingsManager
+    public class ProjectRepository : IProjectRepository
     {
-        public void SaveSettings(NdbUnitEditorSettings settings, string settingsFileName)
+        public void SaveProject(NdbUnitEditorProject settings, string settingsFileName)
         {
 
             XmlSerializer mySerializer = new XmlSerializer(settings.GetType());
@@ -18,12 +18,12 @@ namespace NDbUnit.Utility
             myWriter.Close();
         }
 
-        public NdbUnitEditorSettings LoadSettings(string settingsFilePath)
+        public NdbUnitEditorProject LoadProject(string settingsFilePath)
         {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(NdbUnitEditorSettings));
+            XmlSerializer mySerializer = new XmlSerializer(typeof(NdbUnitEditorProject));
             FileStream myFileStream = new FileStream(settingsFilePath, FileMode.Open);
             // Call the Deserialize method and cast to the object type.
-            NdbUnitEditorSettings settings = (NdbUnitEditorSettings)mySerializer.Deserialize(myFileStream);
+            NdbUnitEditorProject settings = (NdbUnitEditorProject)mySerializer.Deserialize(myFileStream);
             myFileStream.Close();
             return settings;
         }

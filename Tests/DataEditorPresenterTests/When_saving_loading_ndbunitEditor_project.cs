@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Tests.DataEditorPresenterTests
 {
-    public class When_saving_restoring_application_settings: PresenterTestBase
+    public class When_saving_loading_ndbunitEditor_project: PresenterTestBase
     {
 		private string _settingsFileName = "ndbUserSettings.xml";
 
@@ -23,14 +23,14 @@ namespace Tests.DataEditorPresenterTests
         [Test]
         public void CanSaveApplicationSettings()       
         {  
-            var editorsettings = new NdbUnitEditorSettings();
+            var editorsettings = new NdbUnitEditorProject();
             view.Stub(v => v.GetEditorSettings()).Return(editorsettings); 
             
          	var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
 			fileDialogCreator.Stub(d => d.ShowFileSave("XML files|*.xml")).Return(fileOpenResult);
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);     
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);     
             presenter.SaveEditorSettings();
-            settingsManger.AssertWasCalled(m => m.SaveSettings(editorsettings, _settingsFileName));            
+            projectRepository.AssertWasCalled(m => m.SaveProject(editorsettings, _settingsFileName));            
         }
 
 

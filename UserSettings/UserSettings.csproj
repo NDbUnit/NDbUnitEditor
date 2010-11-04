@@ -61,12 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="INdbUnitEditorSettingsManager.cs" />
-    <Compile Include="IUserSettings.cs" />
-    <Compile Include="NdbUnitEditorSettings.cs" />
-    <Compile Include="NdbUnitEditorSettingsManager.cs" />
+    <Compile Include="IProjectRepository.cs" />
+    <Compile Include="IUserSettingsRepository.cs" />
+    <Compile Include="NdbUnitEditorProject.cs" />
+    <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserSettings.cs" />
+    <Compile Include="UserSettingsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
