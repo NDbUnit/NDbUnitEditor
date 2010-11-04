@@ -21,7 +21,7 @@ namespace Tests.DataEditorPresenterTests
 			var tabName = "Tab1";
 			IDataEditorView view = MockRepository.GenerateStub<IDataEditorView>();
 			IDataSetProvider dataSetProvider = MockRepository.GenerateStub<IDataSetProvider>();
-			dataSetProvider.Stub(d => d.HasChanges()).Return(true);
+			dataSetProvider.Stub(d => d.IsDirty()).Return(true);
 			dataSetProvider.Stub(d => d.HasTableChanged(tabName)).Return(true);
 			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataViewChanged+=null);
            
@@ -47,7 +47,8 @@ namespace Tests.DataEditorPresenterTests
 
 		private DataEditorPresenter CreatePresenter(IDataEditorView view, IDataSetProvider datasetProvider)
 		{
-			var presenter = new DataEditorPresenter(view, null, null, null, datasetProvider);
+			var applicationController = MockRepository.GenerateStub<IApplicationController>();
+			var presenter = new DataEditorPresenter(applicationController,view, null, null, null, null, datasetProvider);
 			return presenter;
 		}
 

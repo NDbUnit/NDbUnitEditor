@@ -15,21 +15,23 @@ namespace Tests.DataEditorPresenterTests
 {
 	public class PresenterTestBase
 	{
-		protected IMessageCreator messageDialog;
+		protected IMessageCreator messageCreator;
+		protected IFileDialogCreator fileDialogCreator;
 		protected IDataEditorView view;
 		protected IDataSetProvider datasetProvider;
-		protected IDialogFactory dialogFactory;
 		protected IUserSettings settings;
 		protected INdbUnitEditorSettingsManager settingsManger;
+		protected IApplicationController applicationController;
 
 		protected void GenerateStubs()
 		{
 			datasetProvider = MockRepository.GenerateStub<IDataSetProvider>();
 			view = MockRepository.GenerateStub<IDataEditorView>();
-			dialogFactory = MockRepository.GenerateStub<IDialogFactory>();
-			messageDialog = MockRepository.GenerateStub<IMessageCreator>();
+			messageCreator = MockRepository.GenerateStub<IMessageCreator>();
+			fileDialogCreator = MockRepository.GenerateStub<IFileDialogCreator>();
 			settings = MockRepository.GenerateStub<IUserSettings>();
 			settingsManger = MockRepository.GenerateStub<INdbUnitEditorSettingsManager>();
+			applicationController = MockRepository.GenerateStub<IApplicationController>();
 		}
 
 	}
