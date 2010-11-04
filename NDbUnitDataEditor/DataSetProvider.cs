@@ -10,7 +10,7 @@ namespace NDbUnitDataEditor
 		string DataSetName { get; }
 		DataTable GetFirstTable();
 		DataTable GetTable(string tableName);
-		bool HasChanges();
+		bool IsDirty();
 		bool DataSetLoadedFromDatabase { get; set; }
 		void ReplaceData(DataSet dataSet);
 		IEnumerable<string> GetTableNames();
@@ -89,9 +89,9 @@ namespace NDbUnitDataEditor
 				.FirstOrDefault();
 		}
 
-		public bool HasChanges()
+		public bool IsDirty()
 		{
-			return _dataSet.HasChanges();
+			return _dataSet.HasChanges() || _dataSetLoadedFromDatabase ;
 		}
 
 		public void ResetSchema()

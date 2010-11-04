@@ -140,6 +140,10 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Commands\SaveDataCommand.cs" />
+    <Compile Include="Infrastructure\ApplicationController.cs" />
+    <Compile Include="Commands\GetDataFromDatabaseCommand.cs" />
+    <Compile Include="Commands\ReloadDataCommand.cs" />
     <Compile Include="ComponentRegistrar.cs" />
     <Compile Include="DatabaseClientType.cs" />
     <Compile Include="DataEditorPresenter.cs" />
@@ -150,14 +154,16 @@
       <DependentUpon>DataSetFromDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="DataSetFromDatabasePresenter.cs" />
-    <Compile Include="CustomFileDialog.cs" />
+    <Compile Include="FileDialogCreator.cs" />
     <Compile Include="DataSetProvider.cs" />
-    <Compile Include="DialogFactory.cs" />
-    <Compile Include="ICustomFileDialog.cs" />
+    <Compile Include="EventAggregator.cs" />
+    <Compile Include="IFileDialogCreator.cs" />
     <Compile Include="IDataEditorView.cs" />
     <Compile Include="IDataSetFromDatabaseView.cs" />
-    <Compile Include="IDialogFactory.cs" />
     <Compile Include="IMessageCreator.cs" />
+    <Compile Include="Infrastructure\IApplicationController.cs" />
+    <Compile Include="Infrastructure\ICommand.cs" />
+    <Compile Include="Infrastructure\IParametrizedCommand.cs" />
     <Compile Include="MessageCreator.cs" />
     <Compile Include="NDbUnitFacade.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

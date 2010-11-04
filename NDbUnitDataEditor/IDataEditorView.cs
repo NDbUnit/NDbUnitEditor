@@ -31,7 +31,6 @@ namespace NDbUnitDataEditor
 		event Action BrowseForSchemaFile;
 		event Action SaveEditorSettings;
 		string NewGuid { get; set; }
-		string SelectFile(string initialFilename, string selectionFilter);
 		event Action BrowseForDataFile;
 		void BindTableTree(string rootNodeName, IEnumerable<string> tableNames);
 		void BindDataTable(DataTable table);

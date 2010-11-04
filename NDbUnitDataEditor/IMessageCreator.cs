@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 
 namespace NDbUnitDataEditor
 {
@@ -12,7 +9,6 @@ namespace NDbUnitDataEditor
         void ShowWarning(string message);
         void ShowError(string message, string caption);
         void ShowError(string message);
-		bool AskUser(string message);
-        
+		bool AskUser(string message);        
     }
 }
