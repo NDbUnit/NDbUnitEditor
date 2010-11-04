@@ -16,6 +16,7 @@ namespace Tests.DataEditorPresenterTests
 	[TestFixture]
 	public class WhenNavigatingTables: PresenterTestBase
 	{
+
 		[SetUp]
 		public void TestSetup()
 		{
@@ -28,7 +29,7 @@ namespace Tests.DataEditorPresenterTests
 			var selectedTableName = "Customers";
 			var selectedTable = new DataTable();
 			datasetProvider.Stub(d => d.GetTable(selectedTableName)).Return(selectedTable);
-			var presenter = new DataEditorPresenter(view, null, null, null, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController,view, null, null, null, null, datasetProvider);
 
 			RaiseTreeNodeDblClicked("Customers");
 			view.AssertWasCalled(v => v.OpenTableView(selectedTable));
@@ -39,7 +40,7 @@ namespace Tests.DataEditorPresenterTests
 		{
 			var selectedTableName = "Customers";
 			datasetProvider.Stub(d => d.GetTable(selectedTableName)).Return(null);
-			var presenter = new DataEditorPresenter(view, null, null, null, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController,view, null, null, null, null, datasetProvider);
 
 			RaiseTreeNodeDblClicked("Customers");
 			view.AssertWasNotCalled(v => v.OpenTableView(null));

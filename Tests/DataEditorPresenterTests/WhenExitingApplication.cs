@@ -27,22 +27,20 @@ namespace Tests.DataEditorPresenterTests
 		public void ShouldPromptToSaveUnsavedData()
 		{
 			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorSettings());
-			var presenter = new DataEditorPresenter(view, dialogFactory,settings, settingsManger, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator,settings, settingsManger, datasetProvider);
 			datasetProvider.DataSetLoadedFromDatabase = true;
-			dialogFactory.Stub(f => f.CreateMessageDialog()).Return(messageDialog);
 			RaiseExitAppEvent();
-			messageDialog.AssertWasCalled(d => d.AskUser(null), o => o.IgnoreArguments());
+			messageCreator.AssertWasCalled(d => d.AskUser(null), o => o.IgnoreArguments());
 		}
 
 		[Test]
 		public void ShouldNotPromptWhenNothingWasChanged()
 		{			
 			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorSettings());
-			var presenter = new DataEditorPresenter(view, dialogFactory, settings, settingsManger, datasetProvider);
-			dialogFactory.Stub(f => f.CreateMessageDialog()).Return(messageDialog);
+			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
 			RaiseExitAppEvent();
 
-			messageDialog.AssertWasNotCalled(d => d.AskUser(null), o => o.IgnoreArguments());
+			messageCreator.AssertWasNotCalled(d => d.AskUser(null), o => o.IgnoreArguments());
 		}
 
 		private void RaiseExitAppEvent()

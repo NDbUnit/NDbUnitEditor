@@ -10,43 +10,29 @@ using System.IO;
 
 namespace Tests.DataEditorPresenterTests
 {
-    public class When_saving_restoring_application_settings
+    public class When_saving_restoring_application_settings: PresenterTestBase
     {
-		private string _connectionString = "Data Source=database; Integrated Security = true";
-		private string _databaseType = "SQLLite";
-		private string _dataFileName = @"C:\testData\data.xml";
-		private string _schemaFileName = @"C:\testData\schema.xsd";
 		private string _settingsFileName = "ndbUserSettings.xml";
-
-		IDataEditorView view;
-		IDialogFactory dialogFactory;
-		IUserSettings userSettings;
-		INdbUnitEditorSettingsManager settingsManager;
-		IFileDialog fileDialog;
 
         [SetUp]
         public void TestSetup()
         {
-			view = MockRepository.GenerateStub<IDataEditorView>();
-			dialogFactory = MockRepository.GenerateStub<IDialogFactory>();
-			userSettings = MockRepository.GenerateStub<IUserSettings>();
-			settingsManager = MockRepository.GenerateStub<INdbUnitEditorSettingsManager>();
-			fileDialog = MockRepository.GenerateStub<IFileDialog>();
+			GenerateStubs();
         }
 
         [Test]
         public void CanSaveApplicationSettings()       
         {  
-            var settings = new NdbUnitEditorSettings();
-            view.Stub(v => v.GetEditorSettings()).Return(settings);                      
-            fileDialog.Stub(d => d.FileName).Return(_settingsFileName);
-            fileDialog.Stub(d => d.Show()).Return(FileDialogResult.OK);
-            dialogFactory.Stub(f => f.CreateFileDialog(FileDialogType.SaveFileDilaog, "XML files|*.xml")).Return(fileDialog);
+            var editorsettings = new NdbUnitEditorSettings();
+            view.Stub(v => v.GetEditorSettings()).Return(editorsettings); 
             
-			var presenter = new DataEditorPresenter(view, dialogFactory, userSettings, settingsManager, null);     
+         	var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
+			fileDialogCreator.Stub(d => d.ShowFileSave("XML files|*.xml")).Return(fileOpenResult);
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);     
             presenter.SaveEditorSettings();
-            settingsManager.AssertWasCalled(m => m.SaveSettings(settings, _settingsFileName));
-            
+            settingsManger.AssertWasCalled(m => m.SaveSettings(editorsettings, _settingsFileName));            
         }
+
+
     }
 }
