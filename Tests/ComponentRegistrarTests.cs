@@ -5,9 +5,13 @@ using System.Text;
 using Castle.MicroKernel;
 using NDbUnitDataEditor;
 using MbUnit.Framework;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
+using Rhino.Mocks;
 
 namespace Tests
 {
+
     [TestFixture]
     public class ComponentRegistrarTests
     {
@@ -33,6 +37,7 @@ namespace Tests
                         registrar.Container.Kernel.Resolve(handler.ComponentModel.Name, handler.Service);
                 });
             }
+
 
         }
 
