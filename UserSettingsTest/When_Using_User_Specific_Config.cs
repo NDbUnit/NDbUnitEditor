@@ -10,8 +10,8 @@ namespace UserSettingsTest
     {
         public override void _Setup()
         {
-            _userSettingsConfigType = UserSettings.Config.PrivateFile;
-            _userSettings = new UserSettings(_userSettingsConfigType, TEST_COMPANY_NAME, TEST_APPLICATION_NAME);
+            _userSettingsConfigType = UserSettingsRepository.Config.PrivateFile;
+            _userSettings = new UserSettingsRepository(_userSettingsConfigType, TEST_COMPANY_NAME, TEST_APPLICATION_NAME);
         }
     }
 }

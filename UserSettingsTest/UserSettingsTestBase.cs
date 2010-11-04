@@ -20,9 +20,9 @@ namespace UserSettingsTest
 
         private const string TEST_VALUE = "The Value";
 
-        protected UserSettings _userSettings;
+        protected UserSettingsRepository _userSettings;
 
-        protected UserSettings.Config _userSettingsConfigType;
+        protected UserSettingsRepository.Config _userSettingsConfigType;
 
         [SetUp]
         public abstract void _Setup();
@@ -69,7 +69,7 @@ namespace UserSettingsTest
             DeleteAllUsersFileAndFolders(DEFAULT_COMPANY_NAME);
             DeleteUserFileAndFolders(DEFAULT_COMPANY_NAME);
 
-            _userSettings = new UserSettings(_userSettingsConfigType, TEST_APPLICATION_NAME);
+            _userSettings = new UserSettingsRepository(_userSettingsConfigType, TEST_APPLICATION_NAME);
 
             Can_Remove_Value();
             Can_Return_Initial_Value();

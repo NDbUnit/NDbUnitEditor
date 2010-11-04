@@ -17,9 +17,9 @@ namespace NDbUnitDataEditor
 		event Action<string> TableTreeNodeDblClicked;
 		void CloseApplication();
 		event Action ExitApp;
-		event Action SaveEditorSettingsAs;
+		event Action SaveProjectAs;
 		string ProjectFileName { get; set; }
-		event Action LoadEditorSettings;
+		event Action LoadProject;
 		bool TabIsMarkedAsEdited(string tabName);
 		void RemoveEditedMarksFromAllTabs();
 		void MarkTabAsEdited(string tabName);
@@ -29,7 +29,7 @@ namespace NDbUnitDataEditor
 		event Action GetDataSetFromDatabase;
 		event Action CreateGuid;
 		event Action BrowseForSchemaFile;
-		event Action SaveEditorSettings;
+		event Action SaveProject;
 		string NewGuid { get; set; }
 		event Action BrowseForDataFile;
 		void BindTableTree(string rootNodeName, IEnumerable<string> tableNames);
@@ -42,7 +42,7 @@ namespace NDbUnitDataEditor
 		string DataFileName { get; set; }
 		string DatabaseConnectionString { get; set; }
 		string DatabaseClientType { get; set; }
-		NdbUnitEditorSettings GetEditorSettings();
+		NdbUnitEditorProject GetEditorSettings();
 
 	}
 }

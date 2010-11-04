@@ -20,15 +20,15 @@ namespace UserSettingsTest
         public void CanSaveApplicationSettings()
         {
             
-            INdbUnitEditorSettingsManager manager = new NdbUnitEditorSettingsManager();
-            NdbUnitEditorSettings settings = new NdbUnitEditorSettings
+            IProjectRepository manager = new ProjectRepository();
+            NdbUnitEditorProject settings = new NdbUnitEditorProject
             {
                 XMLDataFilePath=@"C:\Settings\dataFile.xml",
                 SchemaFilePath = @"C:\Settings\schemaFile.xml",
                 DatabaseClientType="SQLLite",
                 DatabaseConnectionString="connection string"
             };
-            manager.SaveSettings(settings, _settingsFileName);
+            manager.SaveProject(settings, _settingsFileName);
 
             Assert.IsTrue(File.Exists(_settingsFileName));
         }
@@ -36,19 +36,19 @@ namespace UserSettingsTest
         [Test]
         public void CanSaveAndLoadApplicationSettings()
         {
-            INdbUnitEditorSettingsManager manager = new NdbUnitEditorSettingsManager();
-            NdbUnitEditorSettings settings = new NdbUnitEditorSettings
+            IProjectRepository manager = new ProjectRepository();
+            NdbUnitEditorProject settings = new NdbUnitEditorProject
             {
                 XMLDataFilePath = @"C:\Settings\dataFile.xml",
                 SchemaFilePath = @"C:\Settings\schemaFile.xml",
                 DatabaseClientType = "SQLLite",
                 DatabaseConnectionString = "connection string"
             };
-            manager.SaveSettings(settings, _settingsFileName);
-            var storedSettings = manager.LoadSettings(_settingsFileName);
+            manager.SaveProject(settings, _settingsFileName);
+            var storedSettings = manager.LoadProject(_settingsFileName);
 
 
-            Assert.AreEqual(settings, storedSettings, new StructuralEqualityComparer<NdbUnitEditorSettings>
+            Assert.AreEqual(settings, storedSettings, new StructuralEqualityComparer<NdbUnitEditorProject>
             {
                 {x=>x.DatabaseClientType},
                 {x=>x.DatabaseConnectionString},

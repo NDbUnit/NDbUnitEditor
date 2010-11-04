@@ -26,8 +26,8 @@ namespace Tests.DataEditorPresenterTests
 		[Test]
 		public void ShouldPromptToSaveUnsavedData()
 		{
-			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorSettings());
-			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator,settings, settingsManger, datasetProvider);
+			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorProject());
+			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator,settingsRepositoru, projectRepository, datasetProvider);
 			datasetProvider.DataSetLoadedFromDatabase = true;
 			RaiseExitAppEvent();
 			messageCreator.AssertWasCalled(d => d.AskUser(null), o => o.IgnoreArguments());
@@ -36,8 +36,8 @@ namespace Tests.DataEditorPresenterTests
 		[Test]
 		public void ShouldNotPromptWhenNothingWasChanged()
 		{			
-			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorSettings());
-			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
+			view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorProject());
+			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
 			RaiseExitAppEvent();
 
 			messageCreator.AssertWasNotCalled(d => d.AskUser(null), o => o.IgnoreArguments());

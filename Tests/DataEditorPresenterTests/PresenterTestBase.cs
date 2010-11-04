@@ -19,8 +19,8 @@ namespace Tests.DataEditorPresenterTests
 		protected IFileDialogCreator fileDialogCreator;
 		protected IDataEditorView view;
 		protected IDataSetProvider datasetProvider;
-		protected IUserSettings settings;
-		protected INdbUnitEditorSettingsManager settingsManger;
+		protected IUserSettingsRepository settingsRepositoru;
+		protected IProjectRepository projectRepository;
 		protected IApplicationController applicationController;
 
 		protected void GenerateStubs()
@@ -29,8 +29,8 @@ namespace Tests.DataEditorPresenterTests
 			view = MockRepository.GenerateStub<IDataEditorView>();
 			messageCreator = MockRepository.GenerateStub<IMessageCreator>();
 			fileDialogCreator = MockRepository.GenerateStub<IFileDialogCreator>();
-			settings = MockRepository.GenerateStub<IUserSettings>();
-			settingsManger = MockRepository.GenerateStub<INdbUnitEditorSettingsManager>();
+			settingsRepositoru = MockRepository.GenerateStub<IUserSettingsRepository>();
+			projectRepository = MockRepository.GenerateStub<IProjectRepository>();
 			applicationController = MockRepository.GenerateStub<IApplicationController>();
 		}
 

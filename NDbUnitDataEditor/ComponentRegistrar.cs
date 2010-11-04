@@ -45,10 +45,10 @@ namespace NDbUnitDataEditor
             //settings persistennce and retrieval
             _container.Register
             (
-                Component.For<IUserSettings>().ImplementedBy<UserSettings>()
-                    .Parameters(Parameter.ForKey("configFileType").Eq(UserSettings.Config.PrivateFile.ToString()))
+                Component.For<IUserSettingsRepository>().ImplementedBy<UserSettingsRepository>()
+                    .Parameters(Parameter.ForKey("configFileType").Eq(UserSettingsRepository.Config.PrivateFile.ToString()))
                     .Parameters(Parameter.ForKey("applicationName").Eq("NDbUnitEditor")),
-                Component.For<INdbUnitEditorSettingsManager>().ImplementedBy<NdbUnitEditorSettingsManager>().LifeStyle.Transient
+                Component.For<IProjectRepository>().ImplementedBy<ProjectRepository>().LifeStyle.Transient
             );
 
 			_container.Register(

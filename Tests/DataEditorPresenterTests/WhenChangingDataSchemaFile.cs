@@ -22,7 +22,7 @@ namespace Tests.DataEditorPresenterTests
 		{
 			var newSchemaFileName = "Schema1.xsd";
 			fileDialogCreator.Stub(d => d.ShowFileOpen("")).IgnoreArguments().Return(new FileDialogResult { Accepted = true, SelectedFileName = newSchemaFileName });
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
 			presenter.SelectSchemaFile();
 			Assert.AreEqual(newSchemaFileName, view.SchemaFileName);
 		}
@@ -32,7 +32,7 @@ namespace Tests.DataEditorPresenterTests
 		{
 			var newDataFileName = "Data.xml";
 			fileDialogCreator.Stub(d => d.ShowFileOpen("")).IgnoreArguments().Return(new FileDialogResult { Accepted = true, SelectedFileName = newDataFileName });
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
 			presenter.SelectDataFile();
 			Assert.AreEqual(newDataFileName, view.DataFileName);
 		}
@@ -43,7 +43,7 @@ namespace Tests.DataEditorPresenterTests
 			var oldSchemaFileName = "Schema1";
 			view.SchemaFileName = oldSchemaFileName;
 			fileDialogCreator.Stub(d => d.ShowFileOpen("")).IgnoreArguments().Return(new FileDialogResult { Accepted = false});
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
 			presenter.SelectSchemaFile();
 			Assert.AreEqual(oldSchemaFileName, view.SchemaFileName);
 		}
@@ -54,7 +54,7 @@ namespace Tests.DataEditorPresenterTests
 			var oldSchemaFileName = "Data.xml";
 			view.DataFileName = oldSchemaFileName;
 			fileDialogCreator.Stub(d => d.ShowFileOpen("")).IgnoreArguments().Return(new FileDialogResult { Accepted = false });
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settings, settingsManger, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
 			presenter.SelectDataFile();
 			Assert.AreEqual(oldSchemaFileName, view.DataFileName);
 		}

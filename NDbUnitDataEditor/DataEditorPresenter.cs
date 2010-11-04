@@ -21,20 +21,20 @@ namespace NDbUnitDataEditor
 
 		private IDataEditorView _dataEditor;
 
-		private INdbUnitEditorSettingsManager _settingsManager;
-		private IUserSettings _userSettings;
+		private IProjectRepository _projectRepository;
+		private IUserSettingsRepository _userSettingsRepository;
 
 		/// <summary>
 		/// Initializes a new instance of the DataEditorPresenter class.
 		/// </summary>
-		public DataEditorPresenter(IApplicationController applicationController, IDataEditorView dataEditor, IFileDialogCreator fileDialogCreator, IMessageCreator messageCreator, IUserSettings userSettings, INdbUnitEditorSettingsManager settingsManager, IDataSetProvider datasetProvider)
+		public DataEditorPresenter(IApplicationController applicationController, IDataEditorView dataEditor, IFileDialogCreator fileDialogCreator, IMessageCreator messageCreator, IUserSettingsRepository userSettingsRepository, IProjectRepository projectRepository, IDataSetProvider datasetProvider)
 		{
 			_messageCreator = messageCreator;
             _fileDialogCreator = fileDialogCreator;
             _applicationController = applicationController;
             _datasetProvider = datasetProvider;
-			_settingsManager = settingsManager;
-			_userSettings = userSettings;
+			_projectRepository = projectRepository;
+			_userSettingsRepository = userSettingsRepository;
 			_dataEditor = dataEditor;
 
 
@@ -46,9 +46,9 @@ namespace NDbUnitDataEditor
 			_dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
 			_dataEditor.SaveData += SaveData;
 			_dataEditor.DataViewChanged += HandleDataSetChange;
-			_dataEditor.SaveEditorSettings += SaveEditorSettings;
-			_dataEditor.SaveEditorSettingsAs += SaveEditorSettingsAs;
-			_dataEditor.LoadEditorSettings += LoadEditorSettings;
+			_dataEditor.SaveProject += SaveEditorSettings;
+			_dataEditor.SaveProjectAs += SaveEditorSettingsAs;
+			_dataEditor.LoadProject += LoadEditorSettings;
 			_dataEditor.ExitApp += OnExitingApplication;
 			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
 
@@ -170,7 +170,7 @@ namespace NDbUnitDataEditor
 
 		private void OnInitializeView()
 		{
-			var projectFileName = _userSettings.GetSetting(RECENT_PROJECT_FILE_KEY);
+			var projectFileName = _userSettingsRepository.GetSetting(RECENT_PROJECT_FILE_KEY);
 			if (File.Exists(projectFileName))
 				LoadEditorSettings(projectFileName);
 
@@ -199,9 +199,9 @@ namespace NDbUnitDataEditor
 			var projectFile = _dataEditor.ProjectFileName;
 			if (String.IsNullOrEmpty(projectFile))
 				projectFile = DEFAULT_PROJECT_FILE_NAME;
-			NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
-			_settingsManager.SaveSettings(settings, projectFile);
-			_userSettings.SaveSetting(RECENT_PROJECT_FILE_KEY, projectFile);
+			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			_projectRepository.SaveProject(settings, projectFile);
+			_userSettingsRepository.SaveSetting(RECENT_PROJECT_FILE_KEY, projectFile);
 		}
 
 		public void SaveEditorSettings()
@@ -213,8 +213,8 @@ namespace NDbUnitDataEditor
 				return;    
 			}
 
-			NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
-			_settingsManager.SaveSettings(settings, filePath);
+			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			_projectRepository.SaveProject(settings, filePath);
 								
 		}
 
@@ -224,8 +224,8 @@ namespace NDbUnitDataEditor
 
 			if (!dialogResult.Accepted)
 				return;
-			NdbUnitEditorSettings settings = _dataEditor.GetEditorSettings();
-			_settingsManager.SaveSettings(settings, dialogResult.SelectedFileName);
+			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			_projectRepository.SaveProject(settings, dialogResult.SelectedFileName);
 			_dataEditor.ProjectFileName = dialogResult.SelectedFileName;
 		}
 
@@ -240,7 +240,7 @@ namespace NDbUnitDataEditor
 
 		public void LoadEditorSettings(string fileName)
 		{
-			NdbUnitEditorSettings settings = _settingsManager.LoadSettings(fileName);
+			NdbUnitEditorProject settings = _projectRepository.LoadProject(fileName);
 			_dataEditor.SchemaFileName = settings.SchemaFilePath;
 			_dataEditor.DataFileName = settings.XMLDataFilePath;
 			_dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
