@@ -55,8 +55,6 @@ namespace NDbUnitDataEditor
 			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) => ReInitializeView());
 		}
 
-
-
 		private void OnOpenTable(string tableName)
 		{
 			var table = _datasetProvider.GetTable(tableName);
@@ -199,7 +197,7 @@ namespace NDbUnitDataEditor
 			var projectFile = _dataEditor.ProjectFileName;
 			if (String.IsNullOrEmpty(projectFile))
 				projectFile = DEFAULT_PROJECT_FILE_NAME;
-			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			NdbUnitEditorProject settings = GetEditorSettings();
 			_projectRepository.SaveProject(settings, projectFile);
 			_userSettingsRepository.SaveSetting(RECENT_PROJECT_FILE_KEY, projectFile);
 		}
@@ -213,7 +211,7 @@ namespace NDbUnitDataEditor
 				return;    
 			}
 
-			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			NdbUnitEditorProject settings = GetEditorSettings();
 			_projectRepository.SaveProject(settings, filePath);
 								
 		}
@@ -224,7 +222,7 @@ namespace NDbUnitDataEditor
 
 			if (!dialogResult.Accepted)
 				return;
-			NdbUnitEditorProject settings = _dataEditor.GetEditorSettings();
+			NdbUnitEditorProject settings = GetEditorSettings();
 			_projectRepository.SaveProject(settings, dialogResult.SelectedFileName);
 			_dataEditor.ProjectFileName = dialogResult.SelectedFileName;
 		}
@@ -240,12 +238,31 @@ namespace NDbUnitDataEditor
 
 		public void LoadEditorSettings(string fileName)
 		{
-			NdbUnitEditorProject settings = _projectRepository.LoadProject(fileName);
-			_dataEditor.SchemaFileName = settings.SchemaFilePath;
-			_dataEditor.DataFileName = settings.XMLDataFilePath;
-			_dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
-			_dataEditor.DatabaseClientType = settings.DatabaseClientType;
-			_dataEditor.ProjectFileName = fileName;
+			try
+			{
+				NdbUnitEditorProject settings = _projectRepository.LoadProject(fileName);
+				_dataEditor.SchemaFileName = settings.SchemaFilePath;
+				_dataEditor.DataFileName = settings.XMLDataFilePath;
+				_dataEditor.DatabaseConnectionString = settings.DatabaseConnectionString;
+				_dataEditor.DatabaseClientType = settings.DatabaseClientType;
+				_dataEditor.ProjectFileName = fileName;
+			}
+			catch (Exception ex)
+			{
+				_messageCreator.ShowError(String.Format("Unable to load project. Exception: {0}", ex.Message));
+			}
+		}
+
+		public virtual NdbUnitEditorProject GetEditorSettings()
+		{
+			NdbUnitEditorProject settings = new NdbUnitEditorProject
+			{
+				XMLDataFilePath = _dataEditor.DataFileName,
+				SchemaFilePath = _dataEditor.SchemaFileName,
+				DatabaseClientType = _dataEditor.DatabaseClientType,
+				DatabaseConnectionString = _dataEditor.DatabaseConnectionString
+			};
+			return settings;
 		}
 
 	}

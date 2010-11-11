@@ -267,14 +267,7 @@ namespace NDbUnitDataEditor
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			try
-			{
-				Initialize();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(String.Format("Unable to load data. Exception:{0}", ex));
-			}
+			Initialize();
 		}
 
 		private TabPage GetTabPage(string name)
@@ -400,20 +393,5 @@ namespace NDbUnitDataEditor
 		{
 			SaveProjectAs();
 		}
-
-		public NdbUnitEditorProject GetEditorSettings()
-		{
-			NdbUnitEditorProject settings = new NdbUnitEditorProject
-			{
-				XMLDataFilePath = DataFileName,
-				SchemaFilePath = SchemaFileName,
-				DatabaseClientType = DatabaseClientType,
-				DatabaseConnectionString = DatabaseConnectionString
-			};
-			return settings;
-		}
-
-
-
 	}
 }

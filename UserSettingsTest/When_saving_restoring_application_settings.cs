@@ -2,6 +2,7 @@
 using MbUnit.Framework;
 using NDbUnit.Utility;
 using System.IO;
+using System.Collections.Generic;
 
 
 namespace UserSettingsTest
@@ -29,7 +30,6 @@ namespace UserSettingsTest
                 DatabaseConnectionString="connection string"
             };
             manager.SaveProject(settings, _settingsFileName);
-
             Assert.IsTrue(File.Exists(_settingsFileName));
         }
 
