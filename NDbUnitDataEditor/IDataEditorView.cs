@@ -42,7 +42,6 @@ namespace NDbUnitDataEditor
 		string DataFileName { get; set; }
 		string DatabaseConnectionString { get; set; }
 		string DatabaseClientType { get; set; }
-		NdbUnitEditorProject GetEditorSettings();
 
 	}
 }

@@ -18,21 +18,41 @@ namespace Tests.DataEditorPresenterTests
         public void TestSetup()
         {
 			GenerateStubs();
-        }
+        }		
 
         [Test]
         public void CanSaveApplicationSettings()       
         {  
             var editorsettings = new NdbUnitEditorProject();
-            view.Stub(v => v.GetEditorSettings()).Return(editorsettings); 
+            view.SchemaFileName="schema.xsd"; 
             
          	var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
 			fileDialogCreator.Stub(d => d.ShowFileSave("XML files|*.xml")).Return(fileOpenResult);
-			var presenter = new DataEditorPresenter(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);     
-            presenter.SaveEditorSettings();
+			var presenter = CreatePresenter();
+			presenter.Stub(p => p.GetEditorSettings()).Return(editorsettings);
+			presenter.SaveEditorSettings();
             projectRepository.AssertWasCalled(m => m.SaveProject(editorsettings, _settingsFileName));            
         }
 
+		[Test]
+		public void ShouldShowErrorMessageWhenThereIsAnExceptionWhenLoadingProject()
+		{
+			projectRepository.Stub(r => r.LoadProject("")).IgnoreArguments().Throw(new Exception());
+			var fileDialogResult = new FileDialogResult { Accepted = true };
+			fileDialogCreator.Stub(c => c.ShowFileOpen("")).IgnoreArguments().Return(fileDialogResult);
+
+			var presenter = CreatePresenter();
+			
+			presenter.LoadEditorSettings();
+			messageCreator.AssertWasCalled(c => c.ShowError(""), o => o.IgnoreArguments());
+		}
+
+		private DataEditorPresenter CreatePresenter()
+		{
+			var presenter = MockRepository.GeneratePartialMock<DataEditorPresenter>(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
+			return presenter;     
+            
+		}
 
     }
 }

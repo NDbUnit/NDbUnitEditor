@@ -6,6 +6,8 @@ using System.IO;
 
 namespace NDbUnit.Utility
 {
+
+
     public class ProjectRepository : IProjectRepository
     {
         public void SaveProject(NdbUnitEditorProject settings, string settingsFileName)
@@ -20,12 +22,21 @@ namespace NDbUnit.Utility
 
         public NdbUnitEditorProject LoadProject(string settingsFilePath)
         {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(NdbUnitEditorProject));
-            FileStream myFileStream = new FileStream(settingsFilePath, FileMode.Open);
-            // Call the Deserialize method and cast to the object type.
-            NdbUnitEditorProject settings = (NdbUnitEditorProject)mySerializer.Deserialize(myFileStream);
-            myFileStream.Close();
-            return settings;
+			FileStream myFileStream=null;
+			try
+			{
+				XmlSerializer mySerializer = new XmlSerializer(typeof(NdbUnitEditorProject));
+				myFileStream = new FileStream(settingsFilePath, FileMode.Open);
+				// Call the Deserialize method and cast to the object type.
+				NdbUnitEditorProject settings = (NdbUnitEditorProject)mySerializer.Deserialize(myFileStream);
+				return settings;
+			}
+			finally
+			{
+				if(myFileStream!=null)
+					myFileStream.Close();
+			}
+            
         }
     }
 }
