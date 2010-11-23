@@ -26,19 +26,22 @@ namespace Tests
                 var handlers = new List<IHandler>();
 
                 registrar.Container.Kernel.ComponentRegistered += (name, handler) => handlers.Add(handler);
-
                 registrar.RegisterComponents();
-
                 // If the container cannot resolve the instance  
                 // an exception will be thrown and the test will fail!
                 handlers.ForEach(handler =>
                 {
-                    if (handler.CurrentState == HandlerState.WaitingDependency)
+                    if (!IsFromCastleNamespace(handler) && handler.CurrentState == HandlerState.WaitingDependency)
                         registrar.Container.Kernel.Resolve(handler.ComponentModel.Name, handler.Service);
                 });
             }
 
-
+			private bool IsFromCastleNamespace(IHandler handler)
+			{
+				if (handler.ComponentModel.Service.Namespace.StartsWith("Castle"))
+					return true;
+				return false;
+			}
         }
 
     }

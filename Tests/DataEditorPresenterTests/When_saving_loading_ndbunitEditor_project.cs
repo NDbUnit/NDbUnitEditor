@@ -6,6 +6,8 @@ using NDbUnitDataEditor;
 using NDbUnitDataEditor.UI;
 using NDbUnit.Utility;
 using System.IO;
+using System.Collections.Generic;
+using System.Data;
 
 
 namespace Tests.DataEditorPresenterTests
@@ -18,7 +20,7 @@ namespace Tests.DataEditorPresenterTests
         public void TestSetup()
         {
 			GenerateStubs();
-        }		
+        }
 
         [Test]
         public void CanSaveApplicationSettings()       
@@ -29,7 +31,7 @@ namespace Tests.DataEditorPresenterTests
          	var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
 			fileDialogCreator.Stub(d => d.ShowFileSave("XML files|*.xml")).Return(fileOpenResult);
 			var presenter = CreatePresenter();
-			presenter.Stub(p => p.GetEditorSettings()).Return(editorsettings);
+			presenter.Stub(p => p.GetProjectData()).Return(editorsettings);
 			presenter.SaveEditorSettings();
             projectRepository.AssertWasCalled(m => m.SaveProject(editorsettings, _settingsFileName));            
         }
@@ -47,12 +49,35 @@ namespace Tests.DataEditorPresenterTests
 			messageCreator.AssertWasCalled(c => c.ShowError(""), o => o.IgnoreArguments());
 		}
 
-		private DataEditorPresenter CreatePresenter()
+		[Test]
+		public void ShouldSaveListOfOpenedTabs()
 		{
-			var presenter = MockRepository.GeneratePartialMock<DataEditorPresenter>(applicationController, view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
-			return presenter;     
-            
+			var openedTabsNames = new List<string>{"Tab1", "Tab2", "Tab3"};
+			view.Stub(v => v.OpenedTabNames).Return(openedTabsNames);
+			view.ProjectFileName = "Project.xml";
+			var presenter = CreatePresenter();
+			presenter.SaveEditorSettings();
+
+			var projectSettings = projectRepository.GetArgumentsForCallsMadeOn(r => r.SaveProject(null, null))[0][0] as NdbUnitEditorProject;
+			Assert.AreElementsEqual(openedTabsNames, projectSettings.OpenedTabs);
+
 		}
 
+		[Test]
+		public void ShouldLoadListOfOpenedTabs()
+		{
+			var openedTabsNames = new List<string> { "Tab1", "Tab2", "Tab3" };			
+			var projectFileName = "Project.xml";
+			settingsRepositoru.Stub(r => r.GetSetting(DataEditorPresenter.RECENT_PROJECT_FILE_KEY)).Return(projectFileName);
+			projectRepository.Stub(r => r.LoadProject(projectFileName)).Return(new NdbUnitEditorProject { OpenedTabs = openedTabsNames });
+			foreach(var tabName in openedTabsNames)
+				datasetProvider.Stub(d=>d.GetTable(tabName)).Return(new DataTable{TableName=tabName});
+			var presenter = CreatePresenter();
+			presenter.OpenProject(projectFileName);
+
+			view.AssertWasCalled(v => v.OpenTableView(null), o => o.IgnoreArguments().Repeat.Times(3));
+			
+			
+		}
     }
 }

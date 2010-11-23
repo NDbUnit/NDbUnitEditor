@@ -27,7 +27,7 @@ namespace Tests.DataEditorPresenterTests
 		public void ShouldPromptToSaveUnsavedData()
 		{
 			view.DataFileName="data.xml";
-			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator,settingsRepositoru, projectRepository, datasetProvider);
+			var presenter = CreatePresenter();
 			datasetProvider.Stub(d=>d.IsDirty()).Return(true);
 			RaiseExitAppEvent();
 			messageCreator.AssertWasCalled(d => d.AskUser(null), o => o.IgnoreArguments());
@@ -37,7 +37,7 @@ namespace Tests.DataEditorPresenterTests
 		public void ShouldNotPromptWhenNothingWasChanged()
 		{			
 			//view.Stub(v => v.GetEditorSettings()).Return(new NdbUnitEditorProject());
-			var presenter = new DataEditorPresenter(applicationController,view, fileDialogCreator, messageCreator, settingsRepositoru, projectRepository, datasetProvider);
+			var presenter = CreatePresenter();
 			RaiseExitAppEvent();
 
 			messageCreator.AssertWasNotCalled(d => d.AskUser(null), o => o.IgnoreArguments());

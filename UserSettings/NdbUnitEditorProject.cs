@@ -13,5 +13,6 @@ namespace NDbUnit.Utility
         public string XMLDataFilePath { get; set; }
         public string DatabaseConnectionString { get; set; }
         public string DatabaseClientType { get; set; }
+		public List<string> OpenedTabs { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace NDbUnitDataEditor
 	public interface IDataEditorView
 	{
 
-		void OpenTableView(DataTable table);
+		List<string> OpenedTabNames { get; }
+        void OpenTableView(DataTable table);
 		event Action<string> TableTreeNodeDblClicked;
 		void CloseApplication();
 		event Action ExitApp;

@@ -35,6 +35,7 @@ namespace NDbUnitDataEditor
 		{
 			_dataSet.Clear();
 			_dataSet.ReadXml(fileName);
+			_dataSet.AcceptChanges();
 		}
 
 		public void SaveDataToFile(string fileName)
