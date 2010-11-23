@@ -1,33 +1,36 @@
 using System;
-using Castle.MicroKernel;
-using Rhino.Commons;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace NDbUnitDataEditor
 {
+	public interface ICommandFactory
+	{
+		T Create<T>() where T : ICommand;
+		IParametrizedCommand<T> CreateParametrized<T>();
+	}
+
     public class ApplicationController : IApplicationController
 	{
-		private IKernel _kernel;
 		private IEventAggregator _events;
+		private ICommandFactory _factory;
 		/// <summary>
 		/// Initializes a new instance of the ApplicationController class.
 		/// </summary>
-		public ApplicationController(IKernel kernel, IEventAggregator events)
+		public ApplicationController(ICommandFactory factory, IEventAggregator events)
 		{
-			_events = events;
-            _kernel = kernel;
+			_factory = factory;
+            _events = events;
 		}
 
 		public void ExecuteCommand<T>() where T:ICommand
 		{
-			ICommand command = _kernel.Resolve<T>();
+			ICommand command = _factory.Create<T>();
 			command.Execute();
 		}
 
 		public void Execute<T>(T data)
 		{
-			IParametrizedCommand<T> command = _kernel.Resolve<IParametrizedCommand<T>>();
+
+			IParametrizedCommand<T> command = _factory.CreateParametrized<T>();
 			command.Execute(data);
 		}
 

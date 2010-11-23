@@ -55,22 +55,11 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Rhino.Commons\Castle.Core.dll</HintPath>
-      <Aliases>CastleCore</Aliases>
+    <Reference Include="Castle.Core">
+      <HintPath>..\lib\Castle\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.DynamicProxy2, Version=2.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Rhino.Commons\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.MicroKernel, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Rhino.Commons\Castle.MicroKernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Rhino.Commons\Castle.Windsor.dll</HintPath>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\lib\Castle\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Gallio, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,10 +68,6 @@
     <Reference Include="MbUnit, Version=3.0.5.546, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Galio\MbUnit.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Commons, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Rhino.Commons\Rhino.Commons.dll</HintPath>
     </Reference>
     <Reference Include="Rhino.Mocks, Version=3.5.0.1337, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,12 +87,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationControllerTests.cs" />
     <Compile Include="ComponentRegistrarTests.cs" />
     <Compile Include="DataEditorPresenterTests\PresenterTestBase.cs" />
     <Compile Include="DataEditorPresenterTests\WhenChangingDataSchemaFile.cs" />
     <Compile Include="DataEditorPresenterTests\WhenExitingApplication.cs" />
     <Compile Include="DataEditorPresenterTests\WhenNavigatingTables.cs" />
     <Compile Include="DataEditorPresenterTests\When_saving_loading_ndbunitEditor_project.cs" />
+    <Compile Include="DataEditorPresenterTests\When_Selecting_Data_And_Schema_File.cs" />
     <Compile Include="DataEditorPresenterTests\When_Table_is_edited.cs" />
     <Compile Include="EventAggregatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

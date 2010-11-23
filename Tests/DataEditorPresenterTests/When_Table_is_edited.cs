@@ -48,7 +48,7 @@ namespace Tests.DataEditorPresenterTests
 		private DataEditorPresenter CreatePresenter(IDataEditorView view, IDataSetProvider datasetProvider)
 		{
 			var applicationController = MockRepository.GenerateStub<IApplicationController>();
-			var presenter = new DataEditorPresenter(applicationController,view, null, null, null, null, datasetProvider);
+			var presenter = new DataEditorPresenter(applicationController,view, null, null, null, null, datasetProvider, null);
 			return presenter;
 		}
 

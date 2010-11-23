@@ -8,7 +8,7 @@
   <Role>
     <ID>2</ID>
     <Name>UserMod</Name>
-    <Description>User with limited security</Description>
+    <Description>User with limited security permissions</Description>
   </Role>
   <dbo.User>
     <ID>1</ID>

@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Configuration;
-using NDbUnit.Utility;
 using System.IO;
+using System.Linq;
 
 namespace NDbUnitDataEditor
 {
@@ -392,6 +389,17 @@ namespace NDbUnitDataEditor
 		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			SaveProjectAs();
+		}
+
+		public List<string> OpenedTabNames
+		{
+			get 
+			{ 
+				return tbTableViews.TabPages
+					.Cast<TabPage>()
+					.Select(t => t.Text)
+					.ToList(); 
+			}
 		}
 	}
 }
