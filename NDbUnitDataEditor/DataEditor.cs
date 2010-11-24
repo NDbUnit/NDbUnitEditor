@@ -148,6 +148,16 @@ namespace NDbUnitDataEditor
 			btnSaveData.Enabled = true;
 		}
 
+		public void EnableDataSetFromDatabaseButton()
+		{
+			btnDataSetFromDatabase.Enabled = true;
+		}
+
+		public void DisableDataSetFromDatabaseButton()
+		{
+			btnDataSetFromDatabase.Enabled = false;
+		}
+
 		public void MarkTabAsEdited(string tabName)
 		{
 			var selectedTab = tbTableViews.TabPages[tabName];
