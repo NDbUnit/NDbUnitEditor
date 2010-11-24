@@ -75,9 +75,29 @@ namespace Tests.DataEditorPresenterTests
 			var presenter = CreatePresenter();
 			presenter.OpenProject(projectFileName);
 
-			view.AssertWasCalled(v => v.OpenTableView(null), o => o.IgnoreArguments().Repeat.Times(3));
-			
-			
+			view.AssertWasCalled(v => v.OpenTableView(null), o => o.IgnoreArguments().Repeat.Times(3));		
+		}
+
+		[Test]
+		public void ShouldEnableGetDatasetFromDatabaseButton()
+		{
+			var projectFileName = "Project.xml";
+			settingsRepositoru.Stub(r => r.GetSetting(DataEditorPresenter.RECENT_PROJECT_FILE_KEY)).Return(projectFileName);
+			projectRepository.Stub(r => r.LoadProject(projectFileName)).Return(new NdbUnitEditorProject { XMLDataFilePath=@"C:\Data.xml"});
+			var presenter = CreatePresenter();
+			presenter.OpenProject(projectFileName);
+			view.AssertWasCalled(v => v.EnableDataSetFromDatabaseButton());
+		}
+
+		[Test]
+		public void ShouldDisableGetDatasetFromDatabaseButtonForDataFileNotSpecified()
+		{
+			var projectFileName = "Project.xml";
+			settingsRepositoru.Stub(r => r.GetSetting(DataEditorPresenter.RECENT_PROJECT_FILE_KEY)).Return(projectFileName);
+			projectRepository.Stub(r => r.LoadProject(projectFileName)).Return(new NdbUnitEditorProject {});
+			var presenter = CreatePresenter();
+			presenter.OpenProject(projectFileName);
+			view.AssertWasCalled(v => v.DisableDataSetFromDatabaseButton());
 		}
     }
 }

@@ -229,7 +229,9 @@ namespace NDbUnitDataEditor
 			// btnDataSetFromDatabase
 			// 
 			this.btnDataSetFromDatabase.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.btnDataSetFromDatabase.Enabled = false;
 			this.btnDataSetFromDatabase.Image = ((System.Drawing.Image)(resources.GetObject("btnDataSetFromDatabase.Image")));
+			this.btnDataSetFromDatabase.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
 			this.btnDataSetFromDatabase.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnDataSetFromDatabase.Name = "btnDataSetFromDatabase";
 			this.btnDataSetFromDatabase.Size = new System.Drawing.Size(23, 22);
@@ -336,21 +338,21 @@ namespace NDbUnitDataEditor
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.loadToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
 			this.loadToolStripMenuItem.Text = "Load...";
 			this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
 			this.saveAsToolStripMenuItem.Text = "Save As...";
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
 			// 

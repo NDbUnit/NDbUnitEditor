@@ -13,6 +13,8 @@ namespace NDbUnitDataEditor
 	public interface IDataEditorView
 	{
 
+		void DisableDataSetFromDatabaseButton();
+		void EnableDataSetFromDatabaseButton();
 		List<string> OpenedTabNames { get; }
         void OpenTableView(DataTable table);
 		event Action<string> TableTreeNodeDblClicked;

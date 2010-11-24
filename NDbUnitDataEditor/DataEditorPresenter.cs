@@ -100,7 +100,7 @@ namespace NDbUnitDataEditor
 		{
 			var dialogResult = _fileDialogCreator.ShowFileOpen("XML Data Files (*.xml)|*.xml");
 			if (dialogResult.Accepted)
-				_dataEditor.DataFileName = dialogResult.SelectedFileName;
+				SetDataFileName(dialogResult.SelectedFileName);
 		}
 
 		public void SelectSchemaFile()
@@ -130,6 +130,14 @@ namespace NDbUnitDataEditor
 			_applicationController.ExecuteCommand<GetDataFromDatabaseCommand>();
 		}
 
+		private void SetDataFileName(string dataFileName)
+		{
+			_dataEditor.DataFileName = dataFileName;
+			if (String.IsNullOrEmpty(dataFileName))
+				_dataEditor.DisableDataSetFromDatabaseButton();
+			else
+				_dataEditor.EnableDataSetFromDatabaseButton();
+		}
 
 		public void OpenProject(string fileName)
 		{
@@ -137,7 +145,7 @@ namespace NDbUnitDataEditor
 			{
 				NdbUnitEditorProject project = _projectRepository.LoadProject(fileName);
 				_dataEditor.SchemaFileName = project.SchemaFilePath;
-				_dataEditor.DataFileName = project.XMLDataFilePath;
+				SetDataFileName(project.XMLDataFilePath);
 				_dataEditor.DatabaseConnectionString = project.DatabaseConnectionString;
 				_dataEditor.DatabaseClientType = project.DatabaseClientType;
 				_dataEditor.ProjectFileName = fileName;

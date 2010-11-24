@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>312, 17</value>
-  </data>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnAbout.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -203,31 +203,28 @@
   </data>
   <data name="btnDataSetFromDatabase.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHuSURBVDhPrZO5qxpRFMYfpHjVa9OkSvua8Ir8CynS5z8S
-        kYiFgtoYV0RcEFFxF0VtLFxRUVxwwYURF9zj9uWeC4HAjCRFBi53mLnnd873nXuenv7nEwqFnmOx2De2
-        vOFwuOF2uy/s289gMFgIBAJOv9//xeVyvZPMmUgkXqPRaKVcLmM2m2G73eJ2u+F6vWKxWKDf7yOTycDj
-        8WSdTucHEYQFpwaDAe73Ox49l8sFpVIJDGCRAgin0+mvAEEQYLPZBBGAaRaOxyOm0ylWqxUOhwMo4/l8
-        xnq9Rq/XQzabxWQykQb4fD6BgubzOT/caDRQr9dRqVR4IPMI6XQa4/H4MWC/32O5XPIsw+GQ7+RLoVDg
-        BtIajUYwm81iCVTBbrcDaaSgbrfLD1M1+XweyWQSqVSKg41GozSAWkceUHCr1eKta7fbyOVyiEQiiMfj
-        HK7X68UAr9crbDYbnqHZbHL9nU6Hv5N2dpHAjOZQnU4nBrALIvx2u1aroVqt8uxkJpXOJHIISVIqlWIA
-        9ZZ+kgwK/BNAFZAPZCrJkQTY7favbO2KxSK/umQodYV2uhckjc0IZDLZVC6Xf5acB6vV+pG16IfJZFpb
-        LBawYYLD4YBWq4VKpZoqFIrvLPv7fxpgg8Hwwsx602g0n9Rq9fOjoF/6OSxl4uGfZwAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAYAAAAiYZ4HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVDhPY/j//z8TAxBcP730/Zm9Pf93La/4v2F2zv91
+        s3L+b5pf8H/v6qb/Z/bPBir7zwjCDECCDaTw9vm5/1/cX/v/85ud/399PQTGIPbjWyv/Xzwy5f+OFVUg
+        TUwMOxYX///78yhReGp1yHuwhi9Xs/5/fzHr/6/PW+EaQTb8/rD+/5fHPWD5pzts/0+tCfnPAHLnhyNO
+        YEGQ5LfXi/5/ud/8/8PpgP9vt8r+f7mC8f+jRQz/b89hgmgAeZBYDX3Fvv8ZQKFBkobVU9Npp6Ety/U/
+        w9L+ZKJtIF/DeyKDFWzD7JZIop1UGWsD0fB8r/P/j5fT8EbcpWkc/8EagAmKeXV/8P/9i6P/XzlQ/v/Z
+        zangmH5zzP//3VXK/49PEv2/pkHx/4RcE3CKBWlgAjGOb2kDJ2mQjaAYBbl3UpHD/0WNLv93zU6GKAYC
+        APjjMhhCa0qAAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>172, 17</value>
-  </data>
-  <data name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>417, 17</value>
-  </data>
-  <data name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
-  <data name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>553, 17</value>
-  </data>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAYAMDAAAAEACACoDgAAZgAAACAgAAABAAgAqAgAAA4PAAAQEAAAAQAIAGgFAAC2FwAAMDAAAAEA
@@ -606,9 +603,5 @@
         oP/q1dv/5cfO/9mus//ZpaHW0YuKys+LiKDbgGGV4JFuZf///woAAAAAwAAAAMAAAADAAAAAwAAAAMAA
         AADAAAHjwAAA/8AAAP/AAAD/wAAA/8AAAP/AAAD/wAAT/8AAVv/AAMT/wAHZ/w==
 </value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btnDataSetFromDatabaseActive.Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\db_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
