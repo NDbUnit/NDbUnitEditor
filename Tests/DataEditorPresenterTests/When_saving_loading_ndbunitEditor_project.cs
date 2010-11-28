@@ -12,29 +12,29 @@ using System.Data;
 
 namespace Tests.DataEditorPresenterTests
 {
-    public class When_saving_loading_ndbunitEditor_project: PresenterTestBase
-    {
+	public class When_saving_loading_ndbunitEditor_project: PresenterTestBase
+	{
 		private string _settingsFileName = "ndbUserSettings.xml";
 
-        [SetUp]
-        public void TestSetup()
-        {
+		[SetUp]
+		public void TestSetup()
+		{
 			GenerateStubs();
-        }
+		}
 
-        [Test]
-        public void CanSaveApplicationSettings()       
-        {  
-            var editorsettings = new NdbUnitEditorProject();
-            view.SchemaFileName="schema.xsd"; 
-            
-         	var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
+		[Test]
+		public void CanSaveApplicationSettings()       
+		{  
+			var editorsettings = new NdbUnitEditorProject();
+			view.SchemaFileName="schema.xsd"; 
+			
+			var fileOpenResult = new FileDialogResult{ Accepted=true, SelectedFileName=_settingsFileName};
 			fileDialogCreator.Stub(d => d.ShowFileSave("XML files|*.xml")).Return(fileOpenResult);
 			var presenter = CreatePresenter();
 			presenter.Stub(p => p.GetProjectData()).Return(editorsettings);
 			presenter.SaveEditorSettings();
-            projectRepository.AssertWasCalled(m => m.SaveProject(editorsettings, _settingsFileName));            
-        }
+			projectRepository.AssertWasCalled(m => m.SaveProject(editorsettings, _settingsFileName));            
+		}
 
 		[Test]
 		public void ShouldShowErrorMessageWhenThereIsAnExceptionWhenLoadingProject()
@@ -99,5 +99,5 @@ namespace Tests.DataEditorPresenterTests
 			presenter.OpenProject(projectFileName);
 			view.AssertWasCalled(v => v.DisableDataSetFromDatabaseButton());
 		}
-    }
+	}
 }
