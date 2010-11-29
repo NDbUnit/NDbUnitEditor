@@ -411,5 +411,12 @@ namespace NDbUnitDataEditor
 					.ToList(); 
 			}
 		}
+
+        private void treeView1_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
+        {
+            var node = e.Node;
+            if (node.Parent == null)
+                e.Cancel = true;
+        }
 	}
 }
