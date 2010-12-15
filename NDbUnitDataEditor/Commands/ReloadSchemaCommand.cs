@@ -6,6 +6,15 @@ using System.IO;
 
 namespace NDbUnitDataEditor.Commands
 {
+	public class ReloadSchemaCommandException : Exception
+	{
+		public ReloadSchemaCommandException(string message)
+			: base(message)
+		{
+		}
+
+	}
+
 	public class ReloadSchemaCommand : ICommand
 	{
 
@@ -27,23 +36,13 @@ namespace NDbUnitDataEditor.Commands
 
 		public void Execute()
 		{
-			try
-			{
 				string schemaFileName = _dataEditor.SchemaFileName;
 
 				if (!_fileService.FileExists(schemaFileName))
-				{
-					_messageCreator.ShowError("Unable to find schema file");
-					return;
-				}
+					throw new ReloadSchemaCommandException("Unable to find schema file.");
 				_datasetProvider.ReadSchemaFromFile(schemaFileName);
 				_dataEditor.BindTableTree(_datasetProvider.DataSetName, _datasetProvider.GetTableNames());
 				_dataEditor.EnableSave();
-			}
-			catch (Exception ex)
-			{
-				_messageCreator.ShowError(String.Format("Unable to create schema tree. Exception:{0}", ex));
-			}
 		}
 	}
 }

@@ -55,8 +55,8 @@ namespace NDbUnitDataEditor
 			_dataEditor.LoadProject += LoadEditorSettings;
 			_dataEditor.ExitApp += OnExitingApplication;
 			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
-
-			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) => RefreshDataView());
+			_dataEditor.TabSelected+=OnTabSelected;
+			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) =>OnReinitializeMainView());
 		}
 
 		private void OnOpenTable(string tableName)
@@ -65,6 +65,15 @@ namespace NDbUnitDataEditor
 			if (table == null)
 				return;
 			_dataEditor.OpenTableView(table);
+		}
+
+		private void OnTabSelected(string tableName)
+		{
+			var statusText="";
+			var tableInfo = _datasetProvider.GetTableInfo(tableName);
+			if (tableInfo != null)
+				statusText = tableInfo.NumberOfRows.ToString();
+			_dataEditor.StatusLabel = statusText;
 		}
 
 		public void OnExitingApplication()
@@ -78,11 +87,25 @@ namespace NDbUnitDataEditor
 			_dataEditor.CloseApplication();
 		}
 
-		private void RefreshDataView()
-		{			
-			_applicationController.ExecuteCommand<ReloadSchemaCommand>();
-			_applicationController.ExecuteCommand<ReloadDataCommand>();
-
+		private void OnReinitializeMainView()
+		{
+			try
+			{
+				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
+				_applicationController.ExecuteCommand<ReloadDataCommand>();
+			}
+			catch (ReloadSchemaCommandException ex)
+			{
+				_messageCreator.ShowError(ex.Message);
+			}
+			catch (ReloadDataCommandException ex)
+			{
+				_messageCreator.ShowError(ex.Message, "Error loading DataSet");
+			}
+			catch (Exception ex)
+			{
+				_messageCreator.ShowError(String.Format("Unable to reinitialize main view. Exception: {0}",ex.ToString()));
+			}
 		}
 
 		public void HandleDataSetChange(string tabName)
@@ -149,14 +172,15 @@ namespace NDbUnitDataEditor
 				_dataEditor.DatabaseConnectionString = project.DatabaseConnectionString;
 				_dataEditor.DatabaseClientType = project.DatabaseClientType;
 				_dataEditor.ProjectFileName = fileName;
-				RefreshDataView();
+				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
+				_applicationController.ExecuteCommand<ReloadDataCommand>();		
 				foreach (var tabName in project.OpenedTabs)
 					OnOpenTable(tabName);
 
 			}
 			catch (Exception ex)
 			{
-				_messageCreator.ShowError(String.Format("Unable to load project. Exception: {0}", ex.Message));
+				_messageCreator.ShowError(String.Format("Unable to load project. Error: {0}", ex.Message));
 			}
 		}
 

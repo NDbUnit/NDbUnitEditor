@@ -13,6 +13,8 @@ namespace NDbUnitDataEditor
 	public interface IDataEditorView
 	{
 
+		string StatusLabel { get; set; }
+		event Action<string> TabSelected;
 		void DisableDataSetFromDatabaseButton();
 		void EnableDataSetFromDatabaseButton();
 		List<string> OpenedTabNames { get; }

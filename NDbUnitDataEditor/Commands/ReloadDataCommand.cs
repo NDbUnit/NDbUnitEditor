@@ -6,6 +6,14 @@ using System.IO;
 
 namespace NDbUnitDataEditor.Commands
 {
+	public class ReloadDataCommandException : Exception
+	{
+		public ReloadDataCommandException(string message)
+			: base(message)
+		{
+		}
+
+	}
 
 	public class ReloadDataCommand : ICommand
 	{
@@ -24,25 +32,14 @@ namespace NDbUnitDataEditor.Commands
 		}
 		public void Execute()
 		{
-			try
-			{
 				string dataFileName = _dataEditor.DataFileName;
 
 				string errorMessage = ValidateInputBeforeReload(dataFileName);
 				if (errorMessage != string.Empty)
-				{
-					_messageCreator.ShowError(errorMessage, "Error loading DataSet");
-					return;
-				}
+					throw new ReloadDataCommandException(errorMessage);
 
 				_dataEditor.CloseAllTabs();
 				_datasetProvider.ReadDataFromFile(dataFileName);
-			}
-			catch (Exception ex)
-			{
-				_messageCreator.ShowError(String.Format("Unspecified error occured. Exception: {0}", ex.Message));
-				//TODO: add some sort of error logging here
-			}
 		}
 
 		private string ValidateInputBeforeReload(string fileName)
