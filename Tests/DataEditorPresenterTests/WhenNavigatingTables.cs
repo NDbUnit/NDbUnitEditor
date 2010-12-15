@@ -46,7 +46,18 @@ namespace Tests.DataEditorPresenterTests
 			view.AssertWasNotCalled(v => v.OpenTableView(null));
 		}
 
+		[Test]
+		public void ShouldUpdateStatusBarWithRowCountWhenTabIsOpened()
+		{
+			var selectedTableName = "Customers";
+			var selectedTableInfo = new DataTableInfo { NumberOfRows = 12 };
+			var expectedStatusLabel = String.Format("Rows: {0}", selectedTableInfo.NumberOfRows);
+			datasetProvider.Stub(d => d.GetTableInfo(selectedTableName)).Return(selectedTableInfo);
+			var presenter = new DataEditorPresenter(applicationController, view, null, null, null, null, datasetProvider, null);
+			RaiseTreeNodeDblClicked("Customers");
 
+			Assert.AreEqual(expectedStatusLabel, view.StatusLabel);
+		}
 
 
 

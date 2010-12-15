@@ -5,8 +5,14 @@ using System.Linq;
 
 namespace NDbUnitDataEditor
 {
+	public class DataTableInfo
+	{
+		public int NumberOfRows { get; set; }
+	}
+
 	public interface IDataSetProvider
 	{
+		DataTableInfo GetTableInfo(string tableName);
 		string DataSetName { get; }
 		DataTable GetFirstTable();
 		DataTable GetTable(string tableName);
@@ -21,6 +27,7 @@ namespace NDbUnitDataEditor
 		void ReadSchemaFromFile(string fileName);
 		DataSet Data { get; }
 	}
+
     public class DataSetProvider : IDataSetProvider
 	{
 		bool _dataSetLoadedFromDatabase = false;
@@ -88,6 +95,13 @@ namespace NDbUnitDataEditor
 				.Cast<DataTable>()
 				.Where(t => t.TableName == tableName)
 				.FirstOrDefault();
+		}
+
+		public DataTableInfo GetTableInfo(string tableName)
+		{
+			var table = GetTable(tableName);
+			var info = new DataTableInfo { NumberOfRows = table.Rows.Count };
+			return info;
 		}
 
 		public bool IsDirty()
