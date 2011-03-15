@@ -427,18 +427,16 @@ namespace NDbUnitDataEditor
 		}
 
 
-        private void treeView1_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
-        {
-            var node = e.Node;
-            if (node.Parent == null)
-                e.Cancel = true;
-        }
+		private void treeView1_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
+		{
+			var node = e.Node;
+			if (node.Parent == null)
+				e.Cancel = true;
+		}
 
 		private void tbTableViews_Selected(object sender, TabControlEventArgs e)
 		{
-			TabSelected(e.TabPage.Name);
+			if (e.TabPage != null) TabSelected(e.TabPage.Name);
 		}
-
-
 	}
 }
