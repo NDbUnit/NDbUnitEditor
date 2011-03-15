@@ -20,14 +20,14 @@ namespace NDbUnitDataEditor.Commands
 		private IMessageCreator _messageCreator;
 		private IDataEditorView _dataEditor;
 		private IDataSetProvider _datasetProvider;
-        /// <summary>
+		/// <summary>
 		/// Initializes a new instance of the ReloadDataCommand class.
 		/// </summary>
 		public ReloadDataCommand(IMessageCreator messageCreator, IDataEditorView dataEditor, IDataSetProvider datasetProvider)
 		{
 			_datasetProvider = datasetProvider;
-            _dataEditor = dataEditor;
-            _messageCreator = messageCreator;
+			_dataEditor = dataEditor;
+			_messageCreator = messageCreator;
 			
 		}
 		public void Execute()
