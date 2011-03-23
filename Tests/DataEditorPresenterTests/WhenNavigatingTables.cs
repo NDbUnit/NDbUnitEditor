@@ -13,6 +13,7 @@ using System.Threading;
 
 namespace Tests.DataEditorPresenterTests
 {
+
 	[TestFixture]
 	public class WhenNavigatingTables: PresenterTestBase
 	{
@@ -54,12 +55,16 @@ namespace Tests.DataEditorPresenterTests
 			var expectedStatusLabel = String.Format("Rows: {0}", selectedTableInfo.NumberOfRows);
 			datasetProvider.Stub(d => d.GetTableInfo(selectedTableName)).Return(selectedTableInfo);
 			var presenter = new DataEditorPresenter(applicationController, view, null, null, null, null, datasetProvider, null);
-			RaiseTreeNodeDblClicked("Customers");
+			RaiseTabSelected("Customers");
 
 			Assert.AreEqual(expectedStatusLabel, view.StatusLabel);
 		}
 
-
+		private void RaiseTabSelected(string tabName)
+		{
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.TabSelected += null);
+			eventRaiser.Raise(tabName);
+		}
 
 		private void RaiseTreeNodeDblClicked(string tableName)
 		{

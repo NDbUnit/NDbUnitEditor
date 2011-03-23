@@ -53,6 +53,7 @@ namespace NDbUnitDataEditor
 			_dataEditor.SaveProject += SaveEditorSettings;
 			_dataEditor.SaveProjectAs += SaveEditorSettingsAs;
 			_dataEditor.LoadProject += LoadEditorSettings;
+			_dataEditor.NewProject += new Action(OnNewProject);
 			_dataEditor.ExitApp += OnExitingApplication;
 			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
 			_dataEditor.TabSelected+=OnTabSelected;
@@ -72,7 +73,7 @@ namespace NDbUnitDataEditor
 			var statusText="";
 			var tableInfo = _datasetProvider.GetTableInfo(tableName);
 			if (tableInfo != null)
-				statusText = tableInfo.NumberOfRows.ToString();
+				statusText = String.Format("Rows: {0}",tableInfo.NumberOfRows);
 			_dataEditor.StatusLabel = statusText;
 		}
 
@@ -162,6 +163,17 @@ namespace NDbUnitDataEditor
 				_dataEditor.EnableDataSetFromDatabaseButton();
 		}
 
+		void OnNewProject()
+		{
+			_dataEditor.SchemaFileName = "";
+			_dataEditor.DataFileName = "";
+			_dataEditor.DatabaseConnectionString = "";
+			_dataEditor.DatabaseClientType = "";
+			_dataEditor.CloseAllTabs();
+			_datasetProvider.CreateNewDataset();
+			_dataEditor.ClearTableTree();
+		}
+
 		public void OpenProject(string fileName)
 		{
 			try
@@ -172,8 +184,11 @@ namespace NDbUnitDataEditor
 				_dataEditor.DatabaseConnectionString = project.DatabaseConnectionString;
 				_dataEditor.DatabaseClientType = project.DatabaseClientType;
 				_dataEditor.ProjectFileName = fileName;
+				if (!CanReloadSchema())
+					return;
 				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
-				_applicationController.ExecuteCommand<ReloadDataCommand>();		
+				if(CanReloadData())
+					_applicationController.ExecuteCommand<ReloadDataCommand>();
 				foreach (var tabName in project.OpenedTabs)
 					OnOpenTable(tabName);
 
@@ -183,6 +198,18 @@ namespace NDbUnitDataEditor
 				_messageCreator.ShowError(String.Format("Unable to load project. Error: {0}", ex.Message));
 			}
 		}
+
+		private bool CanReloadSchema()
+		{
+			return !String.IsNullOrEmpty(_dataEditor.SchemaFileName);
+		}
+
+		private bool CanReloadData()
+		{
+			return CanReloadSchema() && !String.IsNullOrEmpty(_dataEditor.DataFileName);
+		}
+
+		
 
 		public void OnInitializeView()
 		{
