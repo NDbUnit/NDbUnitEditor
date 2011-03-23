@@ -12,6 +12,7 @@ namespace NDbUnitDataEditor
 
 	public interface IDataSetProvider
 	{
+		void CreateNewDataset();
 		DataTableInfo GetTableInfo(string tableName);
 		string DataSetName { get; }
 		DataTable GetFirstTable();
@@ -33,6 +34,12 @@ namespace NDbUnitDataEditor
 		bool _dataSetLoadedFromDatabase = false;
 
 		DataSet _dataSet = new DataSet();
+
+		public void CreateNewDataset()
+		{
+			_dataSet = new DataSet();
+		}
+
 		public void ReadSchemaFromFile(string fileName)
 		{
 			_dataSet.ReadXmlSchema(fileName);

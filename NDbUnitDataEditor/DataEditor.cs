@@ -46,6 +46,8 @@ namespace NDbUnitDataEditor
 
 		public event Action<string> TabSelected;
 
+		public event Action NewProject;
+
 		public DataEditor()
 		{
 			InitializeComponent();
@@ -127,9 +129,14 @@ namespace NDbUnitDataEditor
 			}
 		}
 
-		public void BindTableTree(string rootNodeName, IEnumerable<string> tableNames)
+		public void ClearTableTree()
 		{
 			treeView1.Nodes.Clear();
+		}
+
+		public void BindTableTree(string rootNodeName, IEnumerable<string> tableNames)
+		{
+			ClearTableTree();
 			TreeNode root = treeView1.Nodes.Add("dataset", rootNodeName);
 			foreach (var table in tableNames)
 			{
@@ -422,7 +429,7 @@ namespace NDbUnitDataEditor
 			}
 			set
 			{
-				toolStripStatusLabel1.Text = String.Format("Rows: {0}",value);
+				toolStripStatusLabel1.Text = value;
 			}
 		}
 
@@ -437,6 +444,11 @@ namespace NDbUnitDataEditor
 		private void tbTableViews_Selected(object sender, TabControlEventArgs e)
 		{
 			if (e.TabPage != null) TabSelected(e.TabPage.Name);
+		}
+
+		private void newToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			NewProject();
 		}
 	}
 }

@@ -12,7 +12,6 @@ namespace NDbUnitDataEditor.Commands
 			: base(message)
 		{
 		}
-
 	}
 
 	public class ReloadSchemaCommand : ICommand
@@ -37,7 +36,6 @@ namespace NDbUnitDataEditor.Commands
 		public void Execute()
 		{
 				string schemaFileName = _dataEditor.SchemaFileName;
-
 				if (!_fileService.FileExists(schemaFileName))
 					throw new ReloadSchemaCommandException("Unable to find schema file.");
 				_datasetProvider.ReadSchemaFromFile(schemaFileName);
