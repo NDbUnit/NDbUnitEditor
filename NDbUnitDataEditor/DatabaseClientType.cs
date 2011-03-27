@@ -6,7 +6,9 @@ using NDbUnit.Core;
 
 namespace NDbUnitDataEditor
 {
-    //TODO: condsider either refactoring this entire list into NDbUnit.Core.dll itself or (perhaps) just use it from Proteus
+    /// <summary>
+    /// Types of Supported Databases
+    /// </summary>
     public enum DatabaseClientType
     {
         /// <summary>
@@ -35,11 +37,14 @@ namespace NDbUnitDataEditor
         MySqlClient,
 
         /// <summary>
-        /// Oracle database (NOT YET SUPPORTED)
+        /// Oracle database
         /// </summary>
-        /// <remarks>
-        /// Oracle database support is not yet available; as of now, Oracle interaction can be achieved via the OleDB drivers for Oracle (select OleDBClient as the database type).
-        /// </remarks>
-        OracleClient
+        OracleClient,
+
+
+        /// <summary>
+        /// Postgresql database
+        /// </summary>
+        PostgresqlClient
     }
 }
