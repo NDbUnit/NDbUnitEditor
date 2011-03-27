@@ -16,6 +16,8 @@ namespace NDbUnitDataEditor
 
         public event DataSetDatabaseEvent SelectDatabaseType;
 
+        public event DataSetDatabaseEvent Exiting;
+
         public event DataSetDatabaseEvent TestDatabaseConnection;
 
         public DataSetFromDatabase()
@@ -145,7 +147,13 @@ namespace NDbUnitDataEditor
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private void FormExiting(object sender, FormClosingEventArgs e)
+        {
+            if (Exiting != null)
+                Exiting();
         }
 
     }

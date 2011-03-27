@@ -24,7 +24,14 @@ namespace NDbUnitDataEditor
             _dataSetFromDatabase.PutDataSetToDatabase += PutDataSetToDatabase;
             _dataSetFromDatabase.TestDatabaseConnection += TestDatabaseConnection;
             _dataSetFromDatabase.SelectDatabaseType += SetDatabaseType;
+            _dataSetFromDatabase.Exiting += Exiting;
             FillPresenterWithSupportedDatabaseTypesList();
+        }
+
+        private void Exiting()
+        {
+            DatabaseConnectionString = _dataSetFromDatabase.DatabaseConnectionString;
+            DatabaseTypeSelectedIndex = _dataSetFromDatabase.DatabaseTypeSelectedIndex;
         }
 
         public string DatabaseConnectionString { get; set; }
