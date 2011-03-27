@@ -135,6 +135,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Sync DataSet and Schema with Database";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormExiting);
             this.ResumeLayout(false);
             this.PerformLayout();
 

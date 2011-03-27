@@ -14,6 +14,7 @@ namespace NDbUnitDataEditor
         event DataSetDatabaseEvent GetDataSetFromDatabase;
         event DataSetDatabaseEvent PutDataSetToDatabase;
         event DataSetDatabaseEvent SelectDatabaseType;
+        event DataSetDatabaseEvent Exiting;
         int DatabaseTypeSelectedIndex { get; set; }
         void Run();
         string ErrorMessage { get; set; }
