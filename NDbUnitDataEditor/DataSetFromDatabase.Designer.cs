@@ -36,6 +36,7 @@
             this.btnGetDataSetFromDatabase = new System.Windows.Forms.Button();
             this.btnPutDataSetToDatabase = new System.Windows.Forms.Button();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblConnectionString
@@ -52,12 +53,12 @@
             this.txtConnectionString.Location = new System.Drawing.Point(158, 10);
             this.txtConnectionString.Multiline = true;
             this.txtConnectionString.Name = "txtConnectionString";
-            this.txtConnectionString.Size = new System.Drawing.Size(374, 54);
+            this.txtConnectionString.Size = new System.Drawing.Size(245, 54);
             this.txtConnectionString.TabIndex = 1;
             // 
             // btnTestConnection
             // 
-            this.btnTestConnection.Location = new System.Drawing.Point(542, 10);
+            this.btnTestConnection.Location = new System.Drawing.Point(419, 8);
             this.btnTestConnection.Name = "btnTestConnection";
             this.btnTestConnection.Size = new System.Drawing.Size(169, 23);
             this.btnTestConnection.TabIndex = 2;
@@ -86,9 +87,9 @@
             // 
             // btnGetDataSetFromDatabase
             // 
-            this.btnGetDataSetFromDatabase.Location = new System.Drawing.Point(542, 70);
+            this.btnGetDataSetFromDatabase.Location = new System.Drawing.Point(158, 97);
             this.btnGetDataSetFromDatabase.Name = "btnGetDataSetFromDatabase";
-            this.btnGetDataSetFromDatabase.Size = new System.Drawing.Size(169, 23);
+            this.btnGetDataSetFromDatabase.Size = new System.Drawing.Size(245, 23);
             this.btnGetDataSetFromDatabase.TabIndex = 5;
             this.btnGetDataSetFromDatabase.Text = "Get DataSet from Database";
             this.btnGetDataSetFromDatabase.UseVisualStyleBackColor = true;
@@ -96,19 +97,30 @@
             // 
             // btnPutDataSetToDatabase
             // 
-            this.btnPutDataSetToDatabase.Location = new System.Drawing.Point(542, 99);
+            this.btnPutDataSetToDatabase.Location = new System.Drawing.Point(158, 126);
             this.btnPutDataSetToDatabase.Name = "btnPutDataSetToDatabase";
-            this.btnPutDataSetToDatabase.Size = new System.Drawing.Size(169, 23);
+            this.btnPutDataSetToDatabase.Size = new System.Drawing.Size(245, 23);
             this.btnPutDataSetToDatabase.TabIndex = 6;
             this.btnPutDataSetToDatabase.Text = "Put DataSet to Database";
             this.btnPutDataSetToDatabase.UseVisualStyleBackColor = true;
             this.btnPutDataSetToDatabase.Click += new System.EventHandler(this.btnPutDataSetToDatabase_Click);
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(512, 126);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(76, 23);
+            this.btnClose.TabIndex = 7;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // DataSetFromDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 131);
+            this.ClientSize = new System.Drawing.Size(599, 157);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnPutDataSetToDatabase);
             this.Controls.Add(this.btnGetDataSetFromDatabase);
             this.Controls.Add(this.lblDatabaseType);
@@ -138,5 +150,6 @@
         private System.Windows.Forms.Button btnGetDataSetFromDatabase;
         private System.Windows.Forms.Button btnPutDataSetToDatabase;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button btnClose;
     }
 }
