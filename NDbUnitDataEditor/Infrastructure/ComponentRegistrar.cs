@@ -55,7 +55,7 @@ namespace NDbUnitDataEditor
             );
 
 			_container.Register(
-				AllTypes.Of<ICommand>().FromAssembly(Assembly.GetExecutingAssembly()));
+				AllTypes.FromAssembly(Assembly.GetExecutingAssembly()).BasedOn<ICommand>());
 
             //NDbUnit interaction
             _container.Register

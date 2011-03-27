@@ -31,7 +31,8 @@ namespace NDbUnitDataEditor
                 DatabaseClientType.MySqlClient,
                 DatabaseClientType.SqliteClient,
                 DatabaseClientType.SqlCeClient,
-                DatabaseClientType.OracleClient
+                DatabaseClientType.OracleClient,
+                DatabaseClientType.PostgresqlClient
              };
         }
 
@@ -65,11 +66,21 @@ namespace NDbUnitDataEditor
                         break;
                     }
                 case DatabaseClientType.OracleClient:
-                    throw new InvalidOperationException("Oracle Client is not yet supported by NDbUnit!");
+                    {
+                        _databaseConnection = new System.Data.OracleClient.OracleConnection(_databaseConnectionString);
+                        _database = new NDbUnit.OracleClient.OracleClientDbUnitTest(_databaseConnectionString);
+                        break;
+                    }
+                case DatabaseClientType.PostgresqlClient:
+                    {
+                        _databaseConnection = new Npgsql.NpgsqlConnection(_databaseConnectionString);
+                        _database = new NDbUnit.Postgresql.PostgresqlDbUnitTest(_databaseConnectionString);
+                        break;
+                    }
                 case DatabaseClientType.SqlCeClient:
                     {
                         _databaseConnection = new System.Data.SqlServerCe.SqlCeConnection(_databaseConnectionString);
-                        _database = new NDbUnit.Core.SqlServerCe.SqlCeUnitTest(_databaseConnectionString);
+                        _database = new NDbUnit.Core.SqlServerCe.SqlCeDbUnitTest(_databaseConnectionString);
                         break;
                     }
                 case DatabaseClientType.SqlClient:
@@ -81,7 +92,7 @@ namespace NDbUnitDataEditor
                 case DatabaseClientType.SqliteClient:
                     {
                         _databaseConnection = new System.Data.SQLite.SQLiteConnection(_databaseConnectionString);
-                        _database = new NDbUnit.Core.SqlLite.SqlLiteUnitTest(_databaseConnectionString);
+                        _database = new NDbUnit.Core.SqlLite.SqlLiteDbUnitTest(_databaseConnectionString);
                         break;
                     }
                 default:
