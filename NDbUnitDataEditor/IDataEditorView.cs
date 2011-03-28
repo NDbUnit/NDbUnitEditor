@@ -12,7 +12,7 @@ namespace NDbUnitDataEditor
 {
 	public interface IDataEditorView
 	{
-
+		event Action SaveDataAs;
 		void ClearTableTree();
 		event Action NewProject;
 		string StatusLabel { get; set; }

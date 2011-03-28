@@ -34,6 +34,8 @@ namespace NDbUnitDataEditor
 
 		public event Action SaveData;
 
+		public event Action SaveDataAs;
+
 		public event Action SaveProject;
 
 		public event Action SaveProjectAs;
@@ -449,6 +451,16 @@ namespace NDbUnitDataEditor
 		private void newToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			NewProject();
+		}
+
+		private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			SaveData();
+		}
+
+		private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			SaveDataAs();
 		}
 	}
 }

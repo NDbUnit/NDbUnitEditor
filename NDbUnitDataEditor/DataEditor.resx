@@ -204,13 +204,13 @@
   <data name="btnDataSetFromDatabase.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAYAAAAiYZ4HAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVDhPY/j//z8TAxBcP7H0/Zm9Pf93La/4v2F2zv91
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFOSURBVDhPY/j//z8TAxBcP770/Zm9Pf93La/4v2F2zv91
         s3L+b5pf8H/v6qb/Z/bPBir7zwjCDECCDaTw9vm5/1/cX/v/85ud/399PQTGIPbjWyv/Xzwy5f+OFVUg
-        TUwMOxYX///78yhReGpFyHuwhi9Xs/5/fzHr/6/PW+EaQTb8/rD+/5fHPWD5pzts/0+tCfnPAHLnhyNO
+        TUwMOxYX///78yhReGp5yHuwhi9Xs/5/fzHr/6/PW+EaQTb8/rD+/5fHPWD5pzts/0+tCfnPAHLnhyNO
         YEGQ5LfXi/5/ud/8/8PpgP9vt8r+f7mC8f+jRQz/b89hgmgAeZBYDX3Fvv8ZQKFBkobVU9Npp6Ety/U/
         w9L+ZKJtIF/DeyKDFWzD7JZIop1UGWsD0fB8r/P/j5fT8EbcpWkc/8EagAmKeXV/8P/9i6P/XzlQ/v/Z
         zangmH5zzP//3VXK/49PEv2/pkHx/4RcE3CKBWlgAjGOb2kDJ2mQjaAYBbl3UpHD/0WNLv93zU6GKAYC
-        AOhRMhJCFIPsAAAAAElFTkSuQmCC
+        AOLLMhDDtPfFAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

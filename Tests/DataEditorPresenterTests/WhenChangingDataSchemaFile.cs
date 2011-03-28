@@ -5,6 +5,7 @@ using System.Text;
 using MbUnit.Framework;
 using NDbUnitDataEditor;
 using Rhino.Mocks;
+using Rhino.Mocks.Interfaces;
 
 namespace Tests.DataEditorPresenterTests
 {
@@ -58,5 +59,19 @@ namespace Tests.DataEditorPresenterTests
 			presenter.SelectDataFile();
 			Assert.AreEqual(oldSchemaFileName, view.DataFileName);
 		}
+
+		[Test]
+		public void ShouldSaveExistingDataFileAs()
+		{
+			var newDataFileName = "newDataFile.xml";
+			view.DataFileName = "olddataFile.xml";
+			fileDialogCreator.Stub(c => c.ShowFileSave(null)).IgnoreArguments().Return(new FileDialogResult { Accepted = true, SelectedFileName = newDataFileName });
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.SaveDataAs += null);
+			var presenter = CreatePresenter();
+			eventRaiser.Raise();
+			Assert.AreEqual(newDataFileName, view.DataFileName);
+		}
+
+
 	}
 }
