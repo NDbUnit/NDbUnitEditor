@@ -47,5 +47,10 @@ namespace NDbUnitDataEditor
             dataGridView1.DataSource = bindingSource1;
         }
 
+		private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+		{
+			TableViewChanged(Name);
+		}
+
     }
 }

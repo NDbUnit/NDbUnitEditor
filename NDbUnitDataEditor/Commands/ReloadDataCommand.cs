@@ -51,7 +51,7 @@ namespace NDbUnitDataEditor.Commands
 
 			if (!File.Exists(fileName))
 			{
-				return "Specified file does not exists.";
+				return String.Format("Cannot load data. File {0} does not exists.", fileName);
 			}
 
 			return string.Empty;

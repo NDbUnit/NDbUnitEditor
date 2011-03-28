@@ -74,12 +74,15 @@ namespace Tests.DataEditorPresenterTests
 		}
 
 		[Test]
-		[Row("schemaFile.xsd", "dataFile.xml", true)]
-		[Row("schemaFile.xsd", "", false)]
-		[Row("", "dataFile.xml", false)]
-		[Row("", "", false)]
-		public void ShoulEnableOrDisableReloadButtonWhenDataFileIsChanged(string schemaFileName, string dataFileName, bool isReloadEnabled)
+		[Row("schemaFile.xsd", "dataFile.xml", true, true)]
+		[Row("schemaFile.xsd", "dataFile.xml", false, false)]
+		[Row("schemaFile.xsd", "", false, false)]
+		[Row("", "dataFile.xml", false, false)]
+		[Row("", "", false, false)]
+		public void ShoulEnableOrDisableReloadButtonWhenDataFileIsChanged(string schemaFileName, string dataFileName, bool dataFileExists, bool isReloadEnabled)
 		{
+			fileService.Stub(s => s.FileExists(dataFileName)).Return(dataFileExists);
+			fileService.Stub(s => s.FileExists(schemaFileName)).Return(true);
 			view.SchemaFileName = schemaFileName;
 			view.DataFileName = dataFileName;
 			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataFileChanged += null);
@@ -89,12 +92,15 @@ namespace Tests.DataEditorPresenterTests
 		}
 
 		[Test]
-		[Row("schemaFile.xsd", "dataFile.xml", true)]
-		[Row("schemaFile.xsd", "", false)]
-		[Row("", "dataFile.xml", false)]
-		[Row("", "", false)]
-		public void ShoulEnableOrDisableReloadButtonWhenSchemaFileIsChanged(string schemaFileName, string dataFileName, bool isReloadEnabled)
+		[Row("schemaFile.xsd", "dataFile.xml", true, true)]
+		[Row("schemaFile.xsd", "dataFile.xml", false, false)]
+		[Row("schemaFile.xsd", "", false, false)]
+		[Row("", "dataFile.xml", false, false)]
+		[Row("", "", false, false)]
+		public void ShoulEnableOrDisableReloadButtonWhenSchemaFileIsChanged(string schemaFileName, string dataFileName, bool schemaFileExists, bool isReloadEnabled)
 		{
+			fileService.Stub(s => s.FileExists(dataFileName)).Return(true);
+			fileService.Stub(s => s.FileExists(schemaFileName)).Return(schemaFileExists);
 			view.SchemaFileName = schemaFileName;
 			view.DataFileName = dataFileName;
 			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.SchemaFileChanged += null);
