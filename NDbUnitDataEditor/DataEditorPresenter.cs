@@ -77,7 +77,12 @@ namespace NDbUnitDataEditor
 
 		private bool ShouldEnableReload()
 		{
-			if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && !String.IsNullOrEmpty(_dataEditor.SchemaFileName))
+			var dataFile = _dataEditor.DataFileName;
+			var schemaFile = _dataEditor.SchemaFileName;
+			if (!String.IsNullOrEmpty(dataFile) && 
+					_fileService.FileExists(dataFile) &&
+					!String.IsNullOrEmpty(schemaFile) &&
+					_fileService.FileExists(schemaFile))
 				return true;
 			return false;
 		}
