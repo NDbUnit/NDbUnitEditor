@@ -142,8 +142,8 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Events\ReinitializeMainViewRequested.cs" />
     <Compile Include="Commands\ReloadSchemaCommand.cs" />
-    <Compile Include="Commands\SaveDataCommand.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="Infrastructure\ApplicationController.cs" />
     <Compile Include="Commands\GetDataFromDatabaseCommand.cs" />

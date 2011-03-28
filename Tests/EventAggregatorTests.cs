@@ -76,6 +76,5 @@ namespace Tests
 			listener.VerifyAllExpectations();
 
 		}
-
 	}
 }

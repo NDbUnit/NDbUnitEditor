@@ -1,6 +1,8 @@
 ﻿using System;
 using NDbUnit.Utility;
 using NDbUnitDataEditor.Commands;
+using System.IO;
+using NDbUnitDataEditor.Events;
 
 namespace NDbUnitDataEditor
 {
@@ -48,7 +50,8 @@ namespace NDbUnitDataEditor
 			_dataEditor.BrowseForSchemaFile += SelectSchemaFile;
 			_dataEditor.CreateGuid += CreateGuid;
 			_dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
-			_dataEditor.SaveData += SaveData;
+			_dataEditor.SaveData += OnSaveData;
+			_dataEditor.SaveDataAs += OnSaveDataAs;
 			_dataEditor.DataViewChanged += HandleDataSetChange;
 			_dataEditor.SaveProject += SaveEditorSettings;
 			_dataEditor.SaveProjectAs += SaveEditorSettingsAs;
@@ -59,6 +62,8 @@ namespace NDbUnitDataEditor
 			_dataEditor.TabSelected+=OnTabSelected;
 			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) =>OnReinitializeMainView());
 		}
+
+	
 
 		private void OnOpenTable(string tableName)
 		{
@@ -218,9 +223,52 @@ namespace NDbUnitDataEditor
 				OpenProject(projectFileName);            
 		}
 
-		void SaveData()
+
+		private string GetSaveAsFileName()
 		{
-			_applicationController.ExecuteCommand<SaveDataCommand>();
+			var dlgResult = _fileDialogCreator.ShowFileSave("xml files|*.xml");
+			if (dlgResult.Accepted)
+				return dlgResult.SelectedFileName;
+			return null;
+		}
+
+		private void OnSaveDataAs()
+		{
+			var newFileName = GetSaveAsFileName();
+			SaveData(newFileName);
+			_dataEditor.DataFileName = newFileName;
+		}
+
+
+		void OnSaveData()
+		{
+			string fileName = _dataEditor.DataFileName;
+			if (String.IsNullOrEmpty(fileName))
+			{
+				fileName = GetSaveAsFileName();
+				_dataEditor.DataFileName = fileName;
+			}
+			SaveData(fileName);
+		}
+
+		private void SaveData(string fileName)
+		{
+			try
+			{
+				string path = Path.GetDirectoryName(fileName);
+				if (!Directory.Exists(path))
+				{
+					_messageCreator.ShowError("Cannot save specified file");
+					return;
+				}
+				_datasetProvider.SaveDataToFile(fileName);
+				_dataEditor.DataFileName = fileName;
+				_dataEditor.RemoveEditedMarksFromAllTabs();
+			}
+			catch (Exception ex)
+			{
+				_messageCreator.ShowError(String.Format("Unable to save file. Exception: {0}", ex.Message));
+			}
 		}
 
 		private void SaveSettings()
