@@ -34,13 +34,12 @@ namespace NDbUnitDataEditor
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.btnAbout = new System.Windows.Forms.ToolStripButton();
 			this.btnCloseTab = new System.Windows.Forms.ToolStripButton();
+			this.btnSaveData = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.txtSchemaFileName = new System.Windows.Forms.ToolStripTextBox();
 			this.btnBrowseSchemaFile = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.lblDataFileName = new System.Windows.Forms.ToolStripLabel();
-			this.txtDataFileName = new System.Windows.Forms.ToolStripTextBox();
 			this.btnBrowseDataFile = new System.Windows.Forms.ToolStripButton();
 			this.btnReload = new System.Windows.Forms.ToolStripButton();
 			this.btnNewGuid = new System.Windows.Forms.ToolStripButton();
@@ -60,12 +59,13 @@ namespace NDbUnitDataEditor
 			this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnSaveData = new System.Windows.Forms.ToolStripButton();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.txtSchemaFileName = new System.Windows.Forms.ToolStripLabel();
+			this.txtDataFileName = new System.Windows.Forms.ToolStripLabel();
 			this.toolStrip1.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -134,6 +134,19 @@ namespace NDbUnitDataEditor
 			this.btnCloseTab.ToolTipText = "Close Active Tab...";
 			this.btnCloseTab.Click += new System.EventHandler(this.btnCloseTab_Click);
 			// 
+			// btnSaveData
+			// 
+			this.btnSaveData.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.btnSaveData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.btnSaveData.Enabled = false;
+			this.btnSaveData.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveData.Image")));
+			this.btnSaveData.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnSaveData.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
+			this.btnSaveData.Name = "btnSaveData";
+			this.btnSaveData.Size = new System.Drawing.Size(23, 22);
+			this.btnSaveData.Text = "Save Data";
+			this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
+			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -144,14 +157,6 @@ namespace NDbUnitDataEditor
 			this.toolStripLabel1.Name = "toolStripLabel1";
 			this.toolStripLabel1.Size = new System.Drawing.Size(104, 22);
 			this.toolStripLabel1.Text = "Schema file name:";
-			// 
-			// txtSchemaFileName
-			// 
-			this.txtSchemaFileName.BackColor = System.Drawing.SystemColors.Window;
-			this.txtSchemaFileName.Name = "txtSchemaFileName";
-			this.txtSchemaFileName.ReadOnly = true;
-			this.txtSchemaFileName.Size = new System.Drawing.Size(100, 25);
-			this.txtSchemaFileName.TextChanged += new System.EventHandler(this.txtSchemaFileName_TextChanged);
 			// 
 			// btnBrowseSchemaFile
 			// 
@@ -173,13 +178,6 @@ namespace NDbUnitDataEditor
 			this.lblDataFileName.Name = "lblDataFileName";
 			this.lblDataFileName.Size = new System.Drawing.Size(86, 22);
 			this.lblDataFileName.Text = "Data file name:";
-			// 
-			// txtDataFileName
-			// 
-			this.txtDataFileName.BackColor = System.Drawing.SystemColors.Window;
-			this.txtDataFileName.Name = "txtDataFileName";
-			this.txtDataFileName.ReadOnly = true;
-			this.txtDataFileName.Size = new System.Drawing.Size(100, 25);
 			// 
 			// btnBrowseDataFile
 			// 
@@ -330,30 +328,54 @@ namespace NDbUnitDataEditor
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.newToolStripMenuItem.Text = "New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// loadToolStripMenuItem
 			// 
 			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-			this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.loadToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.loadToolStripMenuItem.Text = "Load...";
 			this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.saveAsToolStripMenuItem.Text = "Save As...";
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+			// 
+			// dataToolStripMenuItem
+			// 
+			this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem1,
+            this.saveAsToolStripMenuItem1});
+			this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
+			this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+			this.dataToolStripMenuItem.Text = "Data";
+			// 
+			// saveToolStripMenuItem1
+			// 
+			this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+			this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+			this.saveToolStripMenuItem1.Text = "Save";
+			this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
+			// 
+			// saveAsToolStripMenuItem1
+			// 
+			this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
+			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+			this.saveAsToolStripMenuItem1.Text = "Save As...";
+			this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
 			// 
 			// statusStrip1
 			// 
@@ -371,42 +393,17 @@ namespace NDbUnitDataEditor
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size(47, 17);
 			this.toolStripStatusLabel1.Text = "Rows: 0";
 			// 
-			// dataToolStripMenuItem
+			// txtSchemaFileName
 			// 
-			this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem1,
-            this.saveAsToolStripMenuItem1});
-			this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-			this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-			this.dataToolStripMenuItem.Text = "Data";
+			this.txtSchemaFileName.AutoSize = false;
+			this.txtSchemaFileName.Name = "txtSchemaFileName";
+			this.txtSchemaFileName.Size = new System.Drawing.Size(100, 22);
 			// 
-			// saveToolStripMenuItem1
+			// txtDataFileName
 			// 
-			this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-			this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-			this.saveToolStripMenuItem1.Text = "Save";
-			this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
-			// 
-			// saveAsToolStripMenuItem1
-			// 
-			this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-			this.saveAsToolStripMenuItem1.Text = "Save As...";
-			this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
-			// 
-			// btnSaveData
-			// 
-			this.btnSaveData.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.btnSaveData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.btnSaveData.Enabled = false;
-			this.btnSaveData.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveData.Image")));
-			this.btnSaveData.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnSaveData.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
-			this.btnSaveData.Name = "btnSaveData";
-			this.btnSaveData.Size = new System.Drawing.Size(23, 22);
-			this.btnSaveData.Text = "Save Data";
-			this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
+			this.txtDataFileName.AutoSize = false;
+			this.txtDataFileName.Name = "txtDataFileName";
+			this.txtDataFileName.Size = new System.Drawing.Size(100, 22);
 			// 
 			// DataEditor
 			// 
@@ -449,12 +446,10 @@ namespace NDbUnitDataEditor
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripButton btnCloseTab;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripTextBox txtSchemaFileName;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnBrowseSchemaFile;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel lblDataFileName;
-        private System.Windows.Forms.ToolStripTextBox txtDataFileName;
+		private System.Windows.Forms.ToolStripLabel lblDataFileName;
         private System.Windows.Forms.ToolStripButton btnBrowseDataFile;
 		private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripButton btnAbout;
@@ -477,6 +472,8 @@ namespace NDbUnitDataEditor
 		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripButton btnSaveData;
+		private System.Windows.Forms.ToolStripLabel txtSchemaFileName;
+		private System.Windows.Forms.ToolStripLabel txtDataFileName;
     }
 }
 

@@ -112,6 +112,10 @@ namespace NDbUnitDataEditor
 				txtSchemaFileName.Text = Path.GetFileName(value);
 				txtSchemaFileName.ToolTipText = value;
 				_schemaFileName = value;
+				if (!String.IsNullOrEmpty(_schemaFileName))
+					EnableReload();
+				else
+					DisableReload();
 			}
 		}
 
@@ -157,6 +161,16 @@ namespace NDbUnitDataEditor
 		public void EnableSave()
 		{
 			btnSaveData.Enabled = true;
+		}
+
+		public void EnableReload()
+		{
+			btnReload.Enabled = true;
+		}
+
+		public void DisableReload()
+		{
+			btnReload.Enabled = false;
 		}
 
 		public void EnableDataSetFromDatabaseButton()
@@ -341,14 +355,6 @@ namespace NDbUnitDataEditor
 			string tbName = node.Text;
 			TableTreeNodeDblClicked(tbName);
 
-		}
-
-		private void txtSchemaFileName_TextChanged(object sender, EventArgs e)
-		{
-			if (SchemaFileName != "")
-			{
-				btnReload.Enabled = true;
-			}
 		}
 
 		private void closeActiveTabToolStripMenuItem_Click(object sender, EventArgs e)
