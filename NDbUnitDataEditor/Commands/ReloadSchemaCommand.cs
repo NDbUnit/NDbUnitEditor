@@ -37,7 +37,7 @@ namespace NDbUnitDataEditor.Commands
 		{
 				string schemaFileName = _dataEditor.SchemaFileName;
 				if (!_fileService.FileExists(schemaFileName))
-					throw new ReloadSchemaCommandException("Unable to find schema file.");
+					throw new ReloadSchemaCommandException(String.Format("Unable to find schema file at {0}.", schemaFileName));
 				_datasetProvider.ReadSchemaFromFile(schemaFileName);
 				_dataEditor.BindTableTree(_datasetProvider.DataSetName, _datasetProvider.GetTableNames());
 				_dataEditor.EnableSave();

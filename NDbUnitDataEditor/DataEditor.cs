@@ -50,6 +50,10 @@ namespace NDbUnitDataEditor
 
 		public event Action NewProject;
 
+		public event Action SchemaFileChanged;
+
+		public event Action DataFileChanged;
+
 		public DataEditor()
 		{
 			InitializeComponent();
@@ -72,6 +76,23 @@ namespace NDbUnitDataEditor
 				txtDataFileName.Text = Path.GetFileName(value);
 				txtDataFileName.ToolTipText = value;
 				_dataFileName = value;
+				DataFileChanged();
+			}
+		}
+
+		public string SchemaFileName
+		{
+			get
+			{
+				return _schemaFileName;
+			}
+
+			set
+			{
+				txtSchemaFileName.Text = Path.GetFileName(value);
+				txtSchemaFileName.ToolTipText = value;
+				_schemaFileName = value;
+				SchemaFileChanged();
 			}
 		}
 
@@ -100,24 +121,7 @@ namespace NDbUnitDataEditor
 			}
 		}
 
-		public string SchemaFileName
-		{
-			get
-			{
-				return _schemaFileName;
-			}
 
-			set
-			{
-				txtSchemaFileName.Text = Path.GetFileName(value);
-				txtSchemaFileName.ToolTipText = value;
-				_schemaFileName = value;
-				if (!String.IsNullOrEmpty(_schemaFileName))
-					EnableReload();
-				else
-					DisableReload();
-			}
-		}
 
 		public void CloseApplication()
 		{
@@ -163,14 +167,17 @@ namespace NDbUnitDataEditor
 			btnSaveData.Enabled = true;
 		}
 
-		public void EnableReload()
+		public bool IsReloadEnabled
 		{
-			btnReload.Enabled = true;
-		}
+			get
+			{
+				return btnReload.Enabled;
+			}
+			set
+			{
+				btnReload.Enabled = value;
+			}
 
-		public void DisableReload()
-		{
-			btnReload.Enabled = false;
 		}
 
 		public void EnableDataSetFromDatabaseButton()

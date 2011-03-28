@@ -12,7 +12,9 @@ namespace NDbUnitDataEditor
 {
 	public interface IDataEditorView
 	{
-		void EnableReload();
+		bool IsReloadEnabled { get; set; }
+		event Action DataFileChanged;
+		event Action SchemaFileChanged;
 		event Action SaveDataAs;
 		void ClearTableTree();
 		event Action NewProject;

@@ -6,6 +6,7 @@ using MbUnit.Framework;
 using NDbUnitDataEditor;
 using Rhino.Mocks;
 using Rhino.Mocks.Interfaces;
+using System.Threading;
 
 namespace Tests.DataEditorPresenterTests
 {
@@ -70,6 +71,36 @@ namespace Tests.DataEditorPresenterTests
 			var presenter = CreatePresenter();
 			eventRaiser.Raise();
 			Assert.AreEqual(newDataFileName, view.DataFileName);
+		}
+
+		[Test]
+		[Row("schemaFile.xsd", "dataFile.xml", true)]
+		[Row("schemaFile.xsd", "", false)]
+		[Row("", "dataFile.xml", false)]
+		[Row("", "", false)]
+		public void ShoulEnableOrDisableReloadButtonWhenDataFileIsChanged(string schemaFileName, string dataFileName, bool isReloadEnabled)
+		{
+			view.SchemaFileName = schemaFileName;
+			view.DataFileName = dataFileName;
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataFileChanged += null);
+			var presenter = CreatePresenter();
+			eventRaiser.Raise();
+			Assert.AreEqual(isReloadEnabled, view.IsReloadEnabled);
+		}
+
+		[Test]
+		[Row("schemaFile.xsd", "dataFile.xml", true)]
+		[Row("schemaFile.xsd", "", false)]
+		[Row("", "dataFile.xml", false)]
+		[Row("", "", false)]
+		public void ShoulEnableOrDisableReloadButtonWhenSchemaFileIsChanged(string schemaFileName, string dataFileName, bool isReloadEnabled)
+		{
+			view.SchemaFileName = schemaFileName;
+			view.DataFileName = dataFileName;
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.SchemaFileChanged += null);
+			var presenter = CreatePresenter();
+			eventRaiser.Raise();
+			Assert.AreEqual(isReloadEnabled, view.IsReloadEnabled);
 		}
 
 
