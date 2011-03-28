@@ -60,10 +60,27 @@ namespace NDbUnitDataEditor
 			_dataEditor.ExitApp += OnExitingApplication;
 			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
 			_dataEditor.TabSelected+=OnTabSelected;
+			_dataEditor.DataFileChanged += OnDataFileChanged;
+			_dataEditor.SchemaFileChanged += OnSchemaFileChanged;
 			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) =>OnReinitializeMainView());
 		}
 
-	
+		private void OnDataFileChanged()
+		{
+			_dataEditor.IsReloadEnabled = ShouldEnableReload();
+		}
+
+		private void OnSchemaFileChanged()
+		{
+			_dataEditor.IsReloadEnabled = ShouldEnableReload();
+		}
+
+		private bool ShouldEnableReload()
+		{
+			if (!String.IsNullOrEmpty(_dataEditor.DataFileName) && !String.IsNullOrEmpty(_dataEditor.SchemaFileName))
+				return true;
+			return false;
+		}
 
 		private void OnOpenTable(string tableName)
 		{
@@ -100,13 +117,13 @@ namespace NDbUnitDataEditor
 				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
 				_applicationController.ExecuteCommand<ReloadDataCommand>();
 			}
-			catch (ReloadSchemaCommandException ex)
+			catch (ReloadDataCommandException ex)
 			{
 				_messageCreator.ShowError(ex.Message);
 			}
-			catch (ReloadDataCommandException ex)
+			catch (ReloadSchemaCommandException ex)
 			{
-				_messageCreator.ShowError(ex.Message, "Error loading DataSet");
+				_messageCreator.ShowError(ex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -192,11 +209,19 @@ namespace NDbUnitDataEditor
 				if (!CanReloadSchema())
 					return;
 				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
-				if(CanReloadData())
+				if (CanReloadData())
 					_applicationController.ExecuteCommand<ReloadDataCommand>();
 				foreach (var tabName in project.OpenedTabs)
 					OnOpenTable(tabName);
 
+			}
+			catch (ReloadDataCommandException ex)
+			{
+				_messageCreator.ShowError(ex.Message);
+			}
+			catch (ReloadSchemaCommandException ex)
+			{
+				_messageCreator.ShowError(ex.Message);
 			}
 			catch (Exception ex)
 			{
@@ -328,6 +353,5 @@ namespace NDbUnitDataEditor
 			};
 			return settings;
 		}
-
 	}
 }
