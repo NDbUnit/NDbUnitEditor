@@ -108,7 +108,5 @@ namespace Tests.DataEditorPresenterTests
 			eventRaiser.Raise();
 			Assert.AreEqual(isReloadEnabled, view.IsReloadEnabled);
 		}
-
-
 	}
 }
