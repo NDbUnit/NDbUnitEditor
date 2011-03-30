@@ -72,5 +72,7 @@ namespace Tests.DataEditorPresenterTests
 			eventRaiser.Raise(tableName);
 		}
 
+
+
 	}
 }

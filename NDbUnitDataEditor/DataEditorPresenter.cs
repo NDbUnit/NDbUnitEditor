@@ -58,8 +58,9 @@ namespace NDbUnitDataEditor
 			_dataEditor.LoadProject += LoadEditorSettings;
 			_dataEditor.NewProject += new Action(OnNewProject);
 			_dataEditor.ExitApp += OnExitingApplication;
-			_dataEditor.TableTreeNodeDblClicked += OnOpenTable;
+			_dataEditor.TableTreeNodeDblClicked += SchemaTableNodeClicked;
 			_dataEditor.TabSelected+=OnTabSelected;
+			_dataEditor.TableClosed += OnTableClosed;
 			_dataEditor.DataFileChanged += OnDataFileChanged;
 			_dataEditor.SchemaFileChanged += OnSchemaFileChanged;
 			_applicationController.Subscribe<ReinitializeMainViewRequested>((e) =>OnReinitializeMainView());
@@ -103,7 +104,7 @@ namespace NDbUnitDataEditor
 			return true;
 		}
 
-		private void OnOpenTable(string tableName)
+		private void SchemaTableNodeClicked(string tableName)
 		{
 			var table = _datasetProvider.GetTable(tableName);
 			if (table == null)
@@ -116,8 +117,17 @@ namespace NDbUnitDataEditor
 			var statusText="";
 			var tableInfo = _datasetProvider.GetTableInfo(tableName);
 			if (tableInfo != null)
-				statusText = String.Format("Rows: {0}",tableInfo.NumberOfRows);
+			{
+				_dataEditor.NewGuidEnabled = true;
+				statusText = String.Format("Rows: {0}", tableInfo.NumberOfRows);
+			}
 			_dataEditor.StatusLabel = statusText;
+		}
+
+		private void OnTableClosed()
+		{
+			if (!_dataEditor.HasOpenedTables)
+				_dataEditor.NewGuidEnabled = false;
 		}
 
 		public void OnExitingApplication()
@@ -229,7 +239,7 @@ namespace NDbUnitDataEditor
 				if (CanReloadData())
 					_applicationController.ExecuteCommand<ReloadDataCommand>();
 				foreach (var tabName in project.OpenedTabs)
-					OnOpenTable(tabName);
+					SchemaTableNodeClicked(tabName);
 
 			}
 			catch (ReloadDataCommandException ex)
