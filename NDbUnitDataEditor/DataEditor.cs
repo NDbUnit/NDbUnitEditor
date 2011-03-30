@@ -54,6 +54,8 @@ namespace NDbUnitDataEditor
 
 		public event Action DataFileChanged;
 
+		public event Action TableClosed;
+
 		public DataEditor()
 		{
 			InitializeComponent();
@@ -121,6 +123,14 @@ namespace NDbUnitDataEditor
 			}
 		}
 
+		public bool HasOpenedTables
+		{
+			get
+			{
+				return tbTableViews.TabCount > 0;
+			}
+		}
+
 
 
 		public void CloseApplication()
@@ -157,11 +167,6 @@ namespace NDbUnitDataEditor
 			treeView1.Sort();
 		}
 
-		public void CloseAllTabs()
-		{
-			tbTableViews.TabPages.Clear();
-		}
-
 		public bool SaveEnabled
 		{
 			get
@@ -196,6 +201,18 @@ namespace NDbUnitDataEditor
 			set
 			{
 				btnDataSetFromDatabase.Enabled = value;
+			}
+		}
+
+		public bool NewGuidEnabled
+		{
+			get
+			{
+				return btnNewGuid.Enabled;
+			}
+			set
+			{
+				btnNewGuid.Enabled = value;
 			}
 		}
 
@@ -281,7 +298,7 @@ namespace NDbUnitDataEditor
 
 		private void btnCloseTab_Click(object sender, EventArgs e)
 		{
-			CloseSelectedTab();
+			CloseSelectedTable();
 		}
 
 		private void btnDataSetFromDatabase_Click(object sender, EventArgs e)
@@ -335,18 +352,6 @@ namespace NDbUnitDataEditor
 			return null;
 		}
 
-		public void OpenTableView(DataTable table)
-		{
-			//search for existing opentable
-			var tabName = table.TableName;
-			TabPage page = GetTabPage(table.TableName);
-			if (page == null)
-				page = AddTabPage(tabName);
-			tbTableViews.SelectedTab = page;
-			BindDataTable(table);
-			btnNewGuid.Enabled = true;
-		}
-
 		private void TabPageEdited(string tabName)
 		{
 			DataViewChanged(tabName);
@@ -375,15 +380,22 @@ namespace NDbUnitDataEditor
 
 		private void closeActiveTabToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			CloseSelectedTab();
+			CloseSelectedTable();
 		}
 
+		public void CloseAllTabs()
+		{
+			tbTableViews.TabPages.Clear();
+			TableClosed();
+		}
 
-
-		private void CloseSelectedTab()
+		private void CloseSelectedTable()
 		{
 			if (tbTableViews.SelectedTab != null)
+			{
 				tbTableViews.TabPages.Remove(tbTableViews.SelectedTab);
+				TableClosed();
+			}
 		}
 
 		private void closeAllButThisToolStripMenuItem_Click(object sender, EventArgs e)
@@ -465,9 +477,28 @@ namespace NDbUnitDataEditor
 				e.Cancel = true;
 		}
 
+		public void OpenTableView(DataTable table)
+		{
+			//search for existing opentable
+			var tabName = table.TableName;
+			TabPage page = GetTabPage(table.TableName);
+			if (page == null)
+				page = AddTabPage(tabName);
+			SetSelectedTab(page);
+			BindDataTable(table);
+		}
+
+		private void SetSelectedTab(TabPage page)
+		{
+			tbTableViews.SelectedTab = page;
+			if (tbTableViews.TabCount == 1)
+				TabSelected(page.Name);
+		}
+
 		private void tbTableViews_Selected(object sender, TabControlEventArgs e)
 		{
-			if (e.TabPage != null) TabSelected(e.TabPage.Name);
+			if (e.TabPage != null) 
+				TabSelected(e.TabPage.Name);
 		}
 
 		private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -483,6 +514,6 @@ namespace NDbUnitDataEditor
 		private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			SaveDataAs();
-		}
+		}		
 	}
 }

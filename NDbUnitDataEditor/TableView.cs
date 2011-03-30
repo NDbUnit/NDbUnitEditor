@@ -31,7 +31,7 @@ namespace NDbUnitDataEditor
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             
-			TableViewChanged(Name);
+			//TableViewChanged(Name);
         }
 
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -49,7 +49,7 @@ namespace NDbUnitDataEditor
 
 		private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
 		{
-			TableViewChanged(Name);
+			//TableViewChanged(Name);
 		}
 
     }

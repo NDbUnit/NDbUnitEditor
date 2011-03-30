@@ -12,6 +12,9 @@ namespace NDbUnitDataEditor
 {
 	public interface IDataEditorView
 	{
+		bool HasOpenedTables { get; }
+		event Action TableClosed;
+		bool NewGuidEnabled { get; set; }
 		bool SaveEnabled { get; set; }
 		bool DataSetFromDatabaseEnabled { get; set; }
 		bool ReloadEnabled { get; set; }
