@@ -79,7 +79,7 @@ namespace Tests.DataEditorPresenterTests
 		[Row("schemaFile.xsd", "", false, false)]
 		[Row("", "dataFile.xml", false, false)]
 		[Row("", "", false, false)]
-		public void ShoulEnableOrDisableReloadButtonWhenDataFileIsChanged(string schemaFileName, string dataFileName, bool dataFileExists, bool isReloadEnabled)
+		public void ShoulEnableOrDisableReloadAnDataSetButtonsWhenDataFileIsChanged(string schemaFileName, string dataFileName, bool dataFileExists, bool isEnabled)
 		{
 			fileService.Stub(s => s.FileExists(dataFileName)).Return(dataFileExists);
 			fileService.Stub(s => s.FileExists(schemaFileName)).Return(true);
@@ -88,7 +88,8 @@ namespace Tests.DataEditorPresenterTests
 			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.DataFileChanged += null);
 			var presenter = CreatePresenter();
 			eventRaiser.Raise();
-			Assert.AreEqual(isReloadEnabled, view.IsReloadEnabled);
+			Assert.AreEqual(isEnabled, view.ReloadEnabled);
+			Assert.AreEqual(isEnabled, view.DataSetFromDatabaseEnabled);
 		}
 
 		[Test]
@@ -97,7 +98,7 @@ namespace Tests.DataEditorPresenterTests
 		[Row("schemaFile.xsd", "", false, false)]
 		[Row("", "dataFile.xml", false, false)]
 		[Row("", "", false, false)]
-		public void ShoulEnableOrDisableReloadButtonWhenSchemaFileIsChanged(string schemaFileName, string dataFileName, bool schemaFileExists, bool isReloadEnabled)
+		public void ShoulEnableOrDisableReloadAndDataSetButtonsWhenSchemaFileIsChanged(string schemaFileName, string dataFileName, bool schemaFileExists, bool isEnabled)
 		{
 			fileService.Stub(s => s.FileExists(dataFileName)).Return(true);
 			fileService.Stub(s => s.FileExists(schemaFileName)).Return(schemaFileExists);
@@ -106,7 +107,27 @@ namespace Tests.DataEditorPresenterTests
 			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.SchemaFileChanged += null);
 			var presenter = CreatePresenter();
 			eventRaiser.Raise();
-			Assert.AreEqual(isReloadEnabled, view.IsReloadEnabled);
+			Assert.AreEqual(isEnabled, view.ReloadEnabled);
+			Assert.AreEqual(isEnabled, view.DataSetFromDatabaseEnabled);
 		}
+
+		[Test]
+		[Row("schemaFile.xsd", true, "dataFile.xml", true, true)]
+		[Row("schemaFile.xsd", true, "", false, true)]
+		[Row("", false, "", false, false)]
+		[Row("schemaFile.xsd", false, "", false, false)]
+		[Row("schemaFile.xsd", true, "dataFile.xml", false, false)]
+		public void ShouldEnableOrDisableSaveDataButtonWhenSchemaFileChanges(string schemaFile, bool schemaFileExists, string dataFile, bool dataFileExists, bool isEnabled)
+		{
+			fileService.Stub(s => s.FileExists(dataFile)).Return(dataFileExists);
+			fileService.Stub(s => s.FileExists(schemaFile)).Return(schemaFileExists);
+			view.SchemaFileName = schemaFile;
+			view.DataFileName = dataFile;
+			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.SchemaFileChanged += null);
+			var presenter = CreatePresenter();
+			eventRaiser.Raise();
+			Assert.AreEqual(isEnabled, view.SaveEnabled);
+		}
+
 	}
 }

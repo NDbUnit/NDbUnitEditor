@@ -12,7 +12,9 @@ namespace NDbUnitDataEditor
 {
 	public interface IDataEditorView
 	{
-		bool IsReloadEnabled { get; set; }
+		bool SaveEnabled { get; set; }
+		bool DataSetFromDatabaseEnabled { get; set; }
+		bool ReloadEnabled { get; set; }
 		event Action DataFileChanged;
 		event Action SchemaFileChanged;
 		event Action SaveDataAs;
@@ -20,8 +22,6 @@ namespace NDbUnitDataEditor
 		event Action NewProject;
 		string StatusLabel { get; set; }
 		event Action<string> TabSelected;
-		void DisableDataSetFromDatabaseButton();
-		void EnableDataSetFromDatabaseButton();
 		List<string> OpenedTabNames { get; }
         void OpenTableView(DataTable table);
 		event Action<string> TableTreeNodeDblClicked;
@@ -34,7 +34,6 @@ namespace NDbUnitDataEditor
 		void RemoveEditedMarksFromAllTabs();
 		void MarkTabAsEdited(string tabName);
 		event Action<string> DataViewChanged;
-		void EnableSave();
 		event Action SaveData;
 		event Action GetDataSetFromDatabase;
 		event Action CreateGuid;

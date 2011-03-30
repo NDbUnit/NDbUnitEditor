@@ -40,7 +40,7 @@ namespace NDbUnitDataEditor.Commands
 					throw new ReloadSchemaCommandException(String.Format("Unable to find schema file at {0}.", schemaFileName));
 				_datasetProvider.ReadSchemaFromFile(schemaFileName);
 				_dataEditor.BindTableTree(_datasetProvider.DataSetName, _datasetProvider.GetTableNames());
-				_dataEditor.EnableSave();
+				_dataEditor.SaveEnabled = true;
 		}
 	}
 }

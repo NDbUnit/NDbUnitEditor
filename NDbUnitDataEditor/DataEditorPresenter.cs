@@ -67,15 +67,20 @@ namespace NDbUnitDataEditor
 
 		private void OnDataFileChanged()
 		{
-			_dataEditor.IsReloadEnabled = ShouldEnableReload();
+			var enabled = ShouldEnableReloadAndGetDataSet();
+			_dataEditor.ReloadEnabled = enabled;
+			_dataEditor.DataSetFromDatabaseEnabled = enabled;
 		}
 
 		private void OnSchemaFileChanged()
 		{
-			_dataEditor.IsReloadEnabled = ShouldEnableReload();
+			var enabled = ShouldEnableReloadAndGetDataSet();
+			_dataEditor.ReloadEnabled = enabled;
+			_dataEditor.DataSetFromDatabaseEnabled = enabled;
+			_dataEditor.SaveEnabled = ShouldEnableSave();
 		}
 
-		private bool ShouldEnableReload()
+		private bool ShouldEnableReloadAndGetDataSet()
 		{
 			var dataFile = _dataEditor.DataFileName;
 			var schemaFile = _dataEditor.SchemaFileName;
@@ -85,6 +90,17 @@ namespace NDbUnitDataEditor
 					_fileService.FileExists(schemaFile))
 				return true;
 			return false;
+		}
+
+		private bool ShouldEnableSave()
+		{
+			var schemaFile = _dataEditor.SchemaFileName;
+			var dataFile = _dataEditor.DataFileName;
+			if (String.IsNullOrEmpty(schemaFile) || !_fileService.FileExists(schemaFile))
+				return false;
+			if (!String.IsNullOrEmpty(dataFile) && !_fileService.FileExists(dataFile))
+				return false;
+			return true;
 		}
 
 		private void OnOpenTable(string tableName)
@@ -184,16 +200,12 @@ namespace NDbUnitDataEditor
 		private void SetDataFileName(string dataFileName)
 		{
 			_dataEditor.DataFileName = dataFileName;
-			if (String.IsNullOrEmpty(dataFileName))
-				_dataEditor.DisableDataSetFromDatabaseButton();
-			else
-				_dataEditor.EnableDataSetFromDatabaseButton();
 		}
 
 		void OnNewProject()
 		{
 			_dataEditor.SchemaFileName = "";
-			_dataEditor.DataFileName = "";
+			SetDataFileName("");
 			_dataEditor.DatabaseConnectionString = "";
 			_dataEditor.DatabaseClientType = "";
 			_dataEditor.CloseAllTabs();
@@ -266,7 +278,7 @@ namespace NDbUnitDataEditor
 		{
 			var newFileName = GetSaveAsFileName();
 			SaveData(newFileName);
-			_dataEditor.DataFileName = newFileName;
+			SetDataFileName(newFileName);
 		}
 
 
@@ -292,7 +304,7 @@ namespace NDbUnitDataEditor
 					return;
 				}
 				_datasetProvider.SaveDataToFile(fileName);
-				_dataEditor.DataFileName = fileName;
+				SetDataFileName(fileName);
 				_dataEditor.RemoveEditedMarksFromAllTabs();
 			}
 			catch (Exception ex)

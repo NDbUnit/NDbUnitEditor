@@ -162,12 +162,19 @@ namespace NDbUnitDataEditor
 			tbTableViews.TabPages.Clear();
 		}
 
-		public void EnableSave()
+		public bool SaveEnabled
 		{
-			btnSaveData.Enabled = true;
+			get
+			{
+				return btnSaveData.Enabled;
+			}
+			set
+			{
+				btnSaveData.Enabled = value;
+			}
 		}
 
-		public bool IsReloadEnabled
+		public bool ReloadEnabled
 		{
 			get
 			{
@@ -180,14 +187,16 @@ namespace NDbUnitDataEditor
 
 		}
 
-		public void EnableDataSetFromDatabaseButton()
+		public bool DataSetFromDatabaseEnabled
 		{
-			btnDataSetFromDatabase.Enabled = true;
-		}
-
-		public void DisableDataSetFromDatabaseButton()
-		{
-			btnDataSetFromDatabase.Enabled = false;
+			get
+			{
+				return btnDataSetFromDatabase.Enabled;
+			}
+			set
+			{
+				btnDataSetFromDatabase.Enabled = value;
+			}
 		}
 
 		public void MarkTabAsEdited(string tabName)
