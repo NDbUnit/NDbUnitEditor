@@ -61,16 +61,7 @@ namespace Tests.DataEditorPresenterTests
 			Assert.AreEqual(schemaFileName, view.SchemaFileName);
 		}
 
-		[Test]
-		public void ShouldEnableDataFromDatabaseButtonWhenDataFileIsSelected()
-		{
-			var dataFileName = "DataFile.xml";
-			fileDialogCreator.Stub(c => c.ShowFileOpen(null)).IgnoreArguments().Return(new FileDialogResult { Accepted = true, SelectedFileName = dataFileName });
-			IEventRaiser eventRaiser = view.GetEventRaiser(v => v.BrowseForDataFile += null);
-			var presenter = CreatePresenter();
-			eventRaiser.Raise();
-			view.AssertWasCalled(v => v.EnableDataSetFromDatabaseButton());
-		}
+
 
 
 	}
