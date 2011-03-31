@@ -56,6 +56,8 @@ namespace NDbUnitDataEditor
 
 		public event Action TableClosed;
 
+		public event Action NewData;
+
 		public DataEditor()
 		{
 			InitializeComponent();
@@ -514,6 +516,11 @@ namespace NDbUnitDataEditor
 		private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			SaveDataAs();
+		}
+
+		private void newToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			NewData();
 		}		
 	}
 }

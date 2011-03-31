@@ -380,21 +380,22 @@ namespace NDbUnitDataEditor
 			// newToolStripMenuItem1
 			// 
 			this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-			this.newToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+			this.newToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
 			this.newToolStripMenuItem1.Text = "New";
+			this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
 			// 
 			// saveToolStripMenuItem1
 			// 
 			this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
 			this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
 			this.saveToolStripMenuItem1.Text = "Save";
 			this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
 			// 
 			// saveAsToolStripMenuItem1
 			// 
 			this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
 			this.saveAsToolStripMenuItem1.Text = "Save As...";
 			this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
 			// 
