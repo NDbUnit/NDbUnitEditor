@@ -225,7 +225,13 @@ namespace NDbUnitDataEditor
 
 		private void GetDataSetFromDatabase()
 		{
-			
+			if (_datasetProvider.IsDirty())
+			{
+				var result = _messageCreator.AskUser("If you want to save your changes and continue please click Yes, otherwise click No.");
+				if (!result)
+					return;
+				SaveData(_dataEditor.DataFileName);
+			}
 			_applicationController.ExecuteCommand<GetDataFromDatabaseCommand>();
 		}
 
@@ -330,7 +336,7 @@ namespace NDbUnitDataEditor
 			try
 			{
 				string path = Path.GetDirectoryName(fileName);
-				if (!Directory.Exists(path))
+				if (!_fileService.DirectoryExists(path))
 				{
 					_messageCreator.ShowError("Cannot save specified file");
 					return;

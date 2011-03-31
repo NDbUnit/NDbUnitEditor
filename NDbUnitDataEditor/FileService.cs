@@ -7,6 +7,7 @@ namespace NDbUnitDataEditor
 {
 	public interface IFileService
 	{
+		bool DirectoryExists(string path);
 		bool FileExists(string filePath);
 	}
     public class FileService : IFileService
@@ -14,6 +15,11 @@ namespace NDbUnitDataEditor
 		public bool FileExists(string filePath)
 		{
 			return File.Exists(filePath);
+		}
+
+		public bool DirectoryExists(string path)
+		{
+			return Directory.Exists(path);
 		}
 	}
 }
