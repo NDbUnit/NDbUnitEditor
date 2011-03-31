@@ -94,6 +94,7 @@
     <Compile Include="DataEditorPresenterTests\WhenChangingDataSchemaFile.cs" />
     <Compile Include="DataEditorPresenterTests\WhenExitingApplication.cs" />
     <Compile Include="DataEditorPresenterTests\WhenNavigatingTables.cs" />
+    <Compile Include="DataEditorPresenterTests\When_Accessing_Live_data_base.cs" />
     <Compile Include="DataEditorPresenterTests\When_saving_loading_ndbunitEditor_project.cs" />
     <Compile Include="DataEditorPresenterTests\When_Selecting_Data_And_Schema_File.cs" />
     <Compile Include="DataEditorPresenterTests\When_Table_is_edited.cs" />
