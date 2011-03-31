@@ -166,5 +166,16 @@ namespace Tests.DataEditorPresenterTests
 			presenter.OpenProject(projectFileName);
 			applicationController.AssertWasCalled(c => c.ExecuteCommand<ReloadDataCommand>());
 		}
+
+		[Test]
+		public void ShouldStartNewDataFile()
+		{
+			view.DataFileName = "data.xml";
+			var presenter = CreatePresenter();
+			var eventRaiser = view.GetEventRaiser(v => v.NewData += null);
+			eventRaiser.Raise();
+			Assert.IsEmpty(view.DataFileName);
+			applicationController.AssertWasCalled(c => c.ExecuteCommand<ReloadSchemaCommand>());
+		}
 	}
 }

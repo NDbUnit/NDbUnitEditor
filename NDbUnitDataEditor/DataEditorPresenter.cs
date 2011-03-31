@@ -52,6 +52,7 @@ namespace NDbUnitDataEditor
 			_dataEditor.GetDataSetFromDatabase += GetDataSetFromDatabase;
 			_dataEditor.SaveData += OnSaveData;
 			_dataEditor.SaveDataAs += OnSaveDataAs;
+			_dataEditor.NewData += OnNewData;
 			_dataEditor.DataViewChanged += HandleDataSetChange;
 			_dataEditor.SaveProject += SaveEditorSettings;
 			_dataEditor.SaveProjectAs += SaveEditorSettingsAs;
@@ -79,6 +80,27 @@ namespace NDbUnitDataEditor
 			_dataEditor.ReloadEnabled = enabled;
 			_dataEditor.DataSetFromDatabaseEnabled = enabled;
 			_dataEditor.SaveEnabled = ShouldEnableSave();
+		}
+
+		private void OnNewData()
+		{
+			try
+			{
+				_dataEditor.CloseAllTabs();
+				_datasetProvider.ResetSchema();
+				_dataEditor.DataFileName = "";
+				_applicationController.ExecuteCommand<ReloadSchemaCommand>();
+			}
+			catch (ReloadSchemaCommandException e)
+			{
+				_messageCreator.ShowError(e.Message);
+			}
+			catch (Exception e)
+			{
+				_messageCreator.ShowError(e.ToString());
+			}
+
+			
 		}
 
 		private bool ShouldEnableReloadAndGetDataSet()
