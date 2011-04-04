@@ -28,12 +28,6 @@ namespace NDbUnitDataEditor
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            
-			//TableViewChanged(Name);
-        }
-
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             if (e.Exception is System.FormatException)
@@ -46,11 +40,6 @@ namespace NDbUnitDataEditor
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridView1.DataSource = bindingSource1;
         }
-
-		private void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-		{
-			//TableViewChanged(Name);
-		}
 
     }
 }
