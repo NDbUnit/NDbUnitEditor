@@ -72,6 +72,8 @@ namespace NDbUnitDataEditor
 			var enabled = ShouldEnableReloadAndGetDataSet();
 			_dataEditor.ReloadEnabled = enabled;
 			_dataEditor.DataSetFromDatabaseEnabled = enabled;
+			if (HasInvalidPath(_dataEditor.DataFileName))
+				_dataEditor.SetDataFileError();
 		}
 
 		private void OnSchemaFileChanged()
@@ -80,6 +82,15 @@ namespace NDbUnitDataEditor
 			_dataEditor.ReloadEnabled = enabled;
 			_dataEditor.DataSetFromDatabaseEnabled = enabled;
 			_dataEditor.SaveEnabled = ShouldEnableSave();
+			if (HasInvalidPath(_dataEditor.SchemaFileName))
+				_dataEditor.SetSchemaFileError();
+		}
+
+		private bool HasInvalidPath(string filePath)
+		{
+			if (!String.IsNullOrEmpty(filePath) && !_fileService.FileExists(filePath))
+				return true;
+			return false;
 		}
 
 		private void OnNewData()
@@ -98,10 +109,10 @@ namespace NDbUnitDataEditor
 			catch (Exception e)
 			{
 				_messageCreator.ShowError(e.ToString());
-			}
-
-			
+			}			
 		}
+
+
 
 		private bool ShouldEnableReloadAndGetDataSet()
 		{

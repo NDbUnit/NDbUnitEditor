@@ -77,6 +77,7 @@ namespace NDbUnitDataEditor
 			}
 			set
 			{
+				txtDataFileName.ForeColor = Color.Black;
 				txtDataFileName.Text = Path.GetFileName(value);
 				txtDataFileName.ToolTipText = value;
 				_dataFileName = value;
@@ -93,6 +94,7 @@ namespace NDbUnitDataEditor
 
 			set
 			{
+				txtSchemaFileName.ForeColor = Color.Black;
 				txtSchemaFileName.Text = Path.GetFileName(value);
 				txtSchemaFileName.ToolTipText = value;
 				_schemaFileName = value;
@@ -100,6 +102,15 @@ namespace NDbUnitDataEditor
 			}
 		}
 
+		public void SetSchemaFileError()
+		{
+			txtSchemaFileName.ForeColor = Color.Red;
+		}
+
+		public void SetDataFileError()
+		{
+			txtDataFileName.ForeColor = Color.Red;
+		}
 
 		public string FileSelectFilter
 		{
@@ -138,6 +149,11 @@ namespace NDbUnitDataEditor
 		public void CloseApplication()
 		{
 			this.Close();
+		}
+
+		private void SetError(ToolStripLabel label)
+		{
+			label.ForeColor = Color.Red;
 		}
 
 		public void BindDataTable(DataTable table)

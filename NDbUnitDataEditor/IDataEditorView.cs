@@ -12,6 +12,8 @@ namespace NDbUnitDataEditor
 {
 	public interface IDataEditorView
 	{
+		void SetDataFileError();
+		void SetSchemaFileError();
 		event Action NewData;
 		bool HasOpenedTables { get; }
 		event Action TableClosed;

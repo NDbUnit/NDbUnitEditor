@@ -67,6 +67,7 @@ namespace NDbUnitDataEditor
 			this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
 			this.toolStrip1.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -74,6 +75,7 @@ namespace NDbUnitDataEditor
 			this.contextMenuStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// btnClose
@@ -380,7 +382,7 @@ namespace NDbUnitDataEditor
 			// newToolStripMenuItem1
 			// 
 			this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-			this.newToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.newToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
 			this.newToolStripMenuItem1.Text = "New";
 			this.newToolStripMenuItem1.Click += new System.EventHandler(this.newToolStripMenuItem1_Click);
 			// 
@@ -388,14 +390,14 @@ namespace NDbUnitDataEditor
 			// 
 			this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
 			this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.saveToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
 			this.saveToolStripMenuItem1.Text = "Save";
 			this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
 			// 
 			// saveAsToolStripMenuItem1
 			// 
 			this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
 			this.saveAsToolStripMenuItem1.Text = "Save As...";
 			this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
 			// 
@@ -414,6 +416,11 @@ namespace NDbUnitDataEditor
 			this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
 			this.toolStripStatusLabel1.Size = new System.Drawing.Size(47, 17);
 			this.toolStripStatusLabel1.Text = "Rows: 0";
+			this.toolStripStatusLabel1.Visible = false;
+			// 
+			// errorProvider1
+			// 
+			this.errorProvider1.ContainerControl = this;
 			// 
 			// DataEditor
 			// 
@@ -441,6 +448,7 @@ namespace NDbUnitDataEditor
 			this.menuStrip1.PerformLayout();
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -485,6 +493,7 @@ namespace NDbUnitDataEditor
 		private System.Windows.Forms.ToolStripLabel txtSchemaFileName;
 		private System.Windows.Forms.ToolStripLabel txtDataFileName;
 		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem1;
+		private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 

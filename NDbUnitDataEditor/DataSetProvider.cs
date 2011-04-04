@@ -32,8 +32,17 @@ namespace NDbUnitDataEditor
     public class DataSetProvider : IDataSetProvider
 	{
 		bool _dataSetLoadedFromDatabase = false;
+		DataSet _dataSet;
 
-		DataSet _dataSet = new DataSet();
+		/// <summary>
+		/// Initializes a new instance of the DataSetProvider class.
+		/// </summary>
+		public event Action<string> TableChanged;
+		
+		public DataSetProvider()
+		{
+			_dataSet = new DataSet();
+		}
 
 		public void CreateNewDataset()
 		{
